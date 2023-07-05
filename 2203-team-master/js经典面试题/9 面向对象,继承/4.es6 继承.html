@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script>
+    //es6继承-先声明父类，在声明子类，通过extends继承方法,通过super()继承属性
+    class User {
+      constructor(name, pass) {
+        this.name = name;
+        this.pass = pass;
+      }
+
+      showName() {
+        console.log(this.name);
+      }
+      showPass() {
+        console.log(this.pass);
+      }
+    }
+
+    class VipUser extends User {
+      constructor(name, pass, level) {
+        super(name, pass);  //改变父类this指向，指向当前子类,相当于es5里的call。可以理解为继承父类上的属性  super指代了整个prototype或者__proto__指向的对象
+        this.level = level; //自己独有的属性
+      }
+      showLevel() {
+        console.log(this.level);
+      }
+    }
+    var v1 = new VipUser('blue', '123456', 3);
+    v1.showName();
+    v1.showPass();
+    v1.showLevel(); 
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

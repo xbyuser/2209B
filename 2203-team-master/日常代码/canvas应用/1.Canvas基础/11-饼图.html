@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>画圆</title>
+<style>
+body {background:black; text-align:center;}
+#c1 {background:white;}
+</style>
+<script>
+function d2a(n)	//角度->弧度
+{
+	return n*Math.PI/180;
+}
+
+window.onload=function ()
+{
+	var oC=document.getElementById('c1');
+	var gd=oC.getContext('2d');
+	
+	//gd.arc(圆心x, 圆心y, 半径, 起点, 终点, 顺时针false/逆时针true)  //0度从3点钟方向开始 
+	gd.arc(200, 200, 150, d2a(-90), d2a(0), false);   //0度从3点钟方向开始,90度是6点钟，180度是9点钟，-90是12点钟方向
+	
+	gd.stroke();
+};
+</script>
+</head>
+
+<body>
+<canvas id="c1" width="800" height="600"></canvas>
+</body>
+</html>
+
+
+
+
+
+
+
+

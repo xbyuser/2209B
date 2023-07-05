@@ -1,0 +1,39 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>绘制文字-居中显示</title>
+<style>
+body {text-align:center; background:black;}
+#c1 {background:white;}
+</style>
+<script>
+window.onload=function ()
+{
+	var oC=document.getElementById('c1');
+	var gd=oC.getContext('2d');
+	
+	//gd.fillText(str, x, y)  画布上绘制文本 ,相对于画布x,y坐标
+	//gd.strokeText(str, x, y)
+	
+	var str='习近平主持中央政治局常委会议并讲话';
+	
+	
+	gd.font='20px 宋体';
+
+	//obj.measureText(str).width; 获得以像素计的指定字体宽度
+	var w=gd.measureText(str).width;
+
+	//gd.fillText(str, (oC.width-w)/2, 20);
+	//gd.fillText(str, oC.width-w, 20);
+	//gd.fillText(str, 0, (oC.height-20)/2+10);
+	gd.fillText(str, (oC.width-w)/2, (oC.height-20)/2+10);//居中显示文本
+};
+</script>
+</head>
+
+<body>
+<canvas id="c1" width="800" height="600"></canvas>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>面试题-如何检测数据类型？</title>
+</head>
+<body>
+
+	<script>
+	// 数据类型:
+	// 基本类型 string,number,boolean,null,undefined。
+	// 引用类型 object【arr,{}】,fn()
+	
+	//1.typeof有问题	
+	 var arr=[];
+    var json={};
+	console.log(typeof arr,typeof json) //object 
+	
+		
+  //如何检测是否是数组?
+     var arr=[];
+     console.log(typeof arr); // object;   1. typeof对于基本数据类型判断是没有问题的，但是遇到引用数据类型（如对象{},[]）返回都是object类型
+	 console.log(Array.isArray(arr)) ;  // true
+
+  //2.检测对象的原型链是否指向构造函数的prototype对象
+     console.log(arr instanceof Array); // true
+     console.log(arr.constructor === Array); // true
+
+     //问题1-如果检测祖辈对象，也会出问题
+    /*  
+     console.log(arr instanceof Object);//true
+     var json={};
+     console.log(json instanceof Object) //true
+   */
+
+     //问题2-如果涉及到继承它本身的构造函数会被改变
+     function Fn(){};
+     Fn.prototype=new Array();
+     var f=new Fn(); 
+     console.log(f.constructor===Fn);//false
+     console.log(f.constructor===Array);//true
+
+   //   基本数据类型的构造函数String,Number,Boolean,Null,Undefined 引用数据类型:Array,Function,Object
+   console.log(("1").constructor === String);
+   console.log((1).constructor === Number);
+   console.log((true).constructor === Boolean);
+   //null,undefined 是js设计的一个败笔，暂不用考虑
+   // console.log((null).constructor === Null); 
+   // console.log((undefined).constructor === Undefined);
+   console.log(([]).constructor === Array);
+   console.log((function() {}).constructor === Function);
+   console.log(({}).constructor === Object);
+
+  //3.终极方法-从原型里改变对象的指向数组
+  var a=Object.prototype.toString;//jQuery源码里实际上就是采用这个方法进行数据类型检测的。
+  console.log(a.call([])) //检测数组,返回字符串 [object Array]。检测什么类型传什么基本类型,返回的是不同 '[object 类型]'
+  if(a.call([])=== '[object Array]'){
+  	console.log('是')
+  }
+  else{
+  	console.log('不是')
+  }
+
+  //面试题2-js的基本数据类型有哪些，检测方式?
+  // https://www.cnblogs.com/zt123123/p/7623409.html
+
+	</script>
+</body>
+</html>

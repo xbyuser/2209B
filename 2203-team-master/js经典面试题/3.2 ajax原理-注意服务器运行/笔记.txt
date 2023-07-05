@@ -1,0 +1,53 @@
+！！！注意服务器运行ajax
+ajax原理(自己封装ajax)：
+一.Ajax=Asynchronous JavaScript and XML 
+        (JS+XML数据对象)异步无刷新请求网页
+ 1.1概念:是一种在无需重新加载整个网页的情况下，能够更新部分网页的技术 
+
+二.Ajax原理实现
+     1.实例化xhr异步对象  var xhr=new XMLHttpRequest()
+     2.建立请求连接 xhr.open('get','url地址',true) //请求类型 get ,post 路径:url地址 true:异步请求 ，false :同步请示
+     3.发送请求 xhr.send() 
+     4.发送是否成功  xhr.onreadystatechange=function(){if(xhr.readyState==4){ //有没有发送成功: http请求状态 :0,1,2,3,4 
+     	    if(xhr.status==200) //服务器响应状态: 200<=xhr.status<300||xhr.status=304 代表成功  
+     	    {
+     	    	//请求成功后做的事：响应内容
+     	    	//console.log(xhr.responseText);
+     	    }
+     	    else
+             {
+                 //请求失败做的事:给你一个状态
+                 // console.log(xhr.status);
+             }
+
+     }}     
+       
+ ------------------------------------------------------  
+发送是否成功:
+    onreadystatechange事件:
+    http请求状态码 :5个状态readyState值
+	0	初始状态（ajax对象创建完成)
+	1	已连接上(open方法正确执行了)
+	2	发送完成（send执行完毕)
+
+	3	接收完成	头部（32k)	url+get
+	4	接收完成	身子（1g)	post
+
+	0 1 2 3 4 状态，成功、失败都会触发完成4
+
+------------------------------------------------------------------------------------------
+服务器返回http响应码
+	200<=xhr.status<300||xhr.status=304 代表成功
+
+	if(xhr.status >= 200 && xhr.status < 300 || xhr.status == 304)
+
+成功的状态码：
+200 – 服务器成功返回网页
+304 – 未修改
+失败的状态码：
+404 – 请求的网页不存在
+503 – 服务器暂时不可用
+500 – 服务器内部错误
+
+
+

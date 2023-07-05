@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>绘制线条</title>
+<style>
+body {background:black; text-align:center;}
+#c1 {background:white;}
+</style>
+
+</head>
+
+<body>
+<canvas id="c1" width="800" height="600"> <!-- canvas默认300*150画布 -->
+     你的浏览器不支持最新图像canvas
+</canvas> 
+<script>
+        window.onload=function(){
+			var oC=document.getElementById('c1');
+	        var gd=oC.getContext('2d'); //开始画2D的东西
+            //画线 moveTo(x,y)起始坐标  lineTo(x,y)结束坐标
+               //第1条线
+			    gd.beginPath();	  //每次，都先清空然后重新开始
+				gd.moveTo(100,100);
+	            gd.lineTo(300,300);
+				gd.strokeStyle='red'; //绘制样式
+                gd.stroke();
+               
+			   	//第二条
+			 	gd.beginPath();
+				gd.moveTo(200, 100);
+				gd.lineTo(400, 300);
+				
+				gd.strokeStyle='green';
+				gd.stroke();
+              
+		}
+
+</script>
+</body>
+</html>
+
+
+
+
+

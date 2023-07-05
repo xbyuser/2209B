@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script>
+	//1.传统面向对象编程-复用组件用
+	//es3时代
+/*   function Parent(name, pass){ //构造函数-放共用的属性或方法
+      // var this=new Object()
+      this.name=name; //构造函数里定义变量用this，作用里可以访问
+      this.pass=pass;
+	//   return this
+    }
+   //原型-单独的方法
+    Parent.prototype.showName=function (){
+      console.log(this.name+this.pass);
+    };
+    
+	var parent=new Parent('奎哥','12345')
+	parent.showName() */
+	
+	
+	//2.es6简介写法 class 子类
+/* 	 class Parent{ //类
+		constructor(name, pass) {  //原来构造函数,注意名字是固定的
+		    this.name=name;
+		    this.pass=pass;
+		}
+		
+		showName(){ //原来原型上的方法
+			console.log(this.name+this.pass);
+		}
+	}
+	
+	var parent=new Parent('奎哥','12345')
+	parent.showName()   */
+	 
+	 
+	//3.面向对象继承 
+ /* 	//父类
+ 	function Parent(name, pass){
+	   this.name=name;
+	   this.pass=pass;
+	 }
+	
+	 Parent.prototype.showName=function (){
+	   console.log(this.name+this.pass);
+	 };
+	 
+     var parent=new Parent('普通用户','12345')
+     parent.showName() //父类方法
+	 
+	 Son.prototype=new Parent()  //原型继承-用于继承方法
+	 
+	 //子类
+	function Son(name1, pass1,level){
+		 // this.name=name1;
+		 // this.pass=pass1;
+		Parent.call(this,name1,pass1) //call用于继承父类属性
+	     this.level=level
+	 }
+	 
+	Son.prototype.showLevel=function (){
+	  console.log(this.name+this.pass+this.level);
+	}
+	
+	var son=new Son('vip用户','123456','等级一级')
+	son.showLevel() //自己方法
+	son.showName() //也可调用父类方法 */
+	
+// 4.es6里继承——class 子类 extends 父类{}
+  //父类
+/*  	class Parent{
+		 constructor(name,pass){
+			 this.name=name
+			 this.pass=pass
+		 }
+		 showName(){ 
+		 	console.log(this.name+this.pass);
+		 }
+	}
+	var parent=new Parent('奎哥','12345')
+	parent.showName() 
+	
+	//子类-继承父类
+	class Son extends Parent{ 
+		 constructor(name1,pass1,level){
+			 // this.name=name1
+			 // this.pass=pass1
+			 super(name1,pass1)  //相当于原来call
+			 this.level=level
+		 }
+		 showLevel(){ 
+		 	console.log(this.name+this.pass+this.level);
+		 }
+	}
+	var son=new Son('vip奎哥','123456','等级一级')
+	son.showLevel() //调自己方法
+	son.showName() //调父类方法  */
+	
+	
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>

@@ -1,0 +1,5 @@
+1.用cueCli4脚手架vue create 名字 创建项目，手动选择选中ts就可以了。会自动生成ts项目
+ts参考文章
+https://juejin.cn/post/7018805943710253086     ts基础
+http://docs.vikingship.xyz/typescript.html    ts参考文章
+https://juejin.cn/post/6872111128135073806    ts入门

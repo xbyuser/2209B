@@ -1,0 +1,39 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>绘制文字</title>
+<style>
+body {text-align:center; background:black;}
+#c1 {background:white;}
+</style>
+<script>
+window.onload=function ()
+{
+	var oC=document.getElementById('c1');
+	var gd=oC.getContext('2d');
+	
+	//gd.fillText(str, x, y)
+	//gd.strokeText(str, x, y)
+	
+	var str='习近平主持中央政治局常委会议并讲话';
+	
+	
+	gd.font='60px 宋体';
+	
+	var w=gd.measureText(str).width;
+	
+	gd.fillStyle='red';
+	gd.fillText(str, 0, 60); //在画布上绘制文本（有填充）
+
+       // gd.strokeStyle='red';
+       // gd.strokeText(str, 0, 60); //在画布上绘制文本（无填充）
+};
+</script>
+</head>
+
+<body>
+<canvas id="c1" width="800" height="600"></canvas>
+</body>
+</html>

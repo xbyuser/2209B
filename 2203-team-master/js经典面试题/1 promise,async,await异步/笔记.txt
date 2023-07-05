@@ -1,0 +1,115 @@
+Promise—主要用于把异步请求数据改成同步执行
+相关文章-https://www.jianshu.com/p/1ec8d1c4e287
+
+异步操作：操作之间没啥关系，同时进行多个操作 。代码复杂一些
+同步操作：同时只能做一件事。代码相对简单一些
+
+Promise——消除异步操作
+  核心：用同步一样的方式，来书写异步代码
+---------------------------------------------------------
+promise基本用法:
+	var p= new Promise(function (resolve, reject) {
+		   //异步请求内容-事件，ajax,定时器
+		    resolve("成功！");
+	                   // reject("失败！");
+		})
+		// promise用同步代替异步执行
+		p.then(function (res) { //成功回调
+			console.log(res); //成功
+		}, function (err) { //失败回调
+			console.log(err);
+		}) 
+
+--------------------------------------------------------------
+---------------------------
+ajax回调地狱问题(一层嵌套一层不优雅):
+ajax('/banners', function (banner_data){
+  ajax('/hotItems', function (hotitem_data){
+    ajax('/slides', function (slide_data){
+      ajax('/slides', function (slide_data){
+
+      }, function (){
+        alert('读取失败');
+      });
+    }, function (){
+      alert('读取失败');
+    });
+  }, function (){
+    alert('读取失败');
+  });
+}, function (){
+  alert('读取失败');
+});
+
+--------------------------------------------------------------
+---------------------------
+promise可解决回调地狱问题
+//通过promise封装ajax方法
+   function getAjax(url2){
+    		return new Promise(function(resolve,reject){
+    			 $.ajax({
+    			 	url:url2, //url可通过外面传入
+    			 	success:function(res){
+    			 		resolve(res) //成功回调
+    			 	},
+    			 	error:function(err){
+    			 		reject(err) //失败回调
+    			 	}
+    			 })
+    			 
+    		 })	
+    		  
+    	}
+//然后通过同步的方式调用 
+  var arr=getAjax('data/arr.txt')   //同步执行
+ var arr2=getAjax('data/num.txt')  //同步执行
+
+-----------------------------------------------------------------------
+----------------
+相关文章-https://www.jianshu.com/p/b4fd76c61dc9      es7中 async 与await使用
+
+1. es7中新增 async 函数，它返回一个 Promise 对象。它更简介，也可把异步执行改成同步执行 。!!!!注意，只能在函数外使用。async内部相当于封装了promise对象
+	
+	  	async function show(){
+			return "Hello world!";
+		}
+		console.log(show()); //Promise对象 {} 
+		show().then(re=>{
+			 console.log(27,re);
+		}).catch(err=>{
+			 console.log(err);
+		}) 
+
+--------------------------------------------------
+--------------
+//2.2 除了async外，还有一个叫await 。await的功能相当于代替promise中.then执行的内容。要的是异步执行的内容
+// !!!注意问题 ,如果有await必须有async。async要放在await最近一个函数的外面
+	 async function show(){
+			var a1= await $.ajax({url: 'data/1.json'})  //{a:7}
+			console.log(a1) //{a: 7} {b:5} {c: 99}
+		}
+		
+	show() 
+
+----------------------------------------------------
+//3.1 用async,await实现promise功能 
+	
+	async function getAsync(){
+			var a1= await $.ajax({url: 'data/1.json'})  //{a:7}
+			
+			var a2= await $.ajax({url: 'data/2.json'})
+		
+			var a3= await $.ajax({url: 'data/3.json'})
+			
+			console.log(a1,a2,a3) //{a: 7} {b:5} {c: 99}
+		}
+		
+		getAsync() 
+
+
+
+
+
+
+
+

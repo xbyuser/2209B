@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>vue测试</title>
+</head>
+
+<body>
+	<div id="app2">
+		<!-- v-model其实是个语法糖，它实际上是做了两步动作：
+1、绑定数据value
+2、内容改变时触发输入事件input,获取当前value值赋值-->
+		<div id="app">
+			{{username}} <br />
+			<input type="text" :value="username" @input="btnClick($event)">
+		</div>
+
+	</div>
+
+	<script src="vue.js"></script>
+	<script>
+		var vm2 = new Vue({
+			el: "#app2",
+			data: {
+				username: '测试'
+			},
+			methods: {
+				btnClick(ent) {
+					this.username = ent.target.value
+				}
+			}
+		});
+
+	</script>
+</body>
+
+</html>

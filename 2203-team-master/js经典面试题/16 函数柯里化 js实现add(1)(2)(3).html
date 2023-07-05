@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<style type="text/css">
+
+</style>
+
+<body>
+
+    <script type="text/javascript">
+        //函数柯里化 js实现add(1)(2)(3)
+        /*   // (1)粗暴版
+          function add (a) {
+              return function (b){
+                  return function (c) {
+                      return a+b+c;
+                  }
+              }
+          }
+          console.log(add(1)(2)(3)) //6 */
+
+        //实现1    
+        /*   function add(x) {
+              return function (y) {
+                  if (typeof y !== 'undefined') {
+                      x+=y;
+                      return arguments.callee; //此处arguments.callee代表函数名，多用于递归调用，防止函数执行与函数名紧紧耦合的现象，对于没有函数名的匿名函数也非常起作用
+                  } else {
+                      return x;
+                  }
+              };
+          }
+          console.log(add(1)(2)(3)()) */
+
+        //实现2
+        function add(a) {
+            function sum(b) { // 使用闭包
+                a+=b; // 累加
+                return sum;
+            }
+            sum.toString = function () { // 重写toSting() 方法.返回一个表示该对象的字符串，当对象表示为文本值或以期望的字符串方式被引用时，toString方法被自动调用.相当于递归了
+                return a;
+            }
+            return sum; // 返回一个函数
+        }
+
+        alert(add(1)(2)(3)) // 6
+
+    //总结:函数柯里化与高阶函数区别?    1.函数柯里化:通过函数调用继续返回函数的方式,实现多次接收参数最后统一处理的函数编码形式 2.高阶函数:A函数接收的参数或者返回值是一个函数,则A为高阶函数 。比如定时器,promise,es5数组方法forEach,map等都是高阶函数 
+
+    </script>
+
+</body>
+
+</html>

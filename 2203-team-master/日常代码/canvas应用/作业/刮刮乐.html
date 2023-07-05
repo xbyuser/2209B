@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            width: 300px;
+            height: 400px;
+            background: #000;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 50px;
+            line-height: 400px;
+            position: relative;
+            letter-spacing: 15px;
+            color: #fff;
+        }
+
+        #wrap canvas {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <span id="content"></span>
+        <canvas id="mycanvas" width="300" height='400'>
+            您的浏览器版本太低,不支持画布,请更换高版本浏览器
+        </canvas>
+    </div>
+</body>
+<script>
+    var content = document.getElementById('content');
+    var mycanvas = document.querySelector('#mycanvas');
+    var context = mycanvas.getContext('2d');
+
+    var arr = ['一等奖', '二等奖', '三等奖', '谢谢惠顾', '谢谢惠顾', '谢谢惠顾', '谢谢惠顾', '谢谢惠顾', '谢谢惠顾', '谢谢惠顾', '谢谢惠顾', '谢谢惠顾', '谢谢惠顾', '谢谢惠顾'];
+
+    content.innerHTML = arr[Math.floor(Math.random() * arr.length)];//设置奖项内容
+
+    /*给canvas绘制灰色填充*/
+    context.beginPath();
+    context.fillStyle = '#ccc';
+    context.fillRect(0, 0, mycanvas.width, mycanvas.height);
+    context.closePath();
+
+    var device = /iphone|ipad|ipod|opear mini|webos|android|iemobile/i.test(window.navigator.userAgent.toLowerCase());
+    var startEvtName = device ? 'touchstart' : 'mousedown';
+    var moveEvtName = device ? 'touchmove' : 'mousemove';
+    var endEvtName = device ? 'touchend' : 'mouseup';
+
+    /*绘制圆*/
+    function draw(ev) { //设置 每次鼠标在canvas身上移动时绘制圆
+        var x = device ? ev.touches[0].clientX - wrap.offsetLeft : ev.clientX - wrap.offsetLeft;
+        var y = device ? ev.touches[0].clientY - wrap.offsetTop : ev.clientY - wrap.offsetTop;
+        context.beginPath();
+        context.fillStyle = '#0f0';
+        context.globalCompositeOperation = 'destination-out';//只绘制旧图，重叠部分和新图透明
+        context.arc(x, y, 20, 0, 2 * Math.PI, true);
+        context.fill();
+        context.closePath();
+    }
+    mycanvas.addEventListener(startEvtName, function () {
+        mycanvas.addEventListener(moveEvtName, draw, false);
+        mycanvas.addEventListener(endEvtName, function () {
+            mycanvas.removeEventListener(moveEvtName, draw, false);
+        }, false)
+    }, false)
+</script>
+
+</html>

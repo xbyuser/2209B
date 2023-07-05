@@ -1,0 +1,19 @@
+
+  <view class="fb_main">
+    
+    <!-- 图片上传区域 -->
+    <view class="fb_content">
+      <textarea value="{{textVal}}" bindinput="handleTextInput" placeholder="请描述一下您的问题"> </textarea>
+
+        <view class="fb_tool">
+          <!-- file-list属性，可以绑定已经上传的图片列表,bind:after-read	文件上传完成后触发方法， bind:delete 删除事件，preview-full-image图片预览服务是否开启, -->
+          <van-uploader file-list="{{fileList}}" bind:after-read="afterRead"   bind:delete="delete"  preview-full-image="{{false}}" />
+        </view>
+    </view>
+    <view class="form_btn_wrap">
+    <!-- 最终提交时-把上传的图片列表和其它数据一起提交给接口 -->
+      <button bindtap="handleFormSubmit"  type="warn" > 提交 </button>  
+    </view>
+  </view>
+
+ 

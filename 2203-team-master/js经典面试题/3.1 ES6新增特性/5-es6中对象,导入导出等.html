@@ -1,0 +1,130 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<script type="module">
+	//0.es6模板字符串-` ${变量}` 反引号，拼接字符串更方便
+    let a="奎哥"
+    let b='玉树临风'
+    console.log(a+'好帅'+b);
+
+    //es6 操作
+    console.log(`${a}好帅${b}`);
+
+	// 一.对象简写功能
+	//1.1 ES5中有时对象是以键值对的形式书写，是有可能出现键值对重名的。
+	  function people(name, age) {
+	        return {
+	            name: name,
+	            age: age
+	        }
+	    }
+	console.log(people('奎哥',18));
+    //es6 直接简写了
+    function people1(name, age) {
+	        return {
+	             name,
+	              age
+	        }
+	    }
+
+        console.log(people1('奎哥1',18));
+
+   //方法简写
+   let people2={
+      name2:'奎哥2',
+    //   work:function(){
+    //       console.log(this.name2);
+    //   }
+    //简写
+       work(){
+          console.log(this.name2);
+      }
+   
+   }
+
+   people2.work()
+   
+
+  // 二.对象新增方法
+  let obj= {a:1,b:3}
+  //面试题:for in 和for of区别?
+//   let arr=[]
+//   for (let key in obj) {  //for in遍历对象提取键
+//      console.log(key);
+//      arr.push(key)
+//   }
+//   console.log(arr);
+
+ //for of遍历数组
+ let arr1=[1,3]
+ for (let value of arr1) {
+     console.log(value);
+ }
+
+ //1.1 对象keys()-该方法可把对象键提出变为字符串的数组
+ console.log(Object.keys(obj)); //['a', 'b']
+
+// 	//1.2 对象values()-该方法可把对象值提出变为数组
+console.log(Object.values(obj)); //[1, 3]
+
+//1.3-合并对象方法
+let obj1= {a:1,b:3}
+let obj2= {c:2,d:4}
+//方法1
+console.log({...obj1,...obj2});
+//方法2
+console.log(Object.assign({},obj1,obj2)); //把多个对象合到最前面。！！！注意只能浅拷贝,只能复制一层
+
+//1.4 注意！！！对象的键如果重复后面会覆盖前面的值
+let obj3={a:1,b:2,a:3}
+console.log(obj3); //{a: 3, b: 2}
+
+// 三.面试题-对象的键,值,长度如何获取？
+	
+ 	//1.获取对象的键,值
+    var obj4 = {'name' : 'Tom' , 'sex' : 'male' , 'age' : '14'}; 
+    console.log(obj4.length) //undefined 对象没有这个属性
+
+    //转成数组
+    let arr4=Object.keys(obj4)
+    console.log(92,arr4,arr4.length);
+
+
+// 四 es6里模块化module-导入导出概念
+// 模块的导入与导出-
+     // 模块概念:某一个功能的集合,如:1个网站有很多模块,这些模块都是独立的.首页模块:index.js ,登录模块 login.js .模块与模块之间的沟通问题？
+	 
+     //es6中 import导入模块、export导出模块   !!!注意在服务器里运行,<script type="module">里加入type=module。才能支持模块化
+		   
+
+//导入一个
+ import myname  from './login.js' 
+ console.log(myname);
+
+ //导入多个
+ import {myage,myf1}  from './login.js' 
+console.log(myage);
+myf1() //方法直接调用
+
+//还可以给多个起别名
+
+import * as md from './login.js' 
+
+console.log(md.myage);
+
+
+//思考面试题-模块化概念？早期模块化怎么实现的?
+//1.两种规范[AMD规范-是提前执行]配合seajs插件，用define()定义导出模块 2.[CMD规范-是延迟执行]一般配合commonjs插件-nodejs是这种规范。导入require('模块') 导出moudle.exports='aa' )
+// 模块化概念   https://segmentfault.com/a/1190000000733959  
+
+
+
+
+</script>
+</head>
+
+<body>
+</body>
+</html>

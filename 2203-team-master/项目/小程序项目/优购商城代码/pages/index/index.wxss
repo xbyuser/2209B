@@ -1,0 +1,82 @@
+.index {
+  /* 搜索区 */
+  /* 轮播区域 -区域定死，图片100%*/
+  /* 分类区 */
+  /* 楼层区 */
+}
+.index .index_search {
+  width: 100%;
+  height: 90rpx;
+  background-color: #eb4450;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.index .index_search input {
+  width: 730rpx;
+  height: 70rpx;
+  background-color: white;
+  border-radius: 15rpx;
+  text-align: center;
+}
+.index .index_swiper swiper {
+  height: 340rpx;
+}
+.index .index_swiper swiper image {
+  width: 100%;
+  height: 100%;
+}
+.index .index_cate {
+  height: 210rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.index .index_cate image {
+  width: 130rpx;
+  height: 170rpx;
+  margin-top: 20rpx;
+}
+.index .index_floor {
+  height: 495rpx;
+  margin-top: 20rpx;
+}
+.index .index_floor .floor_title {
+  height: 60rpx;
+}
+.index .index_floor .floor_title image {
+  width: 100%;
+  height: 100%;
+}
+.index .index_floor .floor_list {
+  height: 415rpx;
+  margin-top: 20rpx;
+  display: flex;
+}
+.index .index_floor .floor_list .floor_left {
+  width: 250rpx;
+  height: 415rpx;
+}
+.index .index_floor .floor_list .floor_left image {
+  width: 250rpx;
+  height: 415rpx;
+}
+.index .index_floor .floor_list .floor_right {
+  width: 490rpx;
+  height: 415rpx;
+  margin-left: 10rpx;
+  display: flex;
+  flex-wrap: wrap;
+}
+.index .index_floor .floor_list .floor_right image {
+  width: 240rpx;
+  height: 200rpx;
+}
+.index .index_floor .floor_list .floor_right navigator:nth-child(2),
+.index .index_floor .floor_list .floor_right navigator:nth-child(4) {
+  margin-left: 10rpx;
+}
+.index .index_floor .floor_list .floor_right navigator:nth-child(3),
+.index .index_floor .floor_list .floor_right navigator:nth-child(4) {
+  margin-top: 10rpx;
+}

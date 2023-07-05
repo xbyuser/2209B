@@ -1,0 +1,39 @@
+echarts大屏可视化项目,常见面试题：
+0.大屏项目是怎么适配的？
+npm安装px转vw插件  npm install postcss-px-to-viewport,在
+大块内容采用flex,其它小块图表大小自动px转vw
+
+1.echarts的用法?
+     下载echarts包，导入echarts
+     1.1 定义div容器必须设置宽高
+     1.2 查找该dom,引入echarts,进行init初始化该dom 
+     1.3然后查找对应图表option配置,最后加入到setOption()方法里
+
+2.echarts图表如何根据屏幕响应式缩放?
+  监听浏览器窗口的 resize 方法，可以添加多个图表
+window.addEventListener('resize', () => { 
+    myChart.resize();  
+    // myChart2.resize();  
+    // myChart3.resize();
+})
+
+3.你还知道哪些数据可视化图表库?
+
+Echarts（百度的,PC端用的多）-https://echarts.apache.org/examples/zh/index.html
+AntV（阿里的，移动端用的多）-https://antv-f2.gitee.io/zh/examples/gallery
+Highcharts（国外公司），D3.js（国外公司）
+相关扩展文章-https://blog.csdn.net/qq_15041931/article/details/105942934
+
+3.echarts如何实现实时更新数据？
+
+ 可采用websocket长链接实时更新，
+websocket基础概念-https://www.ruanyifeng.com/blog/2017/05/websocket.html
+B站视频Echarts+websocket实时数据交互-https://www.bilibili.com/video/BV1Q64y1B7g5
+
+4.echarts数据量大时如何进行优化?
+可通过appendData异步加载，分片加载数据
+参考文章-https://lockdatav.blog.csdn.net/article/details/109022138
+
+-------------------------------------------------------------------------------
+echarts图表做项目时常见问题
+https://blog.csdn.net/qq_39075021/article/details/113621949

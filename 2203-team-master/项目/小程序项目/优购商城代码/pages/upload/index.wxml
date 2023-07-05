@@ -1,0 +1,52 @@
+<view class="box">
+    <van-tabs active="{{ active }}" line-width="50%" bind:change="onChange">
+        <van-tab class="van-tab" title="体验问题">
+            <view style="margin: 20rpx 20rpx 0; ">问题种类</view>
+            <view class="title">
+                <view bind:tap="ontap" data-index="{{index}}" class="{{index1 == index?'act':''}}" wx:for="{{list}}"
+                    wx:key="index">{{item}}
+                </view>
+            </view>
+            <view class="content">
+                <textarea value="{{value}}" bindblur="handleTextInput" placeholder="请描述一下您的问题"> </textarea>
+                <view class="add">
+                    <button bindtap="handleChooseImg">+</button>
+                    <view class="imgs" wx:for="{{imglist}}" wx:key="index" bindtap="delete" data-index="{{index}}">
+                        <image src="{{item}}"></image>
+                        <icon type="clear" size="18" color="red">
+                        </icon>
+                    </view>
+                </view>
+            </view>
+
+            <button type="primary" bind:tap="add">提交意见</button>
+        </van-tab>
+        <van-tab title="历史记录">
+            <view class="hbox" wx:if="{{history!=[]}}">
+                <view>
+                    <view class="history" wx:for="{{history}}" wx:key="index">
+                        <view class="text">
+                            问题种类
+                            <text style="float: right;">{{item.option}}</text>
+                        </view>
+                        <view class="text">
+                            详细内容
+                            <text style="float: right;">{{item.value}}</text>
+                        </view>
+                        <view class="img">
+                            <view>描述图片</view>
+                            <view class="imgs" wx:for="{{item.imgurl}}" wx:for-item="ite" wx:for-index="i">
+                                <image bindtap="onimg" data-list="{{item.imgurl}}" data-src="{{ite}}" src="{{ite}}">
+                                </image>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+
+            </view>
+            <image wx:else style="width: 100%;margin-top: 100rpx;"
+                src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.soutu123.cn%2Felement_origin_min_pic%2F17%2F02%2F28%2F8e959816807d2a8b3796c76270ace890.jpg%21%2Ffw%2F700%2Fquality%2F90%2Funsharp%2Ftrue%2Fcompress%2Ftrue&refer=http%3A%2F%2Fpic.soutu123.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1648894889&t=a1f03c75f54755125ef9c561ae51bd34">
+            </image>
+        </van-tab>
+    </van-tabs>
+</view>

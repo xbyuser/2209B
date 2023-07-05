@@ -1,0 +1,50 @@
+<!--pages/goods_list/index.wxml-->
+
+<!-- 小程序第三方插件-有赞vant weapp使用: 链接：https://vant-contrib.gitee.io/vant-weapp/#/intro 
+  组件安装步骤-安装vantUI库
+第一步：把项目文件夹在终端打开
+第二步：npm init 
+第三步：npm i @vant/weapp -S --production  或者npm i vant-weapp -S --production ！！！注意这两种页面内引入路径不一样
+第四步：工具--构建npm 
+第五步:点击开发者工具的详情，勾选使用npm模块
+第六步:去vant地址链接-找对应组件复制
+第七步:在全局app.json或者当前页.json文件里配置对应组件地址，
+//安装@的版本时，路径是带着@
+ "usingComponents": {
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index"
+},
+//安装不带@的版本时，路径要修改下
+{
+  "usingComponents": {
+     "van-button": "vant-weapp/button/index",
+     "van-datetime-picker":"vant-weapp/datetime-picker/index"
+  }
+}
+第八步：页面中就可以引入该组件
+ -->
+ <van-tabs active="{{ active }}" >
+  <van-tab title="综合">
+    <view class="first_tab">
+        <navigator class="goods_item"
+        wx:for="{{goodsList}}"
+        wx:key="goods_id"
+        url="/pages/goods_detail/index?goods_id={{item.goods_id}}"
+        >
+            <!-- 左侧 图片容器 -->
+            <view class="goods_img_wrap">
+              <image mode="widthFix" src="{{item.goods_small_logo?item.goods_small_logo:'https://ww1.sinaimg.cn/large/007rAy9hgy1g24by9t530j30i20i2glm.jpg'}}"></image>
+            </view>
+            <!-- 右侧 商品容器 -->
+            <view class="goods_info_wrap">
+              <view class="goods_name">{{item.goods_name}}</view>
+              <view> {{item.goods_price}} </view>
+            </view>
+        </navigator>
+    </view>
+  </van-tab>
+  <van-tab title="销量">销量</van-tab>
+  <van-tab title="价格">价格</van-tab>
+</van-tabs>
+
+

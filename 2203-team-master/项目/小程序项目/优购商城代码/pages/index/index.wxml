@@ -1,0 +1,56 @@
+<!-- index.wxml -->
+<!-- 思路：1.先布局静态页面 2.根据文档模拟数据 3.接口出来换接口数据 
+底部楼层布局：建议 1.先把1个盒子分为上下 2.下面的在分成左右结构(左边flex占1份，右边flex占2份,这样会换行，在给他display:flex;flex-wrap:wrap进行在次换行)。因为返回的数据里把它分成了2个，这样右边还可以循环 -->
+<view class="index">
+  <!-- 小程序自定义导航栏(胶囊搜索) ：需要在当前json中的添加"navigationStyle": "custom"。如果需要全局就在app.json中的window添加 -->
+  <!-- <search-view  toUrl="/pages/search/index" inpMarginView="20" ></search-view> -->
+  <!-- 搜索框 -->
+  <!-- <view class="index_search">
+    <input type="text" placeholder="搜索22" bindtap="go" />
+  </view> -->
+  <!-- 调用公用搜索框封装组件 -->
+  <search-input></search-input>
+  <!-- 轮播图 -->
+  <view class="index_swiper">
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{swiperList}}" wx:key="*this">
+        <swiper-item>
+          <image src="{{item.image_src}}"></image>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <!-- 分类区 -->
+  <view class="index_cate">
+    <navigator url='../goods_list/index'>
+      <image mode="heightFix" src="https://api-hmugo-web.itheima.net/pyg/icon_index_nav_4@2x.png"></image>
+      <image mode="heightFix" src="https://api-hmugo-web.itheima.net/pyg/icon_index_nav_4@2x.png"></image>
+      <image mode="heightFix" src="https://api-hmugo-web.itheima.net/pyg/icon_index_nav_4@2x.png"></image>
+      <image mode="heightFix" src="https://api-hmugo-web.itheima.net/pyg/icon_index_nav_4@2x.png"></image>
+    </navigator>
+  </view>
+  <!-- 楼层区 -->
+  <view class="index_floor" wx:for="{{floorList}}" wx:key="index">
+    <!-- 标题 -->
+    <view class="floor_title">
+      <image src="{{item.floor_title.image_src}}"></image>
+    </view>
+    <!-- 内容 -->
+    <view class="floor_list">
+      <view class="floor_left">
+        <navigator>
+          <image src="{{item.product_list[0].image_src}}"></image>
+        </navigator>
+      </view>
+      <view class="floor_right">
+        <!-- 注意接口里的跳转链接少一个路径，得js处理下 -->
+        <view wx:for="{{item.product_list}}" wx:if="{{index1 !=0 }}" wx:for-item="item1" wx:for-index="index1" wx:key="index1" data-url="{{item1.navigator_url}}" bindtap="getUrl">
+          <image src="{{item1.image_src}}"></image>
+          <!-- <image  src="https://api-hmugo-web.itheima.net/pyg/pic_floor01_3@2x.png"></image>
+             <image  src="https://api-hmugo-web.itheima.net/pyg/pic_floor01_3@2x.png"></image>
+             <image  src="https://api-hmugo-web.itheima.net/pyg/pic_floor01_3@2x.png"></image> -->
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

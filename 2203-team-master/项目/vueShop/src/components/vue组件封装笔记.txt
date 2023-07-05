@@ -1,0 +1,63 @@
+！！！封装组件前，先参考这些市面上现成的组件库，比如：elment-ui,vant中组件用法，暴露了哪些属性，然后去看下源码。
+
+vue封装组件概念：
+想要封装好一个组件，一定要熟练掌握这三个技能，父组件 —> 子组件传值（props）、子组件 —> 父组件传值（$emit）、以及插槽（slot）；对于一个独立的组件来说，props是用来为组件内部注入核心的内容；$emit用来使这个独立的组件通过一些逻辑来融入其他组件中。举个具体点的例子，假如你要做一辆车，车轮是要封装的一个独立组件，props指的就是根据整个车的外形你可以给轮子设置一些你想要的且符合车风格的花纹，图案等；而$emit的作用则是让这些轮子能够和整辆车完美契合的运作起来。
+参考文章——
+https://www.cnblogs.com/muzishijie/p/11291295.html   vue组件封装流程
+https://www.cnblogs.com/caideyipi/p/7705052.html  
+https://www.jb51.net/article/218583.htm   table组件封装过程
+
+---------------------------------
+vue封装组件:对外暴露属性或方法，外面使用时，可配置属性或方法。
+  遵循vue的开发插件方法,vue 提供了4个方法:
+var obj={};
+obj.install = function (Vue, options) {
+  // 1. 添加全局方法或属性
+  Vue.方法名 = function () {
+    // 逻辑...
+  }
+
+  // 2. 添加全局资源
+  Vue.directive('my-directive', {
+    bind (el, binding, vnode, oldVnode) {
+      // 逻辑...
+    }
+    ...
+  })
+
+  // 3. 注入组件选项
+  Vue.mixin({
+    created: function () {
+      // 逻辑...
+    }
+    ...
+  })
+
+  // 4. 添加实例方法 Vue.prototype.$方法名
+  Vue.prototype.$myMethod = function (methodOptions) {
+    // 逻辑...
+  }
+}
+
+
+例：
+import dialog from './dialog.vue';
+
+dialog.install=function(vue){
+	vue.component(dialog.name,dialog);
+}
+
+export default dialog;
+
+------------------------------------------------------
+
+  注意问题：1.你开发的插件被别人用，那你就是子组件，就涉及到父传子问题：父向子传属性，传方法。子组件通过prop接受属性，emit提交事件出去。2.插槽
+
+
+
+
+
+
+
+
+

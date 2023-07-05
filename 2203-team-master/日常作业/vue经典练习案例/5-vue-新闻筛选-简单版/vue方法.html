@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      text-decoration: none;
+    }
+
+    .nav-wrapper {
+      display: flex;
+      margin-bottom: 70px;
+    }
+
+    .nav-wrapper ul {
+      display: flex;
+    }
+
+    .nav-wrapper li {
+      margin-right: 10px;
+      border: 1px solid red;
+    }
+
+    .nav-wrapper li a {
+      display: block;
+      color: black;
+
+      padding: 25px 10px;
+
+    }
+
+    .nav-wrapper li a.active {
+      background: red;
+
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <div>
+      <div class="nav-wrapper">
+        <ul>
+          <li v-for="(item,index) in types" :key='index' @click='switchover($event)'>
+            <a href="#" :class='{active:item==nowShow}'>{{item}}</a>
+          </li>
+        </ul>
+        <div>
+          <a href="#" @click="sort($event)">升序(按新闻类型数量)</a>
+          <a href="#" @click="sort($event)">降序(按新闻类型数量)</a>
+        </div>
+      </div>
+      <div class="content">
+        <p v-for="(item,index) in showList">
+          <a :href="item.href">{{item.title}}</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <script src="vue.js"></script>
+  <script>
+
+    let json1 = [
+      { title: '出现跑路，北京全面排查P2P风险', type: '互联网', href: 'http://tech.163.com/14/0610/08/9UC5IJQE000915BF.html' },
+      { title: '北京傍晚到夜间有雷阵雨 明天白天多云转晴', type: '国内', href: 'http://news.hexun.com/2014-06-10/165566949.html' },
+      { title: '“10亿美元俱乐部”的宠儿有哪些？', type: '互联网', href: 'http://www.pingwest.com/2014-startups-with-billion-dollar-valuations/' },
+      { title: '恒大官方宣布于汉超李学鹏加盟 制海报欢迎(图)', type: '体育', href: 'http://sports.sina.com.cn/j/2014-06-10/19177202125.shtml' },
+      { title: '外交部称美国是“黑客帝国”：地球人都知道', type: '互联网', href: 'http://politics.caijing.com.cn/2014-06-10/114251776.html' },
+      { title: '乌克兰卢甘斯克机场被关闭', type: '军事', href: 'http://stock.sohu.com/20140610/n400627314.shtml' },
+    ];
+
+    new Vue({
+      el: '.app',
+      data: {
+        showList: json1,
+        types: ['全部', '互联网', '国内', '体育', '军事'],
+        nowShow: '全部'
+      },
+      methods: {
+        switchover(ev) {
+          this.nowShow = ev.target.innerHTML
+          if (ev.target.innerHTML.includes('全部')) {
+            this.showList = json1
+          } else {
+
+            this.showList = json1.filter(item => item.type.includes(this.nowShow))
+          }
+        },
+        sort(ev) {
+          let counter = {}
+          for (const item of json1) {
+            const { type } = item
+            if (counter[type]) {
+              counter[type]++
+            } else {
+              counter[type] = 1
+            }
+          }
+          this.showList.forEach(res => {
+            for (const i in counter) {
+              if (res.type == i) {
+                this.$set(res, 'num', counter[i])
+              }
+            }
+          })
+          if (ev.target.innerHTML.includes('升序')) {
+            this.showList.sort((res, newRes) => {
+              return res.num - newRes.num
+            })
+          } else {
+            this.showList.sort((res, newRes) => {
+              return newRes.num - res.num
+            })
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

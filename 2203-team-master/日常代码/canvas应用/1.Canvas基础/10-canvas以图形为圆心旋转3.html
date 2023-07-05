@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+
+<title>canvas以图形为圆心旋转</title>
+<style>
+body {background:black; text-align:center;}
+#c1 {background:white;}
+</style>
+<script>
+function d2a(n)	//角度->弧度
+{
+	return n*Math.PI/180;
+}
+
+window.onload=function ()
+{
+	var oC=document.getElementById('c1');
+	var gd=oC.getContext('2d');
+	var r=0;
+	
+	var l=200,t=100,w=200,h=200;
+	
+	setInterval(function (){
+
+		gd.clearRect(0, 0, oC.width, oC.height); //防止重复覆盖把上一次图形清除下
+		r++;
+		
+		gd.save(); //保存画布当前的状态
+		//中心(w/2,h/2)：gd.translate(l+w/2, t+h/2);
+        //gd.strokeRect(-w/2, -h/2, w, h);
+		gd.translate(l+100, t+100);
+		gd.rotate(d2a(r));
+		gd.strokeRect(-100, -100, w, h);
+		gd.restore(); // 取出之前保存过的状态
+	}, 16);
+};
+</script>
+</head>
+
+<body>
+<canvas id="c1" width="800" height="600"></canvas>
+</body>
+</html>
+
+
+
+
+
+
+
+

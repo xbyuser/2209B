@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>原生实现Ajax-原理</title>
+    <style type="text/css" media="screen">
+
+    </style>
+    <script src="jquery.js"></script>
+</head>
+
+<body>
+
+    <script>
+
+        //一. ajax(异步无刷新请求网页)原理-！！！注意服务器运行ajax
+        /*    1.实例化xhr异步对象  var xhr=new XMLHttpRequest()
+             2.建立请求连接 xhr.open('get','url地址',true) //请求类型 get ,post 路径:url地址
+             3.发送请求 xhr.send() 发送
+             4.发送是否成功  xhr.onreadystatechange=function(){if(xhr.readyState==4){ //有没有发送成功: http请求状态 :0,1,2,3,4 
+                      if(xhr.status==200) //服务器响应状态: 200<=xhr.status<300||xhr.status=304 代表成功  
+                      {
+                            //请求成功后做的事：响应内容
+                            //console.log(xhr.responseText);
+                      }
+                      else
+                     {
+                         //请求失败做的事:给你一个状态
+                         // console.log(xhr.status);
+                     }
+        
+             }} */
+
+        //1.基本用法-ajax原理
+        /*  let xhr=new XMLHttpRequest()
+            console.log('xhr属性与方法',xhr);
+            xhr.open('get','abc.txt',true)
+            xhr.send()
+            xhr.onreadystatechange=function(){
+                 //发送成功-请求状态
+                 if(xhr.readyState==4){
+                     console.log(xhr.status);
+                     if(xhr.status==200){
+                         console.log('响应内容_',xhr.responseText);
+                     }
+                     else{
+                      console.log('失败状态',xhr.status);
+                     }
+                 }
+            } */
+
+        //2.jq框架里ajax用法-封装ajax  。axios的用法也一样，微信wx.request({success(){},fail(){}}),uni的框架 uni.request({}) ，es6新的网络请求  fetch(网络请求) 不要在导入axios
+        /*    $.ajax({
+              url: 'abc.txt',
+              method:'get',
+              // data:{},
+              // timeout:5000,
+              success:function(res){
+                  console.log('成功结果',res);
+              },
+              error:function(err){
+                  console.log('失败状态',err);
+              }
+          })  */
+
+        //3.自己封装ajax方法 
+        /*   function Axios(method,url,fnSuc,fnErr){
+              let xhr=new XMLHttpRequest()
+               xhr.open(method,url,true)
+               xhr.send()
+               xhr.onreadystatechange=function(){
+                    //发送成功-请求状态
+                    if(xhr.readyState==4){
+                        if(xhr.status==200){
+                         //    console.log('成果结果',xhr.responseText);
+                            fnSuc(xhr.responseText)
+                            
+                        }
+                        else{
+                         //    console.log('请求失败',xhr.status);
+                           fnErr(xhr.status)
+                        }
+                    }
+               }
+             }
+             
+             Axios('get','abc1.txt',function(res){
+                 console.log('成功结果-',res);
+             },function(err){
+                 console.log('失败结果',err);
+             }) 
+  */
+
+
+        //4.axios原理——如果用es6中promise封装呢
+        function Axios(method, url) {
+            return new Promise((resolve, reject) => {
+                let xhr = new XMLHttpRequest()
+                xhr.open(method, url, true)
+                xhr.send()
+                xhr.onreadystatechange = function () {
+                    //发送成功-请求状态
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            //    console.log('成果结果',xhr.responseText);
+                            resolve(xhr.responseText)
+                        }
+                        else {
+                            //    console.log('请求失败',xhr.status);
+                            reject(xhr.status)
+                        }
+                    }
+                }
+            })
+        }
+        Axios('get', 'abc.txt').then(function (res) {
+            console.log('promise成功', res);
+        }, function (err) {
+            console.log('promise失败', err);
+        })
+
+// 扩展阅读-ajax更多封装-https://www.cnblogs.com/webSong/p/7224546.html
+
+    </script>
+</body>
+
+</html>

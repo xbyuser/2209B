@@ -1,0 +1,11 @@
+本项目为慕课网实战—基于Vue3最新标准，实现后台前端综合解决方案课程  https://coding.imooc.com/class/542.html
+项目线上地址—https://imooc-admin.lgdsunday.club/profile
+项目简介：这个项目是仿若依的一个简洁版，相对于若依框架简单一些，跟若依一样，都是用了vue-element-admin这个框架基础上进行的二次开发
+vue-element-admin框架文档地址-https://panjiachen.github.io/vue-element-admin-site/zh/guide/
+
+测试权限账号：
+提供三种权限账号：
+1. 超级管理员账号： super-admin
+2. 管理员账号：admin
+3. 测试可配置账号：test
+密码统一为：123456

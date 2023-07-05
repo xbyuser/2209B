@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+
+<body>
+    <div id="all">
+       全选： <input type="checkbox" value="全选">
+    </div>
+    <div id="dan">单选：
+        <input type="checkbox" value="单选">
+        <input type="checkbox" value="单选">
+        <input type="checkbox" value="单选">
+    </div>
+    <script>
+        var all = document.querySelector('#all input')
+        var inputs = document.querySelectorAll('#dan input');
+        
+        //全选
+        all.onclick = function () {
+            // this.checked 它可以得到当前单选框选中状态如果是true就是选中 如果是false 就是未选中
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].checked = this.checked;
+            }
+        }
+		//单选
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].onclick = function () {
+                var on = true
+                // 每次点击下面的单选框都循环检查这4个小按钮是否全被选中
+                for (var i = 0; i < inputs.length; i++) {
+                    if (!inputs[i].checked) {
+                        on = false;
+                        break; // 只要有一个没选中 就退出循环
+                    }
+                }
+                all.checked = on
+            }
+        }
+    </script>
+</body>
+
+</html>

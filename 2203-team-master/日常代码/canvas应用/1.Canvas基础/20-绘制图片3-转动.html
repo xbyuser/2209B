@@ -1,0 +1,47 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>绘制图片-连续动</title>
+<style>
+body {text-align:center; background:black;}
+#c1 {background:white;}
+</style>
+<script>
+window.onload=function ()
+{
+	var oC=document.getElementById('c1');
+	var gd=oC.getContext('2d');
+	
+	var oImg=new Image();
+	var i=0;
+	
+	oImg.onload=function ()
+	{
+		setInterval(function (){
+			gd.clearRect(0, 0, oC.width, oC.height);
+         //drawImage(图片, sx, sy, sw, sh, dx, dy, dw, dh)
+        //sx, sy, sw, sh 源：相对于图片x,y坐标,宽，高
+       //dx, dy, dw, dh	 目标:相对于画布x,y坐标,宽，高
+//	   (图片对象, 取原图中需要显示的X坐标, 取原图中需要显示的y坐标, 取原图多宽, 取原图多高, 在画布中显示x坐标, 在画布中显示y坐标, 在画布中显示宽, 在画布中显示高,) 类似取精灵图
+
+			gd.drawImage(oImg, 0, 60*i, 60, 60, 200, 200, 60, 60);
+			
+			i++;
+			
+			if(i==10)
+			{
+				i=0;
+			}
+		}, 70);
+	};
+	oImg.src='coinAni2.png';
+};
+</script>
+</head>
+
+<body>
+<canvas id="c1" width="800" height="600"></canvas>
+</body>
+</html>

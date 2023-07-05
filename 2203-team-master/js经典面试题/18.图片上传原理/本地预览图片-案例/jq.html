@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery.js"></script>
+    <style>
+        .file-upload {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <!-- //	用于接受上传的图片 -->
+        <img alt="" id="picture">
+        <button type="button" class="btn btn-primary" id="btn">上传文件</button>
+        <!-- // 用于上传文件 -->
+        <input class="file-upload" type="file" accept="image/*" name="picture" />
+    </div>
+
+</body>
+
+</html>
+<script>
+    // 点击按钮，上传新图片。
+    //相关文章—— H5中异步读取文件对象new FileReader()简介   https://blog.csdn.net/weixin_44116302/article/details/91554835
+
+    $(document).on("click", "#btn", function () {
+        // 点击图片的同时，点击上传文件的input
+        $('.file-upload').click();
+        // 将上传的图片显示到页面上
+        $(document).on("change", ".file-upload", function () {
+            console.log('获取表单', $(".file-upload"));
+            var fileObj = $(".file-upload")[0];
+            var img = document.getElementById('picture'); //获得用户上传的图片节点
+            //通过FileReader获取文件数据
+            var reader = new FileReader();
+            console.log('上传文件信息', reader);
+            //读取文件内容，结果用data:url的字符串形式表示
+            reader.readAsDataURL(fileObj.files[0]);
+            // 读取成功后的操作，img.src即为转换后的DataURL
+            reader.onload = function (e) {
+                if (reader.readyState === 2) { //加载完毕后赋值
+                    img.src = e.target.result;
+                    console.log('base64图片', img.src);
+                }
+            }
+        });
+    });
+
+</script>

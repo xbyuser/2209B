@@ -1,0 +1,84 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>canvas画钟表</title>
+<style>
+body {text-align:center; background:black;}
+#c1 {background:white;}
+</style>
+<script src="Canvas.js"></script>
+<script>
+window.onload=function ()
+{
+	var oC=new Canvas(document.getElementById('c1'));
+	
+	var c=new Circle(400, 300, 200);
+	oC.add(c);
+	
+	//表针
+	var h=new Rect(400-10, 300-100, 20, 100);
+	h.background='red';
+	h.border='none';
+	h.orginY=h.height;
+	oC.add(h);
+	
+	var m=new Rect(400-5, 300-120, 10, 120);
+	m.background='green';
+	m.border='none';
+	m.orginY=m.height;
+	oC.add(m);
+	
+	var s=new Rect(400-1, 300-160, 2, 160);
+	s.background='black';
+	s.border='none';
+	s.orginY=s.height;
+	oC.add(s);
+	
+	//刻度
+	for(var i=0;i<60;i++)
+	{
+		if(i%5==0)
+		{
+			var r=new Rect(400-2, 300-200, 4, 20);
+		}
+		else
+		{
+			var r=new Rect(400-1, 300-200, 2, 10);
+		}
+		
+		r.background='black';
+		r.border='none';
+		r.r=6*i;
+		r.orginY=200;
+		
+		oC.add(r);
+	}
+	
+	//转
+	function tick()
+	{
+		var oDate=new Date();
+		
+		h.r=(oDate.getHours()+oDate.getMinutes()/60)*30;
+		m.r=(oDate.getMinutes()+oDate.getSeconds()/60)*6;
+		s.r=oDate.getSeconds()*6;
+	}
+	
+	setInterval(tick, 1000);
+	tick();
+};
+</script>
+</head>
+
+<body>
+<canvas id="c1" width="800" height="600"></canvas>
+</body>
+</html>
+
+
+
+
+
+

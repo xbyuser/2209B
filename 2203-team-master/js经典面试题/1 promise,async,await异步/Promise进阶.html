@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			// 参考文章：https://www.jianshu.com/p/1ec8d1c4e287 promise使用场景
+			//需求：ajax在处理异步时,后一个请求会依赖上个请求，如果嵌套处理会产生回调地狱，不美观，影响性能问题。es6中promise 就可以解决这样问题
+			
+			// Promise处理异步事件  是一个构造函数 原型上有then、catch等方法
+			// resolve() 异步操作执行成功后的回调函数  reject：异步操作执行失败后的回调函数
+			console.dir(Promise) //查看对象的所有属性与方法
+             
+			function runAsync() {
+				var p1 = new Promise(function(resolve, reject) { //resolve--解决问题---事情异步成功完成
+					//异步操作
+					setTimeout(function() {
+						console.log('执行完成');
+						resolve('随便什么数据');
+
+					}, 1000);
+
+				})
+				return p1;
+			}
+			// runAsync()
+
+			//在runAsync()的返回上直接调用then方法，then接收一个参数，是函数，并且会拿到在runAsync中调用resolve时传的的参数
+			runAsync().then(function(data) { //then里面的函数就跟我们平时的回调函数一个意思，能够在runAsync这个异步任务执行完成之后被执行
+				console.log(data);
+				//后面可以用传过来的数据做些其他操作
+			}) 
+
+          //上面调用等同下面回调方法
+	/* 	 function runAsync(cb) {
+				setTimeout(function() {
+					console.log('执行完成');
+					cb('随便什么数据');
+				}, 2000);
+			}
+
+			runAsync(function(data) {
+				console.log(data);
+			}); */
+
+
+			// 链式操作的用法
+			function runAsync1() {
+				var p = new Promise(function(resolve, reject) {
+					//做一些异步操作
+					setTimeout(function() {
+						console.log('异步任务1执行完成');
+						resolve('随便什么数据1');
+					}, 1000);
+				});
+				return p;
+			}
+
+			function runAsync2() {
+				var p = new Promise(function(resolve, reject) {
+					//做一些异步操作
+					setTimeout(function() {
+						console.log('异步任务2执行完成');
+						resolve('随便什么数据2');
+					}, 2000);
+				});
+				return p;
+			}
+
+			function runAsync3() {
+				var p = new Promise(function(resolve, reject) {
+					//做一些异步操作
+					setTimeout(function() {
+						console.log('异步任务3执行完成');
+						resolve('随便什么数据3');
+					}, 2000);
+				});
+				return p;
+			} 
+
+			/* runAsync1()
+				.then(function(data) {
+					console.log(data);
+					return runAsync2();
+				})
+				.then(function(data) {
+					console.log(data);
+					return runAsync3();
+				})
+				.then(function(data) {
+					console.log(data);
+				}); */
+
+
+
+			//reject的用法--作用就是把Promise的状态置为rejected
+			function getNumber() {
+				var p = new Promise(function(resolve, reject) {
+					//做一些异步操作
+					setTimeout(function() {
+						var num = Math.ceil(Math.random() * 10); //生成1-10的随机数
+						if (num <= 5) {
+							resolve(num);
+						} else {
+							reject('数字太大了');
+						}
+					}, 2000);
+				});
+				return p;
+			}
+
+			getNumber().then(
+				function(data) {
+					console.log('resolved');
+					console.log(data);
+				},
+				function(reason) {
+					console.log('rejected');
+					console.log(reason);
+				}
+			);
+
+	
+			//catch的用法--其实它和then的第二个参数一样，用来指定reject的回调
+			//另外一个作用：在执行resolve的回调（也就是上面then中的第一个参数）时，如果出现异常了（代码出错了），那么并不会报错卡死js，而是会进到这个catch方法中 
+		/* 	
+			getNumber().then(function(data){
+			    console.log('resolved');
+			    console.log(data);
+			})
+			.catch(function(reason){
+			    console.log('rejected');
+			    console.log(reason);
+			}); */
+			
+			/* getNumber().then(function(data) {
+				console.log('resolved');
+				console.log(data);
+				console.log(somedata); //此处的somedata未定义
+			}).catch(function(reason) {
+				console.log('rejected');
+				console.log(reason); // ReferenceError: somedata is not defined 
+			}); */
+
+
+
+			//Promise.all() 多任务并行执行----谁跑的慢，以谁为准执行回调
+			// Promise.all([runAsync1(), runAsync2(), runAsync3()]) //all接收一个数组参数，里面的值最终都算返回Promise对象
+			// 	.then(function(results) { // 同时执行runAsync1, runAsync2, runAsync3，并在它们都完成后执行then
+			// 		console.log(results);
+			// 	});
+
+
+			// Promise.race() --- 谁跑的快，以谁为准执行回调
+			// Promise.race([runAsync1(), runAsync2(), runAsync3()]) //哪个结果获得的快，就返回那个结果，不管结果本身是成功状态还是失败状态。
+			// 	.then(function(results) {
+			// 		console.log(results);
+			// 	});
+			
+			
+
+		</script>
+
+
+	</body>
+</html>

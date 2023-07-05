@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			/* 第一个div */
+			.dv1 {
+				border: 1px solid red;
+				width: 200px;
+				height: 200px;
+				display: flex;
+			}
+
+			.dv1>div:nth-child(1) {
+				border: 1px solid blue;
+				display: flex;
+				flex-flow: column;
+				flex: 1;
+			}
+
+			.dv1>div:nth-child(1)>div:nth-child(1) {
+				background: red;
+				flex: 1;
+			}
+
+			.dv1>div:nth-child(1)>div:nth-child(2) {
+				background: yellow;
+				flex: 1;
+			}
+
+			.dv1>div:nth-child(2) {
+				background: blue;
+				flex: 1;
+			}
+
+
+			/* 第二个div */
+			.dv2 {
+				/* 主div */
+				display: flex;
+				flex-flow: column;
+				text-align: center;
+			}
+
+			.dv2>div:nth-child(1) {
+				/* 顶部 */
+				background: rebeccapurple;
+				flex: 1;
+			}
+
+			.dv2>div:nth-child(2) {
+				/* 中间的可滚动的div */
+
+				background: red;
+				flex: 5;
+				overflow: hidden;
+				overflow-y: scroll;
+			}
+
+			.dv2>div:nth-child(2)>div:nth-child(1) {
+				/* 这是两个样式加不加都行 */
+				background: white;
+			}
+
+			.dv2>div:nth-child(2)>div:last-child {
+				/* 这是两个样式加不加都行 */
+
+				background: white;
+			}
+
+			.dv2>div:nth-child(3) {
+				/* 底部的div */
+				background: blue;
+				flex: 1;
+			}
+
+			::-webkit-scrollbar {
+				display: none;
+			}
+
+			/* 第三个div */
+
+			.dv3 {
+				display: flex;
+				flex-flow: column;
+				min-width: 10px;
+			}
+
+			.dv3>div:nth-child(1) {
+
+				border: 1px solid red;
+			}
+
+			.dv3>div:nth-child(2) {
+				flex: 1;
+				border: 1px solid rgb(0, 17, 255);
+			}
+
+			.dv3>div:nth-child(3) {
+
+				border: 1px solid rgb(15, 236, 181);
+			}
+
+			/* 第4个div */
+			.div4 {
+				background-color: lightgrey;
+				width: 200px;
+		 	    height: 200px;
+				border-radius: 10px;
+				display: flex;
+				justify-content: space-between;
+			}
+            .div4 .box {
+            	width: 20px;
+            	height: 20px;
+            	border-radius: 50%;
+            	background-color: black;
+            }
+			
+			.div4 .box2 {
+				align-self: center;
+			}
+
+			.div4 .box3 {
+				align-self: end;
+			}
+
+			
+		</style>
+	</head>
+
+	<body>
+
+		<p>第1题：flex实现如下布局</p>
+		<div class="dv1">
+			<div>
+				<div>1</div>
+				<div>2</div>
+			</div>
+			<div>3</div>
+		</div>
+
+		<p>第2题：flex实现手机端头尾固定、中间内容自适应</p>
+		<div class="dv2" style="border: 1px solid red; width: 300px;height: 500px;">
+			<div>1</div>
+			<div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+				<div>123</div>
+			</div>
+			<div>3</div>
+		</div>
+
+		<p>第3题：flex布局-实现pc网站自适应效果</p>
+		<div class="dv3" style="width: 100vw; height: 100vh; border: 1px solid red;  padding: 1% ;
+    box-sizing: border-box;">
+			<div style="display:flex; ">
+				<div style="width: 100px; height: 100px; background: rebeccapurple ;">上左,宽高固定</div>
+				<div style="flex: 1;background: red;">上右,高度固定,宽度自适应</div>
+			</div>
+			<div style="display:flex;">
+				<div style="flex: 2;background: rgb(250, 234, 15);">中1,中部区域全部为高度自适应</div>
+				<div style="flex: 3; background: slategrey;">中2,中部区域全部为高度自适应</div>
+				<div style="flex: 1; background: salmon;">中3,中部区域全部为高度自适应</div>
+			</div>
+			<div style=" height: 100px !important; background: rgb(15, 236, 181);">底部,高度固定,宽度自适应</div>
+
+		</div>
+
+		<p>第4题：flex布局-实现骰子3布局</p>
+
+		<div class="div4">
+			<div class="box1 box"></div>
+			<div class="box2 box"></div>
+			<div class="box3 box"></div>
+		</div>
+		
+		<br>
+		<br>
+		<br>
+		<br>
+	</body>
+
+</html>

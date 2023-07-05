@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <title>vue3中没有数据改变,视图不更新问题</title>
+</head>
+
+<body>
+  <!-- 引入vue3静态文件  vue.global.js -->
+  <script src="https://unpkg.com/vue@3"></script>
+
+  <div id="app">
+    <p>{{ num }}</p>
+    <p>{{ num2 }}</p>
+    <button class="btn" @click="btn1Click">修改数据</button>
+
+  </div>
+
+  <script>
+
+    //vue3中初始化
+    const { createApp } = Vue
+    createApp({
+      data() {
+        return {
+          num: [18],
+          num2: { a: 18 }
+        }
+      },
+      methods: {
+        //vue3中给数组和对象新增属性赋值，数据视图改变不会受影响
+        btn1Click: function () {
+          //数组新增属性，不受影响
+          // // this.num[0] = 20;
+          //   this.num[0]++;
+          // console.log(42, this.num)
+
+          // 对象新增属性，不受影响
+            this.num2['b']=22;
+            console.log(this.num2);
+
+        }
+      },
+    }).mount('#app')
+  </script>
+
+
+</body>
+
+</html>

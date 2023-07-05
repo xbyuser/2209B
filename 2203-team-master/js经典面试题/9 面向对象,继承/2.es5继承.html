@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>es5组合式继承</title>
+  <script>
+    //es5 组合式继承-拿网站里的用户来举例：普通用户,vip用户，超级vip用户
+    //父类-共有的，都有的属性和方法。比如用户里都有名字和密码
+    function User(name, pass) {
+      this.name = name;
+      this.pass = pass;
+    }
+
+    User.prototype.showName = function () {
+      console.log('父类名字', this.name);
+    };
+    User.prototype.showPass = function () {
+      console.log('父类密码', this.pass);
+    };
+
+    //子类-组合式继承=原型链继承+构造继承
+    function VipUser(name, pass, level) {
+      // this.name = name;
+      // this.pass = pass;
+      //构造函数继承公有属性？通过改变父类this指向，指向当前子类。可以理解为继承父类上的属性 
+      //使用方法：原对象.call(指向对象参数),apply([数组]),bind() 调用
+      User.call(this, name, pass)
+      this.level = level; //自己独有的属性
+    }
+    //这样达不到面向对象的目的了
+    // VipUser.prototype.showName = function () {
+    //   console.log('父类名字', this.name);
+    // };
+    // VipUser.prototype.showPass = function () {
+    //   console.log('父类密码', this.pass);
+    // };
+
+    //通过原型链继承来继承父类上的方法-把父类原型上的方法全部赋值给子类原型上
+    // 1.方法1原型链继承,继承的是方法:  子类.原型=new  父类方法()
+    VipUser.prototype = new User()
+    VipUser.prototype.constructor = VipUser;  //子类原型构造函数上最好在指向下子类
+
+    VipUser.prototype.showLevel = function () {
+      console.log('用户级别是', this.level);
+    }
+
+    let vip = new VipUser('vip翟', '123456', '三级')
+    vip.showName()
+    vip.showPass()
+    vip.showLevel()
+
+    //2.拷贝继承
+    /*  function VipUser(name, pass, level) {
+       //  this.name=name;
+       // this.pass=pass;
+       User.call(this, name, pass);  //构造函数里call-继承公有属性
+       this.level = level;
+     }
+ 
+     VipUser.prototype.showLevel = function () {
+       console.log(this.level);
+     }
+ 
+     //拷贝继承- 直接赋值方法-遍历父类所有原型方法赋值给子类原型方法
+     for (var i in User.prototype) {
+       // console.log('父类原型方法',User.prototype);
+       VipUser.prototype[i] = User.prototype[i]
+     }
+ 
+     var v1 = new VipUser('blue', '123456', '级别3级');
+     v1.showName();
+     v1.showPass();
+     v1.showLevel(); */
+
+
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

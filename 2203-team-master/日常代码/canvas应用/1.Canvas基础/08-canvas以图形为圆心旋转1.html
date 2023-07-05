@@ -1,0 +1,35 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>canvas以图形为圆心旋转1</title>
+<style>
+body {background:black; text-align:center;}
+#c1 {background:white;}
+</style>
+<script>
+function d2a(n)
+{
+	return n*Math.PI/180;
+}
+
+window.onload=function ()
+{
+	var oC=document.getElementById('c1');
+	var gd=oC.getContext('2d');
+	
+	//参照
+	gd.strokeRect(100, 100, 400, 300);
+	
+	gd.translate(300, 250);//位移到参照物的中心:参照物宽/2+参照物left 400/2+100
+	gd.rotate(d2a(30));
+	gd.strokeRect(-200, -150, 400, 300);
+};
+</script>
+</head>
+
+<body>
+<canvas id="c1" width="800" height="600"></canvas>
+</body>
+</html>

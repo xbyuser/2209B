@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>手动封装forEach，map，filter</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+
+<script>
+  const array = [
+    { name: '自行车', price: 200 },
+    { name: '电视机', price: 3000 },
+    { name: '台式电脑', price: 1000 },
+    { name: '苹果手机', price: 4000 },
+    { name: 'iMac', price: 20000 },
+    { name: '键盘', price: 60 },
+    { name: '鼠标', price: 20 },
+  ]
+
+  // 我们学完手动封装forEach，map，filter之后，思考一下我们如何把封装的方法挂载原型上呢？
+
+  // 手动封装map
+  function myMap(array, cb) {
+    const newArray = []
+    // console.log(cb(array[0]))
+    for (let i = 0; i < array.length; i++) {
+      const item = array[i]
+      newArray.push(cb(item, i, array))
+    }
+    return newArray
+  }
+  const newMap = myMap(array, (item, key, array) => {
+    return item.name
+  })
+  console.log(newMap)
+
+
+// 手动filter
+// function myFilter(array, cb) {
+//   const newArray = []
+//   for (let i = 0; i < array.length; i++) {
+//     const item = array[i]
+//     // console.log(cb(item))
+//     if (cb(item, i, array)) {
+//       newArray.push(item)
+//     }
+//   }
+//   return newArray
+// }
+
+// const newFilter = myFilter(array, (item, key, array) => {
+//   return item.price > 1000
+//   // return key === 0
+// })
+// console.log(newFilter)
+
+
+// 手动封装forEach
+// array.forEach((item, key, array) => {
+//   console.log(item, key, array)
+// })
+// console.log(Array.prototype)
+
+// function myForEach(array, cb) {
+//   // cb(array[0], 0, array)
+//   // cb(array[1], 1, array)
+//   // cb(array[2], 2, array)
+//   // cb(array[3], 3, array)
+//   for (let i = 0; i < array.length; i++) {
+//     const item = array[i]
+//     cb(array[i], i, array)
+//   }
+// }
+// myForEach(array, function (item, key, array) {
+//   // console.log(item, key, array)
+//   item.say = `我是${item.name}`
+// })
+// console.log(array)
+
+
+
+
+</script>

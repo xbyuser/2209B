@@ -1,0 +1,78 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/goods_detail/index",
+        "pages/category/index",
+        "pages/cart/index",
+        "pages/user/index",
+        "pages/goods_list/index",
+        "pages/auth/index",
+        "pages/search/index",
+        "pages/upload/index",
+        "pages/tablist/index",
+        "pages/pay/index",
+        "pages/feedback/index",
+        "pages/order/index",
+        "pages/location/location",
+        "pages/ucharts/index",
+        "pages/map/index"
+    ],
+    "subPackages": [
+        {
+            "root": "pages/subpkg",
+            "pages": [
+                "vant_upload/index"
+            ]
+        }
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#eb4450",
+        "navigationBarTitleText": "商城",
+        "navigationBarTextStyle": "white"
+    },
+    "permission": {
+        "scope.userFuzzyLocation": {
+            "desc": "你的位置信息将用于小程序位置接口的效果展示"
+        }
+    },
+    "requiredPrivateInfos": [
+        "chooseAddress",
+        "getFuzzyLocation"
+    ],
+    "tabBar": {
+        "color": "#000",
+        "selectedColor": "#E54847",
+        "list": [
+            {
+                "pagePath": "pages/index/index",
+                "text": "首页",
+                "iconPath": "icons/home.png",
+                "selectedIconPath": "icons/home-o.png"
+            },
+            {
+                "pagePath": "pages/category/index",
+                "text": "分类",
+                "iconPath": "icons/category.png",
+                "selectedIconPath": "icons/category-o.png"
+            },
+            {
+                "pagePath": "pages/cart/index",
+                "text": "购物车",
+                "iconPath": "icons/cart.png",
+                "selectedIconPath": "icons/cart-o.png"
+            },
+            {
+                "pagePath": "pages/user/index",
+                "text": "我的",
+                "iconPath": "icons/my.png",
+                "selectedIconPath": "icons/my-o.png"
+            }
+        ]
+    },
+    "usingComponents": {
+        "van-tab": "@vant/weapp/tab/index",
+        "van-tabs": "@vant/weapp/tabs/index"
+    },
+    "sitemapLocation": "sitemap.json"
+}

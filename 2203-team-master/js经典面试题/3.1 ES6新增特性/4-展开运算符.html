@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+
+<body>
+	<ul id="ul">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+	</ul>
+	<script>
+
+		// 数组展开符...arr-1.相当于省略前面重复的东西，帮你自动展开内容,可以展开数组解析成一个一个值。2. 如果传入的是单个值它也会合并成数组。3.还可以把伪数组对象转成真正的数组对象.一般只能放到最后使用。
+
+		//1.1 帮你自动展开内容
+		let arr = [1, 2, 3];
+		console.log(arr[0], arr[1], arr[2])
+		//解构赋值
+		let [a, b, c] = arr
+		console.log(a, b, c);
+		//数组展开符
+		console.log(...arr);
+
+
+		//1.2 传参的时候-展开用法-参数可能在对象里
+		//   function show(a, b, c){
+		//        console.log(a,b,c)
+		//     }
+		//  //传统方法传参
+		// //   show(1,2,3)
+		//  //数组展开
+		//  let arr2=[4,5,6]
+		//  show(...arr2) 
+
+		//1.3 传参用
+		//传参
+		// function show1(a,b){
+		//     console.log(a,b) //转成数组了 [12, 5]
+		// }
+		// show1(12, 5); 
+
+		//展开用法-可能实参有多个不想每个都去写了，可用展开符代替
+		function show1(...arr3) {
+			console.log(46, ...arr3)
+		}
+		show1(12, 5);
+
+
+		//2. 可用于合并数组
+		let arr1 = [1, 2, 3];
+		let arr2 = [4, 5, 6];
+
+		//传统数组合并
+		// console.log(arr1.concat(arr2))
+
+		//展开符可用于合并数组
+		var arr3 = [...arr1, ...arr2]
+		console.log(arr3)
+
+
+		//3.可将伪数组转成真正的数组，你就能用数组方法了   [...伪数组对象]
+		var id = document.getElementById('ul')
+		var odiv = id.querySelectorAll('div')
+		console.log(66, odiv);
+
+		//    odiv.push(1)  //伪数组不能用数组的方法
+		//转成真数组
+		let arrDiv = [...odiv]
+		console.log(arrDiv);
+		arrDiv.push(1)
+		console.log(arrDiv);
+
+		// 4.!!!注意问题——展开符在形参时,一般要放在最后
+		/*   function show(a,b,...args,c){
+				  console.log(a,b,...args,c); //报错
+				}
+				show(12, 15, 8, 9, 20, 21, 90); */
+
+		//展开符放最后
+		function show2(a, b, c, ...args) {
+			console.log(args);  //如果不带点是数组 [9, 20, 21, 90]
+			console.log(a, b, c, ...args)
+		}
+
+		show2(12, 15, 8, 9, 20, 21, 90);
+
+
+
+
+
+	</script>
+</body>
+
+</html>

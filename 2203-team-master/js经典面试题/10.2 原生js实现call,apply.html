@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<style type="text/css">
+	
+	</style>
+	<body>
+		
+		<script type="text/javascript">
+		// 相关链接-https://juejin.cn/post/6844903476477034510
+           //一.call,apply,bind都可以帮你改变this指向
+		   // 注意两点：1.call 改变了 this 的指向，指向到 foo  2.bar 函数执行了
+		  /* var foo = {
+		       value: 1,
+			//    fn:function(){
+			// 	   console.log(this.value);
+			//    }
+		   };
+		   var value=100
+		   function bar() {
+		       console.log(this.value);
+		   }
+		   
+		   bar.call(foo); // 1  */
+		   
+		   //二.面试题-原生js模拟实现call或apply，bind方法  
+		   // 实现思路：1.将函数设为对象的属性 2.执行该函数  3.删除该函数
+		   // 第一步   foo.fn = bar
+		   // 第二步   foo.fn()
+		   // 第三步  delete foo.fn
+		   //0.实现步骤类似这样,给对象填加属性即1个函数，然后执行调用
+		  /* var foo = {
+		       value: 1,
+		       bar: function() {
+		           console.log(this.value)
+		       }
+		   };
+		   
+		   foo.bar(); 
+		   delete foo.bar
+		   console.log(foo) */
+		   
+		   //1.简单版 function call(){}
+		// 自己实现call 实现思路：1.将函数设为对象的属性 2.执行该函数  3.删除该函数
+		   Function.prototype.call2 = function(context) {
+		       // 首先要获取调用call的函数，用this可以获取
+		       context.fn = this;
+		       context.fn();
+		       delete context.fn;
+		   }
+		   
+		   // 测试一下
+		   var foo = {
+		       value: 1
+		   };
+	
+		   function bar() {
+		       console.log(this.value);
+		   }
+		   bar()//undefined
+           bar.call(foo)  //1，原本函数自带属性call，改变this指向
+		   bar.call2(foo) //1 ，自己封装的给函数增加属性,call2，来改变this指向
+
+
+
+		   //2.升级版 :1.this 参数可以传 null，当为 null 的时候，视为指向 window 2.2.函数是可以有返回值的！
+		/*   Function.prototype.call2 = function (context) {
+		       var context = context || window;
+		       context.fn = this;
+		   
+		       var args = [];
+		       for(var i = 1, len = arguments.length; i < len; i++) {
+		           args.push('arguments[' + i + ']');
+		       }
+		   
+		       var result = eval('context.fn(' + args +')');
+		   
+		       delete context.fn
+		       return result;
+		   }
+		   
+		   // 测试一下
+		   var value = 2;
+		   
+		   var obj = {
+		       value: 1
+		   }
+		   
+		   function bar(name, age) {
+		       console.log(this.value);
+		       return {
+		           value: this.value,
+		           name: name,
+		           age: age
+		       }
+		   }
+		   
+		   bar.call(null); // 2 ,空的话指向window
+		   
+		   console.log(bar.call2(obj, 'kevin', 18)); //还可以传参 */
+		   
+		 
+		</script>
+	</body>
+</html>

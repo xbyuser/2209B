@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    欢迎回来,<span id="txt"></span>,
+    您上次登录的时间为:<span id="tm"></span>
+    <div id="quit" style="color:blue;cursor: pointer;">退出</div>
+<script src="cookie.js"></script>
+<script>
+	//思路:1.进入首页前,查看用户是否登录过,可通过登录时存入相应cookie实现 2.登录时间-如果用户登录过,就获取第1次的,并且要把这次的重新赋值.如果没登录过,就获取当前的.
+    function getId(obj) {
+        return document.getElementById(obj);
+    }
+    var txt=getId("txt");
+    var tm=getId("tm");
+    var quit=getId("quit");
+	//进入首页前,查看用户是否登录过.
+    if(getCookie("user")){
+        txt.innerHTML=getCookie("user");
+        if(getCookie("time2")){
+            tm.innerHTML=getCookie("time2");
+        }else{
+            tm.innerHTML=getCookie("time");
+        }
+        setCookie("time2",getCookie("time"),5);
+    }else{
+        alert("请先登录");
+        window.location.href="login.html";
+    }
+	//退出后,清除user
+    quit.onclick=function () {
+        window.location.href="login.html";
+        setCookie("user",0,0);
+    }
+</script>
+</body>
+</html>

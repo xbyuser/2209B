@@ -1,0 +1,6 @@
+<!-- https://www.cnblogs.com/goloving/p/14627146.html 自定义导航菜单 。思路：1.先隐藏微信小程序自带的导航菜单；2.自定义导航菜单样式，并设置固定定位于顶部  3.导航栏的高度等于：手机状态栏的高度 + 胶囊按钮高度 + 以及胶囊按钮的上下边距-->
+<view class="search-input" style="height:{{navHeight}}px;padding-top:{{searchMarginTop}}px;background-color: {{navbackcolor}};">
+    <view class="input-box" style="height:{{searchHeight}}px;width: {{searchWidth}}px;margin: 0px {{navMargin}}px;background-color: {{inpbackcolor}};">
+        <input class="v-expand" disabled="{{disabled}}" bindconfirm="enterValue" catchtap="toGo" value="{{value}}" placeholder="{{placeholder}}" style="height:{{searchHeight}}px;" data-value="{{value}}" bindinput="inputValue" bindblur="blurValue"/>
+    </view>
+</view>

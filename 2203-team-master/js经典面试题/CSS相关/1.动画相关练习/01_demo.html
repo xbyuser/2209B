@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>动画</title>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />   
+        <style type="text/css"> 
+            img
+            {
+                width:400px;
+                height:400px;
+                position:fixed;
+                left:0;
+                z-index:1;
+                visibility:hidden;
+            }
+            div.sliderBar
+            {
+                position:relative;
+                z-index:100;
+            }
+            div.sliderBar a
+            {
+                display:inline-block;
+                border:1px solid black;
+                width:100px;
+                background:#ccc;
+            }
+
+            /*定义动画*/
+            @keyframes slideLeft 
+            {
+                from {left:-300px;}
+                to {left:0px;}
+            }
+            @keyframes slideBottom 
+            {
+                from {top:350px;}
+                to {top:0px;}
+            }
+            @keyframes zoomIn 
+            {
+                from {transform:scale(0);}
+                to {transform:scale(1);}
+            }
+            @keyframes rotate 
+            {
+                from {transform:rotate(0deg) scale(0);}
+                to {transform:rotate(360deg) scale(1);}
+            }
+			/* 兼容ie9以下写法 */
+            @-webkit-keyframes slideLeft 
+            {
+                from {left:-300px;}
+                to {left:0px;}
+            }
+            @-webkit-keyframes slideBottom 
+            {
+                from {top:350px;}
+                to {top:0px;}
+            }
+            @-webkit-keyframes zoomIn 
+            {
+                from {transform:scale(0);}
+                to {transform:scale(1);}
+            }
+            @-webkit-keyframes rotate 
+            {
+                from {transform:rotate(0deg) scale(0);}
+                to {transform:rotate(360deg) scale(1);}
+            }
+            
+            
+            div>img:target
+            {
+                z-index:20;
+                visibility:visible;    
+            }
+            /*使用 target 伪类触发动画*/
+            .slideLeft:target
+            {
+                animation:slideLeft 5s;
+                -webkit-animation:slideLeft 5s;
+            }
+            .slideBottom:target
+            {
+                animation:slideBottom 5s;
+                -webkit-animation:slideBottom 5s;
+            }
+            .zoomIn:target
+            {
+                animation:zoomIn 5s;
+                -webkit-animation:zoomIn 5s;
+            }
+            .rotate:target
+            {
+                animation:rotate 5s;
+                -webkit-animation:rotate 5s;
+            }
+        </style>  
+    </head>
+    <body>            
+            <div>
+                <img id="img1" class="slideLeft" src="Images/p001.jpg"  />
+                <img id="img2" class="slideBottom" src="Images/p002.jpg" />
+                <img id="img3" class="zoomIn" src="Images/p003.jpg" />
+                <img id="img4" class="rotate" src="Images/p004.jpg" />
+                <!--4个小图-->
+                <div class="sliderBar">
+                    <a href="#img1">img1</a>
+                    <a href="#img2">img2</a>
+                    <a href="#img3">img3</a>
+                    <a href="#img4">img4</a>
+                </div>
+            </div>       
+        
+    </body>
+</html>

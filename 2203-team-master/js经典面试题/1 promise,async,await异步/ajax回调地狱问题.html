@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="jquery.js" charset="utf-8"></script>
+	<script>
+		//回调地域问题-后面的数据依赖于前面一层数据，如果依赖层数太多,会产生这种回调地狱问题。不优雅
+
+		//1. ajax基础用法
+		/* 	$.ajax({
+				url:'data/arr.txt',
+				method:'get',
+				data:{},
+				success:function(res){
+					console.log(36,res) //成功
+				},
+				error:function(err){
+					console.log(16,err) //失败
+				}
+			}) */
+
+		//2.层层嵌套-回调地狱问题
+
+		/* 	$.ajax({
+				   url:'data/1.json',
+				   success:function(res){
+					   console.log(res) //{a:7}
+						a1=res.a
+					   console.log('a1的结果执行了')
+					   if(a1){//后面请求依赖上1个结果
+							$.ajax({
+								   url:'data/2.json',
+								   success:function(res2){
+									   var a2=res2.b
+									   console.log(a2)
+									   console.log('a2的结果执行了')
+									   if(a2){  //如果请求成功执行
+											 $.ajax({
+													 url:'data/3.json',
+													 success:function(res3){
+														   var a3=res3.c
+													   console.log(a3)
+														   if(a3==99){
+																console.log('a3的结果执行了')
+														   }
+													 }
+											  })
+									   }
+								   }
+							 })
+										
+					   }
+				   }
+			})  */
+
+
+		//如何解决上面的回调地狱问题？
+		//方法1-声明全局变量
+		/*  function promise(){
+			var a1=''
+			$.ajax({
+				   url:'data/1.json',
+				   success:function(res){
+					   console.log(res) //{a:7}
+					   a1=res.a
+					   console.log('a1的结果执行了')
+					 },
+		
+			}) 
+			return a1
+			console.log(64,a1);
+		}
+		
+			//把a1拿到外面，使用
+			let p=promise()
+			console.log(74,p)
+			//下面多个接口在调用 ，就可以用这个值了
+			 */
+
+		//方法2-回调函数
+
+		function promise(callback) {
+			$.ajax({
+				url: 'data/1.json',
+				success: function (res) {
+					// console.log(res) //{a:7}
+					var a1 = res.a
+					console.log('a1的结果执行了')
+					if (a1) {
+						callback(a1)
+					}
+				}
+
+			})
+
+		}
+
+		promise((aa) => {
+			console.log('回调函数执行', aa);
+		})
+
+
+
+	</script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            background-color: black;
+        }
+        html{
+            height: 100%;
+        }
+        body{
+            height: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .app{
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+			overflow: hidden;
+        }
+        img{
+            width: 500px;
+            height: 300px;
+        }
+        li{
+            width: 500px;
+            height: 300px;
+            position: absolute;
+        }
+        ul{
+            width: 510px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .nav{
+            background-color: red;
+            color: white;
+            margin-left: 10px;
+            font-size: 20px;
+            border-radius: 50%;
+           padding: 0 8px;
+            margin-bottom: 10px;
+            opacity: 0.2;
+        }
+        .active{
+            opacity: 1;
+        }
+        li div{
+            margin-top: -30px;
+        }
+		div span{
+			position: relative;
+			left:-300px;
+			top:450px;
+		}
+		.prev span{
+			font-size: 30px;
+			color:white;
+			top:300px;
+		}
+		.prev span:first-child{
+			left:-500px;
+		}
+		.prev span:nth-child(2){
+			left:-100px;
+		}
+		
+       .image-enter-active {
+            transition: all 1s linear
+        }
+        .image-leave-active {
+            transition: all 1s linear;
+        }
+        .image-enter-to {
+            transform: translateX(0);
+        }
+        .image-enter {
+            transform: translateX(100%);
+        }
+        .image-leave {
+            transform: translateX(0);
+        }
+        .image-leave-to {
+            transform: translateX(-100%);
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div  v-on:mouseover="stop()" v-on:mouseout="move()" class="app">
+        <transition-group tag="ul" name="image">
+            <li v-for="(items,index) in list" v-show="index===num" :key="index" >
+                <img :src="items" alt="">
+            
+            </li>
+        </transition-group>
+		<div class="prev">
+			<span @click="back"> < </span>
+			<span @click="go"> > </span>
+			 
+		</div>
+		
+		<div>
+		    <span v-for="(items,index) in data" class="nav" @click="change(index)" :class="{'active':index==num}">{{items}}</span>
+		</div>
+    </div>
+</div>
+<script src="vue.js"></script>
+
+<script>
+
+    new Vue({
+        el:'#app',
+        data(){
+            return{
+                data:['1','2','3'],
+                time:'',
+                num:0,
+                list:['images/b1.png',
+                    'images/b2.png',
+                    'images/b3.png'],
+            }
+        },
+        methods:{
+			change(i){
+			    this.num=i
+			},
+            play(){
+                this.time=setInterval(()=>{
+                    this.num++;
+                    if(this.num==3){
+                        this.num=0
+                    }
+
+                },2000)
+            },
+			back(){
+				this.num--
+				if(this.num<0){
+					this.num=2
+				}
+			},
+			go(){
+				this.num++
+				if(this.num==3){
+					this.num=0
+				}
+			},
+            stop(){
+                clearInterval(this.time)
+            },
+            move(){
+                this.play();
+            }
+        },
+        created(){
+            this.play();
+        },
+
+    })
+</script>
+</body>
+
+</html>

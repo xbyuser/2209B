@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            margin-bottom: 70px;
+        }
+
+        .nav-wrapper ul {
+            display: flex;
+        }
+
+        .nav-wrapper li {
+            margin-right: 10px;
+            border: 1px solid red;
+        }
+
+        .nav-wrapper li a {
+            display: block;
+            color: black;
+
+            padding: 25px 10px;
+
+        }
+
+        .nav-wrapper li a.active {
+            background: red;
+
+        }
+    </style>
+    <script>
+        //注意问题：1.默认执行1次全部 2.点击排序时查找原始数据里的type跟排序后数据type，然后渲染
+
+        let json1 = [
+            { title: '出现跑路，北京全面排查P2P风险', type: '互联网', href: 'http://tech.163.com/14/0610/08/9UC5IJQE000915BF.html' },
+            { title: '北京傍晚到夜间有雷阵雨 明天白天多云转晴', type: '国内', href: 'http://news.hexun.com/2014-06-10/165566949.html' },
+            { title: '“10亿美元俱乐部”的宠儿有哪些？', type: '互联网', href: 'http://www.pingwest.com/2014-startups-with-billion-dollar-valuations/' },
+            { title: '恒大官方宣布于汉超李学鹏加盟 制海报欢迎(图)', type: '体育', href: 'http://sports.sina.com.cn/j/2014-06-10/19177202125.shtml' },
+            { title: '外交部称美国是“黑客帝国”：地球人都知道', type: '互联网', href: 'http://politics.caijing.com.cn/2014-06-10/114251776.html' },
+            { title: '乌克兰卢甘斯克机场被关闭', type: '军事', href: 'http://stock.sohu.com/20140610/n400627314.shtml' },
+        ];
+
+        window.onload = function () {
+            // 类型
+            var allBtn = document.querySelectorAll(".nav-wrapper a")
+            // 内容区
+            var ctt = document.querySelector(".content")
+            // 升序
+            var up = document.querySelector(".up")
+            // 降序
+            var down = document.querySelector(".down")
+
+
+            //渲染
+            function init(target) {
+                // 请空
+                ctt.innerHTML = ""
+                // 循环创建
+                json1.forEach(function (item) {
+                    if (item.type == target || target == "全部") {
+                        var p = document.createElement("p")
+                        p.innerHTML = ` <a href="i${item.href}">${item.title}</a>`
+                        ctt.appendChild(p)
+                    }
+                });
+            }
+            init("全部")
+
+
+            //类型按钮委托
+            document.querySelector(".nav-wrapper ul").onclick = function (e) {
+                e = e || event
+                //  点击按钮
+                if (e.target.nodeName == "A") {
+                    for (var i = 0; i < allBtn.length; i++) {
+                        allBtn[i].className = ""
+                    }
+                    e.target.className = "active"
+                    init(e.target.innerHTML)
+
+                }
+            }
+
+            // 排序按钮
+            up.onclick = function () {
+                newsort(function (a, b) {
+                    return a.num - b.num
+                })
+            }
+            down.onclick = function () {
+                newsort(function (a, b) {
+                    return b.num - a.num
+                })
+            }
+
+
+            //排序
+            function newsort(fn) {
+                // 去重
+                var obj = {}
+                json1.forEach(function (item) {
+                    if (obj[item.type]) {
+                        obj[item.type]++
+                    } else {
+                        obj[item.type] = 1
+                    }
+                })
+                // 排序
+                var arr = []
+                for (var key in obj) {
+                    arr.push({ type: key, num: obj[key] })
+                }
+                arr.sort(fn)
+
+                //渲染
+                ctt.innerHTML = ""
+                arr.forEach(function (item) {
+                    var type = item.type //排序后的数据
+                    json1.forEach(function (item) {
+                        if (item.type == type) { //查找原始数据里的type跟排序后数据type
+                            var p = document.createElement("p")
+                            p.innerHTML = ` <a href="i${item.href}">${item.title}</a>`
+                            ctt.appendChild(p)
+                        }
+                    })
+                })
+            }
+
+
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <div class="nav-wrapper">
+        <ul>
+            <li><a href="javascript:;" class="active">全部</a></li>
+            <li><a href="javascript:;">互联网</a></li>
+            <li><a href="javascript:;">国内</a></li>
+            <li><a href="javascript:;">体育</a></li>
+            <li><a href="javascript:;">军事</a></li>
+        </ul>
+        <div>
+            <a href="javascript:;" class="up">升序(按新闻类型数量)</a>
+            <a href="javascript:;" class="down">降序(按新闻类型数量)</a>
+        </div>
+    </div>
+    <div class="content">
+
+    </div>
+</body>
+
+</html>

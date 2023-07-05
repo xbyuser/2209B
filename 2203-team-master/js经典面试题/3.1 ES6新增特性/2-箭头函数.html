@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+   //箭头函数最直观的三个特点。=>
+// 1.不需要 function 关键字来创建函数
+// 2.省略 return 关键字
+//3. 继承当前上下文的 this 关键字。帮你自动改变this指向
+ 
+//1.普通方法
+//函数用法
+function tab0(a){
+	console.log(a)
+}	
+tab0(1)  
+function 
+//函数表达式
+var tab=function(a){
+	console.log(a)
+}	
+tab(1)  
+
+//es6中=>箭头函数，简化function
+ 
+var tab1=(a)=>{
+	console.log(a)
+}	
+tab1(2)  
+ 
+// 2. 省略 return 关键字
+// var arr=[3,1,2]
+// arr.sort(function(a,b){ //升序
+// 	return a-b
+// })
+// console.log(arr)
+
+//=>箭头函数写法
+// arr.sort((a,b)=>{
+// 	return a-b
+// })
+// console.log(arr)
+
+//如果返回值只有一行，可以直接省略{}和return。如果参数只有一个值，()也可省略
+// var arr2=[3,1,2,-1]
+// arr2.sort((a,b)=>a-b)
+//  console.log(arr2) 
+
+//!!!注意这种，写到多行，带花括号是有问题的
+// var arr2=[3,1,2,-1]
+//  arr2.sort((a,b)=>{
+//       a-b
+//  })
+//  console.log(arr2) 
+ 
+//3. 箭头函数里this,会自动把this指向原来它所在的对象
+    
+   /*   let person = {
+            username:"大卫",
+            show:function(){
+                console.log(this.username); //大卫
+				var that=this
+                setTimeout(function(){
+                     console.log(this); //window
+					 console.log(this.username) //undefined ，因为this被套一层,指向window
+					console.log(that.username)
+				},0)
+            }
+        }
+		person.show()  */
+
+    //箭头函数-this被自动指向它原来所在对象。注意如果是对象里的键值function。不要用箭头函数
+     /*   let person = {
+            username:"大卫",
+			//注意！！！这不能用箭头函数
+            show:function(){  
+                setTimeout(()=>{ 
+					console.log(this.username)
+				},0)
+            }
+        }
+		person.show()   */
+
+// 缺点.1.=>里，arguments不能访问参数
+    //传统
+  /*   function sum(){
+           //arguments 可访问函数参数 
+		   console.log(arguments)
+		   console.log(arguments.length) //3
+     }
+    sum(7,8,3)  */
+ 
+   //1.1 =>不能访问参数
+ /*  var sum=()=>{
+     
+   	   console.log(98,arguments) //报错
+   	  
+    }
+   sum(7,8,3)  */
+   
+// 2.构造函数不能用=> 
+
+ // 2.1  构造函数
+/*    function Person(){
+         this.username = "大卫";
+         this.sex = "女";
+		 this.say=function(){
+			 console.log(this.username+this.sex)
+		 }
+   }
+   
+ let p1 = new Person();//实例化对象
+ p1.say()   */
+ 
+ //构造函数不能用=> 
+ /* var Person=()=>{
+	 this.username = "大卫";
+	 this.sex = "女";
+	 this.say=function(){
+	  	console.log(this.username+this.sex)
+	 }
+ }
+ let p1 = new Person();//报错
+ p1.say() */
+ 
+</script>
+</body>
+</html>

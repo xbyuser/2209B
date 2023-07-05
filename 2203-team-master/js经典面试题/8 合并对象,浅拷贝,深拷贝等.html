@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>合并两个对象,深浅拷贝</title>
+	<style type="text/css">
+
+	</style>
+</head>
+
+<body>
+	<script type="text/javascript">
+
+		// 面试题-如何合并两个对象？
+		/* 	// 1. 合并两个对象
+			var a = { a: 1, b: 2, d: 5 };
+			var b = { a: 2, b: 3, c: 4 };
+	
+			//  console.log('对象调用方法',a.b,a['b']);
+			//  console.log('对象的特点,键一样的话后边会覆盖前面',{a:1,b:2,a:3}); //{a:3,b:2}
+	
+			//一.如何合并两个对象
+			//1.es6 Object.assign(对象1,对象2)
+			// console.log(Object.assign(a,b));//{a: 2, b: 3, d: 5, c: 4}
+			// let c=Object.assign({},a,b) //如果要赋值，第1个可以给空对象
+			// console.log(c);
+	
+			//2.传统方法合并
+			// for (const key in b) {
+			// 	// console.log(b[key]);
+			// 	a[key] = b[key] //直接把b的值赋值给a
+			// }
+			// console.log('for in合并对象',a);
+	
+			//3. 展开符 合并对象{...a,...b} 合并数组[...arr1, ...arr2]
+			let d={...a,...b};
+			console.log('展开符合并',d); // {a: 2, b: 3, d: 5, c: 4} */
+
+
+		//三.思考题-北京宝宝树面试题，如何深度合并两个对象
+		//换句意思就是-如何遍历对象里的对象
+		//要求返回结果
+		// let obj3={
+		// 	a:2,
+		// 	b:{
+		// 		b1:21,
+		// 		b2:22
+		// 	}
+		// }
+
+		//原题
+		/*        let obj1={
+					 a:1,
+					 b:{
+						 b1:21,
+					 }
+				 }
+			 	
+				 let obj2={
+					 a:2,
+					 b:{
+						 b2:22,
+					 }
+				 }
+	 
+			  //1.试下浅拷贝方法-只能拷贝一层
+			 //  console.log(83,{...obj1,...obj2}); //不行覆盖了
+			 //  console.log(84,Object.assign({},obj1,obj2))//不行覆盖了
+			 //  //传统的var in遍历
+			 //  for (var key in obj2) {
+			 //      obj1[key]=obj2[key]
+			 //  }
+			 // console.log(89,obj1); 
+		  
+	 
+			 //2.1 深拷贝方法-有多层对象就拷贝多层(得判断多层对象是否还是对象,如果是就赋值)
+			  //条件-如果是多层看是否还是对象,如果是对象在遍历在赋值。如果1层直接赋值
+		   console.log(92,Object.prototype.toString.call({})); //'[object Object]'
+			for (const key in obj2) {
+		  //检测是否是对象  typeOf   constructor(构造函数 Object)  instanceof   Object.prototype.toString.call( 
+			 //前2个如果是数组检测就有问题
+			 // if(obj2[key].constructor==Object){  
+			 // if(obj2[key] instanceof Object){
+			 //终极方案-如果是数组'[object Array]'
+				if(Object.prototype.toString.call(obj2[key])=='[object Object]'){
+					 for (const key2 in obj2[key]) {
+						 obj1[key][key2]=obj2[key][key2]
+					 }
+				}
+				else{
+					 obj1[key]=obj2[key]
+				}
+			}
+		   console.log(89,obj1); */
+
+		//2.2 封装下上面
+		//   function deep1(obj1,obj2){
+		//         for (const key in obj2) {
+		//             //如果是多层，层层遍历对象的对象
+		//             if(obj2[key] instanceof Object){
+		//                 for (const key1 in obj2[key]) {
+		//                     obj1[key][key1]=obj2[key][key1]
+		//                 }
+		//             }
+		//             //除非1层
+		//             else{
+		//                 obj1[key]=obj2[key]
+		//             }
+
+		//         }
+		//         return obj1
+		//    }
+		// console.log(deep1(obj1,obj2)); 
+
+		//3.对象有无穷无尽，不知道多少层？-用递归遍历
+		let obj1 = {
+			a: 1,
+			b: {
+				// b1:[1],
+				b2: {
+					c1: 33
+				},
+				b3: 1
+			}
+		}
+
+		let obj2 = {
+			a: 2,
+			b: {
+
+				// b1:[2],
+				b2: {
+					c2: 44
+				},
+				b3: 2
+			}
+		}
+		// 3.1 通过简单的递归-如果有数组有bug
+
+		function deep1(obj1, obj2) {
+			for (const key in obj2) {
+				//如果是多层，层层遍历对象的对象
+				if (obj2[key] instanceof Object) {
+					// for (const key1 in obj2[key]) {
+					//     obj1[key][key1]=obj2[key][key1]
+					// }
+					//递归调用
+					deep1(obj1[key], obj2[key])
+				}
+				//除非1层
+				else {
+					obj1[key] = obj2[key]
+				}
+
+			}
+			return obj1
+		}
+		console.log(158, deep1(obj1, obj2));
+
+		//3.2 深拷贝终极版-对象又分为数组和json对象，所以分开来判断类型
+		/* 	function deepClone(obj1, obj2) {
+				//判断是不是json对象{}
+				if (Object.prototype.toString.call(obj1) === '[object Object]' && Object.prototype.toString.call(obj2) === '[object Object]') {
+					for (let key in obj2) {
+						//递归赋值，合并对象
+						obj1[key] = deepClone(obj1[key], obj2[key]);
+					}
+				}
+				//判断是不是数组[]，合并数组
+				else if (Object.prototype.toString.call(obj1) === '[object Array]' && Object.prototype.toString.call(obj2) === '[object Array]') {
+					// 两个都是数组，进行合并
+					obj1 = obj1.concat(obj2);
+				}
+				//其他情况，直接赋值
+				else {
+					obj1 = obj2;
+				}
+				return obj1;
+
+			}
+			console.log(190, deepClone(obj1, obj2)) */
+
+		//4 深拷贝其它方法 JSON.parse(JSON.stringify(obj))  缺点：不能复制RegExp、Error，undefined,日期对象等
+
+		//5.1基本类型与引用类型的区别：
+		/* 	//基本类型：数字、字符串、布尔值、null、undefined
+			var a = 10;
+			var b = a;
+			b = 20;
+			console.log(a, b); // 10,20  基本类型存储在栈中，每声明一个变量，就会分配一块内存存储该值
+
+			// //引用类型：对象{}、数组
+			var c = [1, 2];
+			var d = c;
+			d[0] = 3;
+			console.log(c, d); // [3,2] [3,2]  引用类型存储在堆中，在内存中这两个变量指向的是同一个地址，所以改变一个另一个也会改变。
+
+			//用深拷贝方法-不能改变原数据
+			var e = [1, 2];
+			var f = JSON.parse(JSON.stringify(e)); //深拷贝方法
+			e[0] = 3;
+			console.log(211, e, f); */
+
+
+		//5.2 .面试题：输出结果,为什么?
+		/* 	var obj4 = { a: 1, b: 2, c: 3, d: { e: 4 } }
+			//  var obj5=obj4  // 2,2,3,5 因为是对象,它属于浅拷贝赋值
+			//  var obj5= JSON.parse(JSON.stringify(obj4))  //深拷贝  1,2,3,4
+			var obj5 = { ...obj4 } //展开运算符并不是深拷贝，而是浅拷贝。为什么a的值不变？因为a是基本类型,基本类型不会被拷贝，而是直接赋值。1,2,3,5
+			obj4.a = 2
+			obj4.d.e = 5
+
+			console.log(obj4, obj5); //2235,1235  */
+
+		// 总结:
+		// 浅拷贝：仅仅是指向被复制的内存地址，如果原地址发生改变，那么浅复制出来的对象也会相应的改变。特点:只复制一层 。方法有： Object.assign(), es6中的展开运行符{...a,...b} var in 遍历对象，进行单层赋值
+
+		// 深拷贝：在计算机中开辟一块新的内存地址用于存放复制的对象。特点:可复制多层 。方法有 JSON.parse(JSON.stringify(obj))  ，递归深拷贝：如果对象里还有对象，也就是多层？先判断是不是对象,是的话递归循环遍历赋值
+
+
+		// 相关链接:https://segmentfault.com/q/1010000008815500	  对象的深度合并 		
+
+	</script>
+</body>
+
+</html>

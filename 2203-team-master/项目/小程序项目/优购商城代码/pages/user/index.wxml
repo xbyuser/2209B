@@ -1,0 +1,60 @@
+<!--pages/user/index.wxml-->
+<view class="user_info_wrap">
+  <view wx:if="{{userinfo.avatarUrl}}" class="user_img_wrap">
+    <image class="user_bg" src="{{userinfo.avatarUrl}}" ></image>
+    <view class="user_info">
+      <image class="user_icon" src="{{userinfo.avatarUrl}}"></image>
+      <view class="user_name">{{userinfo.nickName}}</view>
+    </view>
+  </view>
+  <view wx:else class="user_btn">
+    <navigator url="/pages/auth/index" >登录</navigator>
+  </view>
+</view>
+<view>
+  <button  type="primary"  bindtap="loginOut"> 退出登录 </button>
+</view>
+
+<!-- 图片上传页面 -->
+ <navigator url="/pages/feedback/index" >
+     <button  type="warn"> 图片上传页面-wx原生 </button>
+</navigator>
+
+<!-- <navigator url="/pages/upload/index" >
+     <button  type="warn"> 图片上传页面-wx原生 </button>
+</navigator> -->
+ 
+<navigator url="/pages/subpkg/vant_upload/index" >
+     <button   type="primary"> 图片上传-vant组件 </button>
+</navigator>
+<navigator url="/pages/location/location" >
+     <button> 地图功能演示 </button>
+</navigator>
+<navigator url="/pages/map/index" >
+     <button> 地图周边搜索 </button>
+</navigator>
+<navigator url="/pages/ucharts/index" >
+     <button> ucharts图表演示 </button>
+</navigator>
+ <!-- 我的订单 -->
+ <view class="orders_wrap">
+      <view class="orders_title">我的订单</view>
+      <view class="order_content">
+        <navigator url="/pages/order/index?type=1">
+          <view class="iconfont icon-ding_dan"></view>
+          <view class="order_name">全部订单</view>
+        </navigator>
+        <navigator url="/pages/order/index?type=2">
+          <view class="iconfont icon-fukuantongzhi"></view>
+          <view class="order_name">待付款</view>
+        </navigator>
+        <navigator url="/pages/order/index?type=3">
+          <view class="iconfont icon-receipt-address"></view>
+          <view class="order_name">待收货</view>
+        </navigator>
+        <navigator>
+          <view class="iconfont icon-tuihuotuikuan_dianpu"></view>
+          <view class="order_name">退款/退货</view>
+        </navigator>
+      </view>
+ </view>

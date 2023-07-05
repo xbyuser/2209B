@@ -1,0 +1,23 @@
+ 概念：
+JS核心-(ECMAscript(ES3),DOM,BOM,),ES5语法(ECMAscript2015[数组新方法,forEach,filter]),ES6(ECMAscript2016[let语法,`${变量}`-字符串模板],=>) 
+
+
+相关链接-https://www.cnblogs.com/song-song/p/5329374.html
+
+--------------------------------------------------------------
+
+
+ES5中新增的数组方法，最大的特点就是遍历的思想，减少了很多for循环的使用,效率加快。而其所有的方法，都有一点核心，就是都不会修改原始数组
+
+1.循环遍历方法:  arr.forEach(function(item,index,arr){})  第1个参数item代表当前值,第2个参数index代表当前索引,第3个参数arr代表整个数组-注意！真正的数组才能用这些方法。一般第3个参数不用的话，可以不写
+
+2. 筛选过滤方法:过滤出符合条件的数组  arr.filter(function(item,index,arr))
+
+-------------------------------------------------
+字符串总结:
+1.查找字符串字符 str[下标],str.charAt() 
+2.查找字符下标位置 str.indexOf(),str.lastIndexOf()最后出现字符的下标位置 
+3.转字符为大小写-str.toUpperCase(),str.toLowerCase()
+4.截取字符串(start,end)-str.substring(),str.slice(),str.substr().共同点[给1个数字,代表截取到结尾,包左不包右],不同点[substring给负值变0,slice给负值,从右边开始,substr第2个值代表个数] 
+5.分割字符串,返回的是数组-str.split('分割符') 
+6.替换字符串-str.replace('旧的','新的')

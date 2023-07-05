@@ -1,0 +1,36 @@
+<!--pages/category/index.wxml-->
+<view class="cates">
+  <!-- 搜索框 -->
+  <!-- <view class="index_search" >
+         <input type="text" placeholder="搜索" bindtap="go"/>
+  </view> -->
+  <!-- 调用公用搜索框封装组件 -->
+  <search-input></search-input>
+
+  <!-- 内容区 -->
+  <view class="cates_container">
+    <!-- 左侧菜单 -->
+    <scroll-view scroll-y class="left_menu">
+      <view class="menu_item" wx:for="{{leftMenuList}}" bindtap="handleItemTap" data-index="{{index}}" >
+            {{item}}
+        </view>
+    </scroll-view>
+    <!-- 右侧商品内容 -->
+    <scroll-view  scroll-y class="right_content">
+      <!-- 二级标题 -->
+      <view class="menu_item" wx:for="{{rightContent}}"  >
+               {{item.cat_name}}
+            <!-- 三级标题内容 -->
+            <navigator  wx:for="{{item.children}}"  wx:for-item="item1" bindtap="go">
+               <view class="menu_item" >
+                <!-- 右侧三级 -->
+                  {{item1.cat_name}}
+               </view>
+            </navigator>
+           
+      </view>
+    
+    </scroll-view>
+  </view>
+</view>
+

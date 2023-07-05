@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>list数据转树形菜单数据</title>
+	<style type="text/css">
+
+	</style>
+</head>
+
+<body>
+	<script type="text/javascript">
+		//根据父id查找所有子级数据-！！！注意是所有子级数据，以及依赖于子级的子级数据
+		//应用场景:常用于前端要实现树形菜单效果，然而后台返回数据是的list列表数据，所以需要我们单独编写方法处理成树形菜单
+
+		//数据-id 为当前行id，parendId为父级id
+		var data = [
+
+			{ name: '根目录1', id: 1, parentId: 0, },
+
+			{ name: '根目录2', id: 2, parentId: 0 },
+
+			{ name: '子目录1-1', id: 3, parentId: 1, },
+
+			{ name: '子目录1-2', id: 4, parentId: 1 },
+
+			{ name: '子目录2-1', id: 5, parentId: 2 },
+
+			{ name: '孙目录1-2-1', id: 6, parentId: 4 }
+
+		];
+
+		//思路:1.遍历数据先拿最外层数据,如何获取？判断当前行父级parentId是否等于最大的根节点值 2.在判断当前id下在整个数据中有无子孙id, 如果有就给当前行增加children 属性,值为查找到的子孙对象 。核心是怎么找子孙对象？下次走时在判断当前父级parentId跟整个数据里id对比
+
+		//提炼前
+		function Tree(data, id) {
+			let arr = [];
+			// 1.遍历数据先拿最外层数据,如何获取？判断当前行父级id是否等于最大的根节点值
+			data.forEach((item, index) => {
+				if (item.parentId == id) {
+					//2.判断当前id下有无子孙id, 如果有就给当前行增加children 属性,值为查找到的子孙对象。核心是怎么找子孙对象？下次走时在判断当前父级parentId跟整个数据里id对比
+					let len = Tree(data, item.id)
+					console.log(44, len.length);
+					console.log(45, len);
+					// // console.log(‘查找子孙元素对象’,len)
+					if (len.length > 0) {
+						item.children = len
+					}
+					arr.push(item)
+				}
+			})
+			return arr
+		}
+		console.log(53, Tree(data, 0));  //返回数组对象
+
+		//提炼后-数据里的parentId字段不确定，需要传入Tree(data, 0, 'parentId')
+		/* function Tree(data, id, pid) {
+			let arr = [];
+			// 1.遍历数据先拿最外层数据,如何获取？判断当前行父级id是否等于最大的根节点值
+			data.forEach((item, index) => {
+				if (item[pid] == id) {
+					//2.判断当前id下有无子孙id, 如果有就给当前行增加children 属性,值为查找到的子孙对象。核心是怎么找子孙对象？下次走时在判断当前父级parentId跟整个数据里id对比
+					let len = Tree(data, item.id, 'parentId')
+					// console.log(‘查找子孙元素对象’,len)
+					if (len.length > 0) {
+						item.children = len
+					}
+					arr.push(item)
+				}
+			})
+			return arr
+		}
+		//比如传入父id是0，那它下面的所有子级数据都要返回。同时依赖于子级的子级数据也要返回。
+		console.log(53, Tree(data, 0, 'parentId'));  //返回数组对象  */
+
+
+     //返回最后结果
+	// [
+	// 		 {name: "根目录1", id: 1, parentId: 0,
+	// 			children: [
+	// 				   {name: "子目录1-1", id: 3, parentId: 1},
+	// 				   {name: "子目录1-2", id: 4, parentId: 1,children: [{name: "孙目录1-2-1", id: 6, parentId: 4}]},
+	// 				     ]
+	// 		},
+	// 		{name: "根目录2", id: 2, parentId: 0,
+	// 			 children: [{name: "子目录2-1", id: 5, parentId: 2}]
+	// 		}
+	// ]
+
+
+
+	</script>
+</body>
+
+</html>

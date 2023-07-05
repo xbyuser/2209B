@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>绘制饼图-算比例</title>
+<style>
+body {background:black; text-align:center;}
+#c1 {background:white;}
+</style>
+<script>
+function d2a(n)	//角度->弧度
+{
+	return n*Math.PI/180;
+}
+
+window.onload=function ()
+{
+	var oC=document.getElementById('c1');
+	var gd=oC.getContext('2d');
+	
+	var cx=300,cy=300;
+	var r=200;
+	var start=20,end=60;
+	
+	function pie(start, end)
+	{
+		gd.beginPath();
+		gd.moveTo(cx, cy);
+		gd.lineTo(cx+Math.sin(d2a(start))*r, cy-Math.cos(d2a(start))*r);
+		
+		gd.arc(cx, cy, r, d2a(start-90), d2a(end-90), false);
+		
+		gd.closePath();
+		
+		gd.stroke();
+	}
+	
+	var arr=[500, 200, 300, 500];
+	
+	//1.算比例
+	var sum=0;
+	for(var i=0;i<arr.length;i++){
+	 sum+=arr[i];
+	}
+	
+	var aScale=[];
+	for(var i=0;i<arr.length;i++)
+	{
+		aScale[i]=arr[i]/sum;
+	}
+	
+	//2.算角度
+	var aAngle=[];
+	for(var i=0;i<arr.length;i++)
+	{
+		aAngle[i]=360*aScale[i];
+	}
+	
+	alert(aAngle);
+	
+	//3.画
+	var cur=0;
+	for(var i=0;i<aAngle.length;i++)
+	{
+		//alert(cur+','+(cur+aAngle[i]));
+		//cur->cur+aAngle[i]
+		pie(cur, cur+aAngle[i]);
+		
+		cur+=aAngle[i];
+	}
+};
+</script>
+</head>
+
+<body>
+<canvas id="c1" width="800" height="600"></canvas>
+</body>
+</html>
+
+
+
+
+
+
+
+

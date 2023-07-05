@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>vue中数据改变视图不更新问题</title>
+</head>
+
+<body>
+	<div id="app2">
+		<p>年龄1：{{num}}</p>
+		<p>年龄2：{{num2}}</p>
+
+		<p v-for="(item,idx) in items">
+			{{item.message}}
+		</p>
+		<button class="btn" @click="btn1Click()">修改数据</button><br />
+		<button class="btn" @click="btn1Click2()">新增数据</button><br />
+
+	</div>
+
+	<script src="vue.js"></script>
+	<script>
+		var vm2 = new Vue({
+			el: "#app2",
+			data: {
+				num: [18],
+				num2: { a: 18 },
+				items: [
+					{ message: "Test one", id: "1" },
+					{ message: "Test two", id: "2" },
+					{ message: "Test three", id: "3" }
+				],
+
+			},
+			methods: {
+				//需求：修改数据的值时,视图同样被修改-专业术语叫响应式更新
+				btn1Click: function () {
+
+					//注意！！！vue中对数组更改不触发视图，但是数据会改变。不是响应式更新
+					//1.改变数组，数据改变,视图不更新
+					// this.num[0] = 20;
+					// //   this.num[0]++;
+					// console.log(42, this.num)
+					//解决办法1
+					//  this.num.push(20)
+					//  this.num.splice(0,1,20)
+
+					//解决办法2 Vue.set(对象,索引,增加值)
+					//  this.$set(this.num,0,22)
+					// this.$set(this.num,0,20)
+
+					//2.对象新增,数据改变，视图不更新。
+					//   this.num2['b']=22;
+					//   console.log(this.num2);
+
+					//对象改变原值,数据视图都会更新
+					//  this.num2['a']=33;
+					//  console.log(this.num2);
+
+					// 解决方法1-调用vue中数组方法，可响应式更新。注意这里的数组方法不是原生数组方法，是vue对其重写了，但是用法跟原生数组方法一样。
+					// this.num.splice(0,1,19)
+
+					// this.items.splice(0,1,{message:"Change1",id:'1'});//(从几开始切,切几个，替换的值)
+
+					//方法2-如果想一直++怎么办?可用Vue.set(对象,索引,增加值)方法
+					// Vue.set(this.items,0,{message:"Change2",id:'1'})
+					//或者在方法中可用this调用
+
+					// this.$set(this.items,0,this.num[0]++)
+
+				},
+				btn1Click2: function () {
+					// this.items.push({message:"Change4",id:'4'}); //注意会一直新增
+					//或
+					//this.$set(this.items,3,{message:"Change4",id:'4'}) //这个如果数据一样会覆盖
+					//如果想一直增加
+					// var len=this.items.length
+					// this.$set(this.items,len,{message:"Change4",id:'4'})
+
+				}
+			}
+		});
+
+		/* 	面试题：有没有碰到过改变vue中data数据，视图没更新？为什么，怎么解决
+			主要原因Vue2是通过对象的Object.defineProperty()来实现双向数据绑定的，它只监听属性的变化，而不是监听整个对象的改变，所以监测不到数组的改变。可用$set方法或者数组push,splice这些方法来实现。 */
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>绘制文字-超了换行</title>
+<style>
+body {text-align:center; background:black;}
+#c1 {background:white;}
+</style>
+<script>
+window.onload=function ()
+{
+	var oC=document.getElementById('c1');
+	var gd=oC.getContext('2d');
+	
+	//gd.fillText(str, x, y)
+	//gd.strokeText(str, x, y)
+	
+	var str='会议强调，加强党中央的集中统一领导，支持全国人大常委会、国务院、全国政协、最高人民法院、最高人民检察院依法依章程履行职责、大胆工作、发挥作用，这两个方面是统一的，两个方面哪一方面都不能偏。党中央对全国人大常委会、国务院、全国政协、最高人民法院、最高人民检察院的统一领导，很重要的一个制度就是在这些机构成立党组。党组是党中央和地方各级党委在非党组织的领导机关中设立的组织机构，是实现党对非党组织领导的重要组织形式和制度保证。中央政治局常委会听取全国人大常委会、国务院、全国政协、最高人民法院、最高人民检察院党组汇报工作，是保证党中央集中统一领导的制度性安排，意义十分重大，对全党也具有十分重要的示范意义。';
+	
+	
+	gd.font='20px 宋体';
+	var arr=[];
+	
+	//取一段文字——量量，超了换行
+	for(var i=0;i<str.length;i++)
+	{
+		var str2=str.substring(0, i);
+		
+		if(gd.measureText(str2).width>=oC.width)
+		{
+			//str2——一行
+			arr.push(str2);
+			
+			str=str.substring(i+1);
+			if(str.length==0)
+			{
+				break;
+			}
+			else
+			{
+				i=0;
+			}
+		}
+	}
+	
+	console.log(arr);
+	
+	for(var i=0;i<arr.length;i++)
+	{
+		gd.fillText(arr[i], 0, 20*i+20);
+	}
+};
+</script>
+</head>
+
+<body>
+<canvas id="c1" width="800" height="600"></canvas>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+
+        }
+
+        #cvs {
+            border: 1px solid red;
+        }
+
+        .text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 500px;
+            height: 150px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="cvs" width="500" height="150"></canvas>
+    <p class="text">恭喜你中了1000万</p>
+
+</body>
+
+</html>
+<script>
+    //构建一个绘制环境
+    const cvsDom = document.querySelector('#cvs');
+
+    //绘制标签
+    const context = cvsDom.getContext('2d');
+
+
+
+
+    //绘制点
+    // context.moveTo(100,100);//起始位置
+    // context.lineTo(101,101);
+    // context.stroke();//绘制的方法
+
+
+    //绘制直线
+    // context.moveTo(50,100);
+    // context.lineTo(200,100);
+    // context.stroke();//绘制的结束方法
+
+    //绘制一个长方形
+    // context.moveTo(50,50);//起始位置
+    // context.lineTo(200,50);//第一条线
+    // context.lineTo(200,150);//第二条线
+    // context.lineTo(50,150);//第三条线
+    // context.lineTo(50,50);//第四条线
+    // context.stroke();//绘制的结束方法
+
+
+    //绘制一个圆
+    // context.arc(200, 200, 100, Math.PI / 180 * 0, Math.PI / 180 * 360, false);
+    // context.stroke()
+
+    // context.fillStyle='#f00';
+    // context.fillRect(100,100,200,200);//填充矩形
+
+
+    // context.strokeStyle='#f00'
+    // context.strokeRect(100, 100, 200, 200);//描边矩形
+
+
+    // context.font='30px sans-serif';
+    // context.strokeText('hello canvas', 200, 200, );
+
+
+    //先绘制一个矩形
+
+    context.fillStyle = '#f00';
+    context.fillRect(0, 0, cvsDom.width, cvsDom.height);
+
+
+    //绘制文字
+
+    context.strokeStyle = '#000';
+    context.font = '30px sans-serif';
+    context.textAlign = 'center';
+
+
+    context.strokeText('刮开有惊喜哦', cvsDom.width / 2, cvsDom.height / 2,);
+
+
+
+
+    //先设置一个开光法
+    let flage = false
+
+    //获取鼠标的按下的操作
+    cvsDom.addEventListener('mousedown', function () {
+        console.log('测试')
+        flage = true
+    })
+
+    //获取的是鼠标的一个移动 进行一个判断 获取橡皮擦的坐标
+
+    cvsDom.addEventListener('mousemove', function (e) {
+        console.log(e)
+        if (flage) {
+
+            //获取需要擦除的‘橡皮擦’的坐标
+            let x = e.clientX - cvsDom.offsetLeft
+            let y = e.clientY - cvsDom.offsetTop
+
+            // 图像合成的模式
+            context.globalCompositeOperation = 'destination-out';
+
+            context.arc(x, y, 30, Math.PI / 180 * 0, Math.PI / 180 * 360, false);
+            context.fill()
+            
+
+        }
+    })
+
+    //获取鼠标的按下事件
+    cvsDom.addEventListener('mouseup',function(){
+        flage=false
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

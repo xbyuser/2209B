@@ -1,0 +1,42 @@
+<!--pages/tablist/index.wxml-->
+<!-- 自己写tab切换 1.自己在页面中先把功能效果实现 2.然后在转成组件的方式 ，对外暴露哪些属性和方法这是难点?可以找些现成的插件看看人家暴露了哪些  3.在页面中调用组件-传入每个页面的属性-->
+
+<!-- <view class="tabs">
+  <view class="tabs_title">
+ 
+        <view
+        bindtap="handleItemTap"
+        wx:key="id"
+        wx:for="{{tabs}}"
+        data-index="{{index}}"
+        class="title_item {{item.isActive?'active':''}}"
+        >
+       {{item.value}}
+      </view>
+  </view>
+
+  <view class="tabs_content">
+     <block wx:if="{{tabs[0].isActive}}">
+         aa
+     </block>
+     <block wx:elif="{{tabs[1].isActive}}">
+       bb
+     </block>
+     <block wx:elif="{{tabs[2].isActive}}">
+       cc
+     </block>
+  </view>
+</view>  -->
+
+<!-- 换成组件的形式 -->
+ <TabList tabs="{{tabs}}"  bind:tabsItemChange="handleItemTap">
+     <block wx:if="{{tabs[0].isActive}}">
+        adfadf
+     </block>
+     <block wx:if="{{tabs[1].isActive}}">
+       bb
+     </block>
+     <block wx:if="{{tabs[2].isActive}}">
+       cc
+     </block>
+</TabList>

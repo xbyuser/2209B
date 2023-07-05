@@ -1,0 +1,9 @@
+本架子是vue3.0架子，集成了elmentplus,vant等，H5端适配是采用rem方案。
+当然现在也可以用vw方案，是最方便的。就是咱们做大屏项目时用的那个vw配置。
+px转vw方案   https://blog.csdn.net/Amnesiac666/article/details/112318281
+px转rem方案   https://www.cnblogs.com/hss-blog/p/11362900.html
+
+rem架子配置(需要设计稿为750px以上)：
+1.安装低版本转rem插件 npm i postcss-pxtorem@5.1.1
+2.创建postcss.config.js，里面配置根font-size值rootValue为75，如果里面引用了vant，需要配置成37.5
+3.需要安装 cnpm i lib-flexible -S 该插件-帮你把font-size写入到根html里，然后到main.js里去引入import 'lib-flexible/flexible' 

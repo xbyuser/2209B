@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>async,await原理-Generator 函数</title>
+</head>
+<style type="text/css">
+    
+</style>
+
+<body>
+
+   	<script type="text/javascript">
+    //面试题: es7中async,await原理/或者说es6中新增Generator 函数是什么？
+    //回忆下async await
+	//  async function aa(){
+	// 	  await setTimeout(()=>{
+	// 		console.log(11);
+	// 	  },0)
+	// 	  console.log(22)
+		 
+	//  }
+    // console.log(aa());
+
+
+    //1.通过function* 这种声明方式(function关键字后跟一个星号）会定义一个生成器函数 (generator function)，它返回一个 Generator 对象。
+     function * fn () {
+	    console.log('1111');
+	    yield 100
+	    console.log('2222');
+	    yield 200
+	    console.log('3333');
+	    yield 300
+	}
+	const generator = fn()  // 未执行，得到一个生成器对象
+   // console.log('通过调用next才执行',generator.next()); 
+    console.log(generator); 
+    
+	//2.Generator 函数是分段执行的，yield表达式是暂停执行的标记，而next方法可以恢复执行
+/*    function * fn () {
+	    yield 100
+	    yield 200
+	    return 300
+	}
+	const generator = fn()  // 未执行，得到一个生成器对象
+	//通过next()调用执行-即迭代器
+	console.log(generator.next()) // { value: 100, done: false}
+	console.log(generator.next())  //从上次位置开始执行 { value: 200, done: false}
+	console.log(generator.next())   // { value: 300, done: true}
+	console.log(generator.next())  // { value: undefined, done: true}  */
+
+    // 3.generator函数简单模拟async与await。即async和await实际上是generator函数和promise组合实现的语法糖，
+	//参考文章 https://blog.csdn.net/u010059669/article/details/115487535 
+/* 	function* bar() {
+      console.log("1这里是同步"); //同步执行
+      const result = yield new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve("2这里是异步");
+        }, 0);
+      });
+	 return result
+    }
+    
+    const it = bar();
+    it.next().value.then(res => {
+      console.log(res);
+    })  */
+
+
+// 总结——Generator 函数执行过程中，遇到yield关键字，函数的执行将会被暂停下来，只有调用Generator 对象的next()方法，才会让这个函数继续执行，并且yield后面的值将会以对象的形式进行返回，返回的对象中包含两个属性：一是value，当前的返回的值；二是done，它是一个布尔值，表示是否遍历结束。
+
+
+//面试题: yield 与 return 不同点
+// 通过上面的描述，可以知道 yield 与 return 一样都可以返回值，那么，他们有何相同点和不同点呢？
+// 相同点:都能返回紧跟在语句后面的那个表达式的值。
+// 不同点
+// 1，每次遇到yield，函数暂停执行，下一次再从该位置继续向后执行，而return语句不具备位置记忆的功能。
+// 2，一个函数里，只能执行一次（或者说一个）return语句，但是可以执行多次（或者说多个）yield表达式。
+// 3，正常函数只能返回一个值，因为只能执行一次return；Generator 函数可以返回一系列的值，因为可以有任意多个yield。
+
+
+//扩展链接-
+	</script>
+	
+</body>
+
+</html>

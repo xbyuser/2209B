@@ -1,0 +1,5 @@
+/* pages/ucharts/index.wxss */
+.charts {
+    width: 750rpx;
+    height: 500rpx;
+  }

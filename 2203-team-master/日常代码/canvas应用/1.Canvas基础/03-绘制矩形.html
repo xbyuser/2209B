@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>绘制矩形</title>
+<style>
+body {background:black; text-align:center;}
+#c1 {background:white;}
+</style>
+<script>
+window.onload=function ()
+{
+	var oC=document.getElementById('c1');
+	var gd=oC.getContext('2d');
+       
+	//CSS里面能用的颜色，canvas都能用 rgb(255,0,0)、#F00、red、rgba(255,0,0,1)
+	gd.strokeStyle='yellow';
+	gd.lineWidth=30;
+	gd.strokeRect(100, 100, 400, 300);  //绘制矩形(L,T,W,H),四个参数距左，上，宽，高
+	//canvas里面，框是往两边扩 最终的宽度=430 ,最终的高度=330
+	gd.strokeStyle='black';
+	gd.lineWidth=1;
+	gd.strokeRect(100, 100, 400, 300); 
+};
+</script>
+</head>
+
+<body>
+<canvas id="c1" width="800" height="600"></canvas>
+</body>
+</html>
+
+
+
+
+

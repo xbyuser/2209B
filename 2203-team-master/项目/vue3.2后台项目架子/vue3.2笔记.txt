@@ -1,0 +1,19 @@
+vue3.2基本语法
+https://zhoushugang.gitee.io/patient-h5-note/vue/composition.html  vue3.2基础用法
+https://blog.csdn.net/zhousenshan/article/details/125702465   vue3.2基本语法
+https://juejin.cn/post/7058171455309086751   vue3.2更新语法
+https://blog.csdn.net/web18224617243/article/details/123304348  icon图标使用方法
+
+---------------------------------------------
+一.vue3项目开始创建
+！！！注意vueCli5以上脚手架，创建的项目是vue3.2(只能用setup语法糖，声明完，不用return了)以上的，vueCli4创建的项目是vue3.0的语法(也能用return返回值/也能用setup语法糖)，用不了3.2的简介语法知识。
+
+方法1-通过脚手架 vue-cli
+//cmd查看下 vue -V版本是否是4以上就不用在全局安装脚手架了
+npm install -g @vue/cli 或 yarn global add @vue/cli
+//直接创建
+vue create hello-vue3
+
+方法2-通过脚手架 Vite
+npm init @vitejs/app hello-vue3 或者 yarn create @vitejs/app hello-vue3
+

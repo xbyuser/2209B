@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>练习-vue动画响应式</title>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+<body>
+
+  <div id="app">
+    <div class="app-wrapper">
+      <div class="title">vue动画响应式练习</div>
+      <div class="image-grid">
+        <div class="image" v-for="pic in picdata" @click="openBox(pic)">
+          <img :src="pic.imgUrl" alt="">
+          <span> {{ pic.caption }}</span>
+        </div>
+      </div>
+    </div>
+    <!--   transition动画过渡效果-vue里自带的标签 -->
+    <transition name="fade">
+      <!-- 子组件调用父级属性或方法：内部定义props接受参数,外部通过:属性方式调用父级方法 -->
+      <app-lightbox :close="closeBox" :imgsource="currentPic" v-if="lightBoxToggle"></app-lightbox>
+    </transition>
+  </div>
+  <script src='js/vue.min.js'></script>
+
+  <script src="js/index.js"></script>
+
+</body>
+
+</html>

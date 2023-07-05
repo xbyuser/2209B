@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>for of 和 for in 的区别</title>
+</head>
+
+<body>
+    <!-- 1. for in 遍历的的数组的索引(或对象的健名) 而for of遍历的数组元素值
+    2. 使用for in会遍历数组所有的可枚举属性(包括原型) 而for of 遍历的只有数组内的元素，不包含数组的原型属性 -->
+</body>
+
+</html>
+<script>
+    // var arr =[1,2,3]
+    // var obj = {a:1,b:2}
+    // for (const key in arr) {
+    //     // 使用 for in 遍历时 key的值为数组的索引 
+    //     console.log(key);
+    // }
+
+    // for (const key in obj) {
+    //     // 使用for in 遍历对象时候 key的值为对象的键
+    //     console.log(key);
+    // }
+
+    Array.prototype.method = function () {
+        console.log(this.length);
+    }
+    var arr = [1, 2, 4]
+    arr.name = '数组'
+    for (var k in arr) {
+        // 会返回数组原型上定义的方法 和 新添加的name属性
+        console.log(arr[k]);
+    //     1
+    //     2
+    //     4
+    //    数组
+    //     ƒ(){
+    //         console.log(this.length);
+    //     }
+    }
+
+   //2.for of只能遍历数组，返回的是值
+    for(var k of arr){
+        console.log(k);
+        //1
+        //2
+        //4
+    }
+
+</script>

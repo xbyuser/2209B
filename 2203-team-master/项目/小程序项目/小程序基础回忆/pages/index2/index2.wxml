@@ -1,0 +1,104 @@
+<!--pages/index2/index2.wxml-->
+<view>
+      <text>------------微信小程序基础语法------------</text>
+    <!-- 小程序基础逻辑 wx:for,默认叫index,item.自定义 wx:for-item,wx:for-index-->
+    <view wx:for="{{arr}}" wx:key="index">{{index}}-{{item}}</view>
+    <view wx:for="{{arr}}" wx:for-index="index2" wx:for-item="item2" wx:key="index2">{{index2}}-{{item2}}</view>
+     <!-- 条件语句 wx:if,wx:elif,wx:else-->
+     <view wx:if="{{isLogin}}">显示真</view>
+     <view wx:else>显示假</view>
+      <!-- 多个条件语句 -->
+    <view wx:if="{{ item2 == 'vue'}}"> 我是vue </view>
+    <view wx:elif="{{ item2 == '小程序'}}"> 我是小程序 </view>
+    <view wx:else="{{ item2 == 'uniapp'}}">我是uniapp </view>
+     <!-- 微信里hidden 相当于v-show的操作   -->
+     <view hidden="{{isLogin}}">v-show操作</view>
+  
+      <!-- wx绑定事件有两种方式-bind+事件名(常用事件:tap,touchstart,touchmove,touchend,longpress,transitionend..)
+    bindtap:事件绑定不会组止冒泡事件向上(父元素)触发
+    catchtap:事件绑定可以阻止冒泡向上(父元素)触发 -->
+    <view bindtap="add">点我点我事件操作</view>
+    <view>{{num}}</view>
+
+    <text>------------小程序路由切换方法---------------</text>
+     <!-- 小程序路由切换方法-
+0.navigator标签，可以跳转传参通过？,页面通过onload参数接收参数，不能跳转tab页面
+1.wx.navigateTo({"url":'路径'}) 用于保留当前页面、跳转到应用内的某个页面,使用 wx.navigateBack 可以返回到原页面
+2.wx.redirectTo() 用于关闭当前页面，跳转到应用内的某个页面
+3.wx.switchTab() 用于跳转到 tab bar 的页面
+4.wx.reLaunch() 与  wx.redirectTo() 的用途基本相同， 只是  wx.reLaunch() 先关闭了内存中所有保留的页面，再跳转到目标页面
+相关文章：https://www.jianshu.com/p/3cf406201974 -->
+   <navigator url="../test2/test2">标签跳转，注意不能跳转tab页面</navigator>
+   <navigator url="../test2/test2?key1=value1&key2=value2">跳转传参数</navigator>
+   <view bindtap="go">方法跳转</view>
+
+   <text> --------------通过事件对象获取当前对象属性,自定义属性data-名字，获取的话通过event.target.dataset.名字-------------</text>
+   <!-- 通过事件获取当前对象 -->
+   <view bindtap="get" id="2" >事件2</view>
+   <view bindtap="get" data-id="3" >事件3</view>
+   <view >你刚才点击是哪个view?{{id}}</view>
+   <view >你刚才点击是哪个view?{{dataId}}</view>
+
+
+
+  <!-- 双向数据绑定 model:value="{{data数据名字}}" 。注意不支持对象调用 a.b -->
+  <text>------------小程序双向数据绑定---------------</text>
+  <input model:value="{{value}}" class="ipt"/>
+     <view>{{value}}</view>
+
+<!-- 小程序样式-wxss样式,rpx可以自适应，以手机尺寸750为基准,内部封装的参考单位是html里的font-size,相当于h5阶段那个rem单位。设计图给的是750，在ps里，或者设计软件里就直接量取，写多少rpx -->
+<text>------------小程序样式---------------</text>
+<view class="box"></view>
+<view class="box2"></view>
+
+<!-- 小程序常用组件,swiper等。！！！注意一般swiper外盒子按照设计图区域定死，图片100% -->
+<view class="swiper">
+      <swiper
+        indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}"
+        interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px">
+        <block wx:for="{{swiperList}}" wx:key="*this">
+          <swiper-item>
+           <image src="{{item.image_src}}"></image>
+          </swiper-item>
+        </block>
+      </swiper>
+</view>
+
+   
+    <text>-----------小程序第三方插件使用---------------</text>
+<!-- 小程序第三方插件使用——有赞vant weapp 链接：https://vant-contrib.gitee.io/vant-weapp/#/intro 
+ 组件安装步骤-安装vantUI库
+第一步：把项目文件夹在终端打开,用cmd 输入下面装包命令
+第二步：npm init(这一步可省略,如果要项目名称这些的话就执行，直接回车下一步就可以)  
+第三步：npm i vant-weapp -S --production
+第四步：工具--构建npm 
+指引小程序找到构建的目录，在根目录project.config.json 内添加如下配置-
+"packNpmRelationList": [
+      {
+        "packageJsonPath": "./package.json",
+        "miniprogramNpmDistDir": "./"
+      }
+    ]
+第五步:点击开发者工具的详情，勾选使用npm模块
+第六步:去vant地址链接-找对应组件复制
+第七步:在对应json文件里配置对应组件地址，
+{
+  "usingComponents": {
+     "van-button": "@vant/weapp/button/index",
+    "van-datetime-picker": "@vant/weapp/datetime-picker/index"
+  }
+}
+第八步：页面中就可以引入该组件
+ -->
+ <van-button type="default">默认按钮</van-button>
+ <van-button type="primary">主要按钮</van-button>
+ <van-datetime-picker
+  type="datetime"
+  value="{{ currentDate }}"
+  min-date="{{ minDate }}"
+  max-date="{{ maxDate }}"
+  bind:input="onInput"
+/>
+  
+    
+</view>

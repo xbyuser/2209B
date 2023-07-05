@@ -1,0 +1,36 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>绘制矩形-填充颜色</title>
+<style>
+body {background:black; text-align:center;}
+#c1 {background:white;}
+</style>
+<script>
+window.onload=function ()
+{
+	var oC=document.getElementById('c1');
+	var gd=oC.getContext('2d');
+	
+	//CSS里面能用的颜色，canvas都能用
+	//rgb(255,0,0)、#F00、red、rgba(255,0,0,1)
+	//gd.fillStyle='red';
+	//gd.fillStyle='#F00';
+	//gd.fillStyle='rgb(255,0,0)';
+	gd.fillStyle='red';  //往里填加颜色
+	gd.fillRect(100, 100, 400, 300);
+};
+</script>
+</head>
+
+<body>
+<canvas id="c1" width="800" height="600"></canvas>
+</body>
+</html>
+
+
+
+
+

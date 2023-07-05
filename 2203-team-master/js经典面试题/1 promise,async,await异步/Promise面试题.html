@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+
+
+</head>
+
+<body>
+  <!-- 图片静态加载 -->
+  <!-- <img src="http://101.132.181.9:3000/public/imgs/cms_1.jpg" > -->
+   
+  <script>
+    //面试题：封装一个方法，用promise实现异步动态加载图片
+    //需求：使用promise加载一个网站图片,如果成功，加载成功图片到页面。如果失败，使用一张默认图片占位。默认图片地址-https://imgservices-1252317822.image.myqcloud.com/image/20201015/45prvdakqe.svg
+    var errImg = 'https://imgservices-1252317822.image.myqcloud.com/image/20201015/45prvdakqe.svg' //加载失败，默认图片占位
+    function loadImageAsync(url) {
+      return new Promise(function (resolve, reject) {
+        //图片对象
+        var image = new Image();
+
+        //加载成功
+        image.onload = function () {
+          resolve('加载成功');
+        };
+        //加载失败
+        image.onerror = function () {
+          image.src = errImg
+          reject('加载失败');
+        };
+        //图片追加
+        image.src = url;
+        document.documentElement.appendChild(image)
+
+      })
+
+    }
+
+    //外部调用-传入图片
+    var rightImg = "http://101.132.181.9:3000/public/imgs/cms_1.jpg" //网站图片正确地址
+    // var rightImg = "https://www.zhaixiankui.top/bootstrap/images/html.jpg" //网站图片错误地址
+
+    loadImageAsync(rightImg).then(res => {
+      alert(res)
+    }).catch(err => {
+      alert(err)
+    });
+
+  </script>
+</body>
+
+</html>

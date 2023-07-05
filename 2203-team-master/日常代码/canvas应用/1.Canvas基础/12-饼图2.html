@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>绘制弧度</title>
+<style>
+body {background:black; text-align:center;}
+#c1 {background:white;}
+</style>
+<script>
+function d2a(n)	//角度->弧度
+{
+	return n*Math.PI/180;
+}
+
+window.onload=function ()
+{
+	var oC=document.getElementById('c1');
+	var gd=oC.getContext('2d');
+	
+	var cx=300,cy=300; //圆心参考点坐标
+	var r=200; //半径
+	var start=0,end=180; //起始角度->结束角度    0度从3点钟方向开始
+	
+	//一个角
+	//第一条线：圆心->圆上的点
+		//x=cx+sin(a)*r
+		//y=cy-cos(a)*r
+	
+	 //从圆心开始画
+	  gd.moveTo(cx, cy);
+     //画出1条线-根据半径与弧度求出起点与终点
+	  gd.lineTo(cx+Math.sin(d2a(start))*r, cy-Math.cos(d2a(start))*r); //300,200
+	
+	//gd.arc(圆心x, 圆心y, 半径, 起点, 终点, 顺时针false/逆时针true)
+	//第二条弧：起始角->结束角
+	 gd.arc(cx, cy, r, d2a(start-90), d2a(end-90), false);
+	
+	gd.closePath(); //注意此处第二条线会自动闭合
+	
+	gd.stroke();
+};
+</script>
+</head>
+
+<body>
+<canvas id="c1" width="800" height="600"></canvas>
+</body>
+</html>
+
+
+
+
+
+
+
+

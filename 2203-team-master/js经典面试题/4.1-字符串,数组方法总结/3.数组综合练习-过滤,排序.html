@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 要求：使用es6实现，输出值为'test5','test2' ,'test3' 思路：过滤数组中为number的对象，并排序输出-->
+    <script>
+        const source = [{
+            id: 3,
+            name: 'test2'
+        }, {}, {
+            id: '4',
+            name: 'test1'
+        }, {
+            id: 6,
+            name: 'test3'
+        }, {
+            id: () => { },
+            name: 'test7'
+        }, {
+            id: 2,
+            name: 'test5'
+        }];
+
+        function Sour(arr) {
+            /*  //过滤数组中为number的对象
+              let arr1=  arr.filter(item=>{
+                 //  console.log(typeof item.id);
+                    return typeof item.id == 'number'
+                })
+     
+             // 排序
+               let arr2= arr1.sort((a,b)=>{
+                    return a.id-b.id
+                })
+                 //   console.log(arr2);
+             //输出
+             arr2.forEach(item=>{
+                 console.log(item.name);
+             }) */
+
+            //链式调用法
+            let arr3 = arr.filter(item => {
+                return typeof item.id == 'number'
+            }).sort((a, b) => {
+                return a.id - b.id
+            }).forEach(item => {
+                console.log(item.name);
+            })
+            return arr3
+
+        }
+        Sour(source);
+    </script>
+</body>
+
+</html>

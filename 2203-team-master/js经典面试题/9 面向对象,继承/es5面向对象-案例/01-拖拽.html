@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>拖拽</title>
+  <style type="text/css" media="screen">
+    #div1,
+    #div2 {
+      width: 100px;
+      height: 100px;
+      background: red;
+      position: absolute;
+    }
+
+    #div2 {
+      background: yellow;
+    }
+  </style>
+  <script src="drag.js"></script>
+  <script src="limitDrag.js"></script>
+</head>
+
+<body>
+  <div id='div1'>
+    普通拖拽
+  </div>
+  <div id='div2'>
+    限制范围拖拽
+  </div>
+  <script type="text/javascript">
+    //面向过程写法
+    /*     //第1个拖拽-正常拖拽
+        var odiv1 = document.getElementById('div1');
+        var disx = 0;
+        var disy = 0;
+        odiv1.onmousedown = function (ev) {
+          var event = ev || window.event;
+          disx = event.clientX - odiv1.offsetLeft;
+          disy = event.clientY - odiv1.offsetTop;
+          document.onmousemove = function (ev) {
+            var event = ev || window.event;
+            odiv1.style.left = event.clientX - disx + 'px';
+            odiv1.style.top = event.clientY - disy + 'px';
+          }
+          document.onmouseup = function () {
+            document.onmousemove = null;
+          }
+    
+        }
+        // 第2个拖拽-限制范围拖拽
+        var odiv2 = document.getElementById('div2');
+        var dis2x = 0;
+        var dis2y = 0;
+        odiv2.onmousedown = function (ev) {
+          var event = ev || window.event;
+          dis2x = event.clientX - odiv2.offsetLeft;
+          dis2y = event.clientY - odiv2.offsetTop;
+          document.onmousemove = function (ev) {
+            var event = ev || window.event;
+            // 判断限制范围
+            var l = event.clientX - dis2x;
+            var r = event.clientY - dis2y
+            //超出左边
+            if (l < 0) l = 0;
+            //超出右边
+            if (l > document.documentElement.clientWidth - odiv2.offsetWidth)
+              l = document.documentElement.clientWidth - odiv2.offsetWidth;
+            odiv2.style.left = l + 'px';
+            odiv2.style.top = r + 'px';
+          }
+          document.onmouseup = function () {
+            document.onmousemove = null;
+    
+          }
+    
+        } */
+    // 1.面向对象写法-变型
+    var drag = new Drag('div1');
+    var drag2 = new limitDrag('div2');
+    drag.init();
+    drag2.init();
+
+
+  </script>
+</body>
+
+</html>

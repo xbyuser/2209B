@@ -1,0 +1,310 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+    <input type="checkbox"  value="11" checked>
+    <input type="checkbox" value="22" checked>
+    <input type="checkbox" value="33" >
+<script>  
+   /*  //一.字符串方法回忆
+     var str='hello'
+	 
+    console.log(str[0],str.charAt(0),str.charCodeAt(0)); //unicode码  charCodeAt
+    //分割成数组
+    var arr=str.split('') //split字符串分割成数组的
+    console.log(arr);
+    //截取字符串
+    var str1='world'
+    console.log(str1.slice(3)); //ld,slice截取，默认从开始到结束，第2个参数可以给下标,包左不包右
+    console.log(str1.slice(3,4)) //l  包左不包右
+    console.log(str1.slice(-1))//d ,可以给负数，直接从右边开始截取
+    console.log(str1.slice(-3,-1)) //rl, 也是包左不包右
+    //转大小写
+    console.log(str.toUpperCase()) //转大写 
+
+    //查找字符
+    console.log(str.indexOf('e')); //根据字符返回下标
+    console.log(str.indexOf('t')); //-1 找不到返回-1
+    
+    //es6 includes查找字符返回true,false
+    console.log(str.includes('t')); //false
+
+    //替换字符   replace(旧的,新的)  把旧的替换成新的
+    var str2='javascript'
+   console.log(str2.replace('java','type')); 
+
+   //去除前后空格 trim() 
+   var str3=' js '
+   console.log(str3.trim());//去除前后空格
+
+   //es6中的 padStart(长度,要补的值)用于头部补全，padEnd()用于尾部补全 。一般常用于时间补0
+  //padStart接收两个参数,第一个参数用来指定字符串的最小长度，第二个参数是用来补全的字符串 
+   var str4='6' //06   
+   console.log(str4.padStart(2,'0')); //头部补全  */
+
+    // 二.早期数组方法 
+//    var arr=[1,2,3]
+//     console.log(arr.join('')); //数组转字符串，可以加连接符
+    
+//     //splice 删除修改，第2个值要的是个数，后面如有多个值代表在填加
+//     console.log(52,arr.splice(1,1)); //会改变原数组，返回的是修改后的
+
+//      var arr2=[3,4]
+//      var arr3=arr2.splice(1,0,'a','b')
+//     console.log(arr2); //[3, 'a', 'b', 4] 
+     
+      // 三.数组es5中方法 -一般用于遍历，都不会修改原数组
+
+	//1. forEach(function(item,index,arr){})可循环数组或也可循环伪数组既集合中的对象、数据。该方法没有返回值
+  /*   var arr=[2,4,6,8]
+	 arr.forEach(function(item,index,arr1){ //形参：第1个值,第2个索引，第3个整个数组
+		 console.log(item,index)
+		 console.log(arr1) //整个数组
+	 })
+	 
+	 //es6简写-用(参数)=>{} 代替function(){}
+	 arr.forEach((item1,index1)=>{ 
+	    console.log(item1,index1) 
+	 })
+	 
+	 //dom集合-伪数组-forEach也能用
+	 var inputs = document.querySelectorAll('input'); //伪数组
+	 console.log(inputs) //[input, input, input] 多个对象
+	 inputs.forEach(function(item,index){
+		 console.log(item.value) //当前对象
+	 })
+	 */
+	 
+	 //2.  map 也可循环遍历数组，返回的是函数组成的新数组。更多用于对数组或对象重新操作赋值等
+/* 	  var arr1=[2,4,6,8]
+	 var arr2=arr1.map(item=>{
+            return item*2
+     })
+     console.log(arr2,arr1); //原数组不会修改  */
+
+	 
+//练习1-对数组操作，获取所有数组对象中某个字段-如city
+  /* var arr2=[
+	 	     {
+	 	         "name":"小白",
+	 	         "city":"北京",
+	 	     },{
+	 	         "name":"小红",
+	 	         "city":"湖南",
+	 	     },{
+	 	         "name":"小黑",
+	 	         "city":"河北",
+	 	     }
+	 	 ]; 
+
+	// var newArr2= arr2.map(item=>{
+	// 	return item.city
+	//  })
+	//  console.log(newArr2) //["北京", "湖南", "河北"]
+	
+	//练习2-对数据增加字段
+	  arr2.map(item=>{
+		// return item.age='18'
+		return item['age']='18'
+	 })
+	 console.log(arr2) // [{name: "小白", city: "北京", age: "18"}]  */
+	
+	// 3. filter(函数) 筛选过滤方法-筛选出符合条件的值,返回新数组,原数组不会改变。
+ /*	var arr1=[2,4,6,8] 
+ 	//传统方法-把数组中>2拿出来
+	var newArr1=[]
+	//用var in方法，前面i代表索引
+	for(var i in arr1){ 
+		if(arr1[i]>2){ //arr1[i] 代表值
+			newArr1.push(arr1[i])
+		}
+	}
+	console.log(newArr1)
+	
+	//用var of方法，前面i代表值
+	var newArr2=[]
+	for(var i of arr1){  //i直接是值
+		if(i>2){
+			newArr2.push(i)
+		}
+	}
+	console.log(newArr2)  */
+	
+ 	//3.1 filter 筛选过滤方法
+	//  var arr1=[2,4,6,8] 
+ 	// var newFilter=arr1.filter(item=>{
+	// 	return item>2
+	// })
+	// console.log(newFilter)
+	
+	//3.2 练习：筛选出邮箱为nz的邮箱   //["nz@qq.com"] 
+    // var person = ["zn@qq.com","nz@qq.com","zi@qq.com"];
+	// var newPerson=person.filter(item=>{   
+	// 	console.log(item) //数组中的每个值,这里是字符串方法
+	// 	return item.indexOf('nz')!=-1   //或者用includes()
+	// })
+	// console.log(newPerson)
+
+	
+	//3.3 filter数组去重-
+	/*   var arr3 = ['a', 'b', 'a', 'c','b'];
+      //方法1-通过new Set(数组) 数据结构进行去重
+      //   var arr33=new Set(arr3) //返回去重后的对象
+	  //   console.log(155,[...arr33],Array.from(arr33)) //把对象转成数组
+
+     //方法2-查找数组中第1次出现该值的下标是否第1次下标
+	  var uniqueArr=arr3.filter((item,index)=>{
+		//  console.log(arr3.indexOf(item),index) // 0 0, 1 1,0 2,3 3,1 4
+		 return arr3.indexOf(item)==index
+	 })
+	 console.log(uniqueArr) //去重后结果 ["a", "b", "c"]    */
+
+
+	 //3.4 es6中 find(),findIndex()。它们都可以查找第一个符合条件的数组元素。 findIndex()只是当条件为true时,返回的是元素  findIndex()返回的是索引值
+	/* var arr4= ['a', 'b', 'a', 'c','b']
+	 var str=arr4.find(item=>{
+          return item=='e'
+	 })
+    console.log(str); //查找你想要的值，如果没有返回undefined
+
+    var str2=arr4.findIndex(item=>{
+          return item=='e'
+	 })
+    console.log(str2); //返回的是下标,找不到返回-1   */
+
+	 
+  //4.伪数组-除了forEach能直接使用，其它数组方法都不能使用。得把它转为真正的数组
+    var inputs = document.querySelectorAll('input'); //伪数组
+	console.log('伪数组',inputs);
+    //  console.log(inputs.push(2)); //报错
+    //报错-inputs.map is not a function
+	// inputs.map(item=>{
+	// 	console.log(item.value)
+	// })
+	
+	//4.1 把伪数组转成真正的数组，就能用数组的方法了。
+/* 	 //真正的数组
+	 var arr0=[]; //字面是方式声明数组
+	 var arr1=new Array() //实例化方式声明数组
+	 
+	 //方法1-call()方法是改变this指向的，把原来伪数组指向[]
+	 var newArr=[].slice.call(inputs) 
+	 //方法2-es6方法 Array.from()
+	 var newArr1=Array.from(inputs)
+	  //方法3-es6方法 数组展开符...
+	var newArr2= [...inputs]
+	 console.log('真数组',newArr,newArr1,newArr2)
+	 
+	//4.2 转成真正数组，就能使用数组这些方法了
+	var inputs2 = document.querySelectorAll('input'); 
+	[...inputs2].map(item=>{
+		console.log(item.value)
+	})  */
+	
+	 
+	// 5.  every 数组中的每一项元素，都符合设定的条件，返回true，否则返回false 。相当于逻辑与&&,同真为真，同假为假，一假为假。
+	/*  var inputs = document.querySelectorAll('input');
+	  var iptEvery= [...inputs].every(item=>{
+		 return item.checked
+	 })
+	 console.log(iptEvery) //false 只返回true/false 。  */
+	
+	//5.1 单选全选练习- 
+	
+
+
+   // 6. some 数组中的有一项元素，有一项为真，返回true。相当于逻辑或||,同真为真，同假为假，一真为真。
+   
+  /*    var inputs2 = document.querySelectorAll('input');
+     var inputSome = [...inputs2].some(item=>{
+        return item.checked
+    })
+    console.log(inputSome);   */
+
+    //7.数组归并方法  reduce(function(prev,cur,index,array){},传递给函数的初始值[可选]) 参数：上一个值,当前值,索引,整个数组 。该方法从数组的第一项开始，逐个遍历到最后一项。   
+	//应用场景：
+	//1.1 数组求和
+//    var arr = [8,2,3,4];
+//    var res=arr.reduce((prev,cur)=>{
+// 	  console.log(prev,cur) //8 2 ,10 3,13 4
+// 	  return prev+cur
+//    },0) //此处0代表默认值，可给其它参数
+//    console.log('数组归并方法',res) //17 最终的和 
+   
+  //1.2  对象里的属性求和(购物车里总价)
+/*   var result = [
+       {
+           subject: 'math',
+           score: 10
+       },
+       {
+           subject: 'chinese',
+           score: 20
+       },
+       {
+           subject: 'english',
+           score: 30
+       }
+   ];
+   
+   var sum = result.reduce(function(prev, cur) {
+       return  prev+cur.score;
+   }, 0);
+   console.log(sum) //60   
+   
+   //2.1 json对象特点-利用对象键如果重复会覆盖,进行去重
+	//  let json={a:1,a:2}
+    // console.log(json);
+	// json.b=1;
+	// console.log(json); //{a: 2, b: 1}
+
+   //2.2计算数组中每个元素出现的次数 {a:3,b:1,c:1}
+	 let names = ['a', 'b', 'a', 'c', 'a'];
+    //方法1
+	 let nameNum = names.reduce((prev,cur)=>{
+	//   console.log(241,prev,cur) //{a:1,b:1,} 'a'
+	  //利用对象键不会重复去重
+	  if(cur in prev){ //如果键在对象里存在
+		prev[cur]++ //对象的值++
+	  }else{
+		prev[cur] = 1 //初始化赋值为1
+	  }
+	  return prev
+	},{}) //别忘记初始化对象
+	console.log(nameNum); //{a: 3, b: 1, c: 1}   */
+	
+
+	//3.以上方法也可用于去重
+	
+	
+    //4.1 将多维数组转化为一维-将数组扁平化/展开
+/* 	  let arr = [[0, 1], [2, 3], [4, 5]]
+	  let newArr = arr.reduce((pre,cur)=>{
+		  return pre.concat(cur)
+		//   return [...pre,...cur]   //或这个
+	  },[])
+	  console.log(newArr); // [0, 1, 2, 3, 4, 5]
+   
+   //4.2 将多维数组转化为一维-要递归调用
+    let arr2 = [[0, 1], [2, 3], [4,[5,6,7]]]
+   let newArr2 = function(arr){
+	    return arr.reduce((pre,cur)=>{
+			return pre.concat(Array.isArray(cur)?newArr2(cur):cur) //这里注意得判断下是否是数组，然后递归调用
+		},[])
+   }
+   console.log(newArr2(arr)) //[0, 1, 2, 3, 4, 5, 6, 7] 
+   
+    //    5.es6中flat(个数) 数组扁平化 
+	  let arr3 = [[0, 1], [2, 3], [4, 5]]
+     console.log(arr3.flat());
+
+	 //使用 Infinity无穷尽 可任意层数展开
+	 let arr4 = [[0, 1], [2, 3], [4,[5,6,7]]]
+     console.log(arr4.flat(Infinity));  */
+    
+</script>
+</body>
+</html>

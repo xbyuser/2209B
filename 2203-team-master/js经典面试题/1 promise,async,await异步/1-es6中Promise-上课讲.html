@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src="jquery.js" charset="utf-8"></script> <!-- 引入jquery插件 -->
+  <script>
+    //0.异步的核心是回调函数
+    //   function show(callback){
+    //     var b=2
+    //     console.log(b);
+    //     callback(b) //调用时在执行
+    //  }
+    //  //callback就是回调函数-回头在调用时执行，function(){}
+    //  show(function(c){
+    //      console.log('我是回调函数',c)
+    //  } ) 
+
+    // function show(cb){
+    //   var b=0
+    //   console.log(b);
+    //   cb(b);
+    // }
+    // show(function(c) {
+    //   console.log('回调函数',c);
+    //  })
+
+    //1.回调地狱问题演示-自己封装了简单的promise
+    // function promise(callback) {
+    //   $.ajax({
+    //     url: 'data/1.json',
+    //     method: 'get',
+    //     //  data:{}
+    //     //如果请求成功执行
+    //     success: function (res) {
+    //       // console.log('成功结果', res);
+    //       callback(res)
+    //     },
+    //     error: function (err) {
+    //       console.log('失败结果', err);
+    //     }
+    //   })
+    // }
+    // //解决回调地狱问题-回调函数
+    // promise(function (aa) {
+    //   console.log('成功结果', aa);
+    // }) 
+
+    // function promise(cb) {
+    //   $.ajax({
+    //     method: 'get',
+    //     url: 'data/1.json',
+    //     data: {
+
+    //     },
+    //     success: function(res) {
+    //       console.log('成功',res);
+    //       cb(res)
+    //     },
+    //     error:function(err) {
+    //       console.log('失败',err);
+    //       cb(err)
+    //      }
+    //   })
+    // }
+    // promise(function(cb){
+    //   console.log('68',cb);
+    // })
+    //es6中new Promise() 作用把异步操作改成同步执行
+    //可查看对象上的所有属性与方法
+    // let p = new Promise((resolve, reject) => {
+    //   //要的是异步请求
+    // })
+    // console.log(p)
+    // console.dir(Promise)
+
+    //一.Promise基础用法
+    /*     let p = new Promise((resolve, reject) => {
+          //要的是异步请求结果
+          // resolve('成功结果包装出去')
+          reject('失败结果')
+        })
+        console.log('三种状态', p); //pending,rejected,fulfilled
+        //then里面是方法，代表请求成功或失败执行的回调
+        // p.then(function (res) {
+        //   console.log(res);
+        // }, function (err) {
+        //   console.log(err);
+        // })
+        //方法2 调用
+        p.then(function (res) {
+          console.log(67,res);
+        }).catch(function (err) {
+          console.log(69,err)
+        }).finally(function () {
+          console.log('无论成功与失败都执行的方法');
+        });
+     */
+
+
+    //二.具体应用——Promise内部要的是异步请求结果，ajax,定时器等-实际运用用它封装网络请求$.ajax(),wx.request()，uni.request()
+    //  let p = new Promise((resolve, reject) => {
+    //      $.ajax({
+    //        url: 'data/1.json',
+    //        //    method:'get',  //post
+    //        //    data:{},
+    //        success: function (res) {
+    //          resolve(res)
+    //        },
+    //        error: function (err) {
+    //          reject(err)
+    //        },
+    //      })
+    //    })
+
+    //    p.then((res) => {
+    //      console.log(52, res);
+    //    }).catch((err) => {
+    //      console.log(54, err);
+    //    }).finally(() => {
+    //      console.log('不管成功与失败都会执行');
+    //    }) 
+
+
+    //  三.封装axios ，axios基本用法  axios.get(url,params:{}).then(res => {})  ,axios.post(url,data:{}).then(res => {})   axios({url: url,params: params,method:'get/post/'}).then(res => {})
+
+    //自己封装的简单axios
+    // function axios(url) {
+    //   return new Promise((resolve, reject) => {
+    //     $.ajax({
+    //       url: url,
+    //       //    method:'get',  //post
+    //       //    data:{},
+    //       success: function (res) {
+    //         resolve(res)
+    //       },
+    //       error: function (err) {
+    //         reject(err)
+    //       },
+    //     })
+    //   })
+
+    // }
+    // // 实际调用
+    // axios('data/1.json').then(res => {
+    //   console.log('118成功数据', res);
+    // }).catch((err) => {
+    //   console.log(54, err);
+    // }).finally(() => {
+    //   console.log('不管成功与失败都会执行');
+    // })
+
+
+    // function axios({ url, data, method = "GET" }) {
+    //   return new Promise((resolve, reject) => {
+    //     $.ajax({
+    //       method: method,
+    //       url: url,
+    //       data: data,
+    //       success: function (res) {
+    //         resolve('成功', res);
+    //       },
+    //       error: function (err) {
+    //         reject('失败', err)
+    //       }
+    //     })
+    //   })
+    // }
+
+    // axios({url:'data/1.json' }).then((res)=>{
+    //   console.log(res,'172');
+    // }).catch((err) =>{
+    //   console.log(err,'174');
+    // }).finally((allss) => {
+    //   console.log(allss,'全部');
+    //  })
+
+
+    //2.用promise如何解决多层回调地狱问题?
+    //方法1
+    // let data1 = axios('data/1.json')    //第1个接口
+    // let data2 = axios('data/2.json')    //第2个接口
+    // data1.then(res => {
+    //   console.log('第一层数据', res);
+    //     data2.then(res2 => {
+    //       console.log('第二层数据', res2);
+    //     })
+    // })
+    //方法2-链式调用-基本解决了回调地狱问题
+    // let data1 = axios('data/1.json')    //第1个接口
+    // let data2 = axios('data/2.json')    //第2个接口
+    // data1.then(res => {
+    //   console.log('第一层数据', res);
+    //   return data2  //返回下供下次使用,返回的就是promise
+    // }).then(res2 => {
+    //   console.log('第二层数据', res2);
+    // })
+
+    // 四。promise其它api方法(all,race)-多个接口都请求到Promise.all[promise1,promise2,...]返回数组。
+    //1.基本演示-多个接口都请求到，用all方法
+    //  let p1 = new Promise((resolve, reject) => {
+    //    resolve('成功p1')
+    //  })
+    //  let p2 = new Promise((resolve, reject) => {
+    //    resolve('成功p2')
+    //  })
+    //  Promise.all([p1, p2]).then(res => {
+    //    console.log('all方法', res);
+    //    let [arr1, arr2] = res
+    //    console.log(arr1, arr2);
+    //  })
+
+    //2.结合封装的promise
+    // let data1 = axios('data/1.json')    //第1个接口
+    // let data2 = axios('data/2.json')    //第2个接口
+
+    // // Promise.all([data1, data2]).then(res => {
+    // //   console.log('167all方法', res);  //[{a:1},{b:2}]
+    // //   let [arr1, arr2] = res
+    // //   console.log(169, arr1, arr2);
+
+    // // })
+
+    // 3.race方法，谁请求的快先走谁
+    // let data2 = axios('data/2.json')    //第2个接口
+    // let data1 = axios('data/1.json')    //第1个接口
+    // Promise.race([data2, data1]).then(res => {
+    //   console.log('race方法', res);
+    // })
+
+
+
+    /* 	总结：什么是promise？
+      解决地狱回调问题   ，ajax层层嵌套
+      它可以进行链式调用  .then.catch
+      有三种状态分别是 ：pending 初始状态,进行中 fulfilled 成功状态，请求成功了 rejected 失败状态，请求失败了 
+       Promise的状态一旦改变，就不会再变，任何时候都可以得到这个结果，状态不可以逆，只能由 pending变成fulfilled或者由pending变成rejected。
+      promise有哪些API方法：.then(),.catch(),.finally()，.all(),.race()
+      应用场景：封装ajax,axios的get,post封装，微信小程序中封装wx.request()，uniapp开发中uni.request() */
+
+
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

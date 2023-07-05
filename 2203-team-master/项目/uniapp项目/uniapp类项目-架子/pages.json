@@ -1,0 +1,136 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "在线教育项目",
+				//配置头部导航-H5不会显示导航
+				"app-plus": {
+					"scrollIndicator":"none", //隐藏滚动条
+					"titleNView": {
+						"type":"transparent" // 滚动透明渐变
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/list/index",
+			"style": {
+				"navigationBarTitleText": "上拉加载演示",
+				"navigationBarBackgroundColor":"#345DC2",
+				"navigationBarTextStyle":"white"
+				}
+		},
+		{
+			"path": "pages/article/index",
+			"style" : {
+			        "navigationBarTitleText": "轮播导航演示",
+					"navigationBarTextStyle":"white",
+					"navigationBarBackgroundColor":"#345DC2"
+					
+			    }
+			
+		},
+		{
+			"path": "pages/detail/index",
+			"style" : {
+			        "navigationBarTitleText": "详情页分享演示",
+					"navigationBarTextStyle":"white",
+					"navigationBarBackgroundColor":"#345DC2"
+					
+			    }
+			
+		},
+		{
+			"path": "pages/my/index",
+			"style": {
+				"navigationBarTitleText": "个人中心",
+				"app-plus": {
+					"scrollIndicator":"none", //隐藏滚动条
+					"titleNView": {
+						"type":"transparent" // 滚动透明渐变
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/my/user",
+			"style": {
+				"navigationBarTitleText": "个人资料页",
+				"app-plus": {
+					"scrollIndicator":"none", //隐藏滚动条
+					"titleNView": {
+						"type":"transparent" // 滚动透明渐变
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/auth/login",
+			"style": {
+				"navigationBarTitleText": "授权页",
+				"app-plus": {
+					"scrollIndicator":"none", //隐藏滚动条
+					"titleNView": {
+						"type":"transparent" // 滚动透明渐变
+					}
+				}
+			}
+		},
+		{
+			"path":"pages/my/location",
+			"style" : {
+			        "navigationBarTitleText": "地图页面",
+					"navigationBarTextStyle":"white",
+					"navigationBarBackgroundColor":"#345DC2"
+			    }
+		},
+		{   
+			"path": "pages/ucharts/ucharts"  //移动端,小程序端ucharts
+		}
+	],
+	// 标签栏
+	"tabBar": {
+		"color": "#b0abb3", //未选中字体颜色
+		"selectedColor": "#345DC2", //选中字体颜色
+		"backgroundColor":"#f8f8f8", // 背景色
+		"borderStyle":"white", // tabbar 上边框的颜色，可选值 black/white
+		"fontSize":"11px", // 字体大小
+		"height":"52px", // 标签栏高度
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"text":"首页",
+				"iconPath":"static/tab/index.png" ,// 未选中图片
+				"selectedIconPath":"static/tab/index-active.png"// 选中图片
+			},
+			{
+				"pagePath": "pages/list/index",
+				"text":"下拉,上拉演示",
+				"iconPath":"static/tab/my.png" ,// 未选中图片
+				"selectedIconPath":"static/tab/my-active.png"// 选中图片
+			},
+			{
+				"pagePath": "pages/article/index",
+				"text":"轮播导航演示",
+				"iconPath":"static/tab/my.png" ,// 未选中图片
+				"selectedIconPath":"static/tab/my-active.png"// 选中图片
+			},
+			{
+				"pagePath": "pages/my/index",
+				"text":"我的",
+				"iconPath":"static/tab/my.png" ,// 未选中图片
+				"selectedIconPath":"static/tab/my-active.png"// 选中图片
+			}
+		]
+	},
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"easycom": {
+			"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+    }
+}

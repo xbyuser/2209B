@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="dialog.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <div class="k-wrapper"></div>
+    <div class="k-dialog">
+        <div class="k-header">
+            <span class="k-title">提示</span><span class="k-close">X</span>
+        </div>
+        <div class="k-body">
+            <span>这是一段文本</span>
+            <input class="input-inner" type="text" />
+        </div>
+        <div class="k-footer">
+            <span class="k-default">取消</span>
+            <span class="k-primary">确定</span>
+        </div>
+    </div> -->
+    <button class="showDailog">点击</button>
+    <script src="dialog.js"></script>
+    <script>
+
+        //示例:实现一个可设置是否拖拽，是否有遮罩层，是否有取消按钮，可设置宽高等基本配置的对话框（仿写Element-UI的对话框）
+        /*
+            思路：封装；渲染视图；各种方法封装；
+        */
+        //使用：点击按钮时显示对话框
+        let dialog = new Dialog({
+            width: "50%",
+            height: "200px",
+            // title: "配置标题",
+            // content: "配置内容",
+            dragable: true, //是否可拖拽
+            maskable: true, //是否有遮罩
+            isCancel: true, //是否有取消
+            //配置回调-根据用户点击的确认与取消执行下一步的操作
+            //取消回调
+            cancel() {
+                alert("你点击了取消");
+
+            },
+            //确认回调
+            confirm() {
+                alert("你点击了确定");
+            }
+        });
+        let showDailog = document.querySelector(".showDailog");
+        showDailog.addEventListener("click", function () {
+            dialog.open();
+        });
+
+    </script>
+</body>

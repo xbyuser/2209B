@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>轮播图--tab切换</title>
+    <script src='vue.js'></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        button {
+            border: none;
+        }
+
+        #app {
+            width: 700px;
+            height: 600px;
+            background: #000;
+            margin: 10px auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #big {
+            width: 700px;
+            height: 500px;
+        }
+
+        #big ul li,
+        #big ul li img {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 700px;
+            height: 500px;
+        }
+
+        #big ul li {
+            opacity: 1;
+            -webkit-transition: all 0.3s linear;
+            transition: all 0.3s linear;
+        }
+
+        #small {
+            width: 700px;
+            height: 100px;
+            position: absolute;
+        }
+
+        #small li,
+        #small li img {
+            width: 175px;
+            height: 100px;
+            background-size: 100%;
+            background: pink;
+            float: left;
+        }
+
+        #small li {
+            width: 175px;
+            height: 100px;
+            background: #000;
+            opacity: .4;
+            z-index: 999;
+        }
+
+        #small li.active {
+            width: 175px;
+            height: 100px;
+            background: #000;
+            opacity: 1;
+            z-index: 0;
+        }
+
+        #btnleft,
+        #btnright {
+            font-size: 60px;
+            position: absolute;
+            top: 40%;
+            color: blue;
+        }
+
+        #btnleft {
+            left: 5px;
+        }
+
+        #btnright {
+            right: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="big">
+            <ul>
+                <li>
+                    <img :src="img[idx]" alt="" @click="imgs">
+                </li>
+            </ul>
+        </div>
+        <div id="small">
+            <ol>
+                <li v-for='(item,index) in img' :class='{active:idx==index}' @click='tab(index)'>
+                    <img v-bind:src="item" alt="">
+                </li>
+            </ol>
+        </div>
+        <div class="btn">
+            <a id='btnleft' @click="prev">&lt;</a>
+            <a id='btnright' @click="next">&gt;</a>
+        </div>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            img: ['images/2.jpg', 'images/7.jpg', 'images/8.jpg', 'images/9.jpg'
+            ],
+            idx: 0  //设置了一个变量   让他等于图片的角标
+        },
+        methods: {
+            tab(index) {
+                this.idx = index;//设置的变量等于角标
+            },
+            next(e) {
+                this.idx++;
+                if (this.idx == 4) {
+                    this.idx = 0;
+                }
+            },
+            prev(e) {
+                this.idx--;
+                if (this.idx < 0) {
+                    this.idx = 3;
+                }
+            },
+            imgs(e) {
+                console.log(e.target);
+                console.log(this);
+            }
+        }
+    })
+</script>
+
+</html>

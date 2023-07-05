@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script>
+    //es5面向对象-为了最大限度复用代码。面向对象也叫OOP，三大特点抽象，封装，多态
+    //父类-放公共属性的，对外暴露的属性
+    //比如拿tab切换来说-应该对象暴露哪些： 位置,样式
+    /*   function Father(postion, type) {
+        //对外暴露的属性
+        this.postion1 = postion
+        this.type1 = type
+      }
+      //构造函数原型上写逻辑方法
+      Father.prototype.setPostion = function () {
+        if (this.postion1 == "left") {
+          //左边显示逻辑
+          console.log('左边显示', this.postion1);
+  
+        }
+        //右边显示逻辑
+        if (this.postion1 == "right") {
+          console.log('右边显示', this.postion1);
+        }
+      }
+  
+      Father.prototype.setStyle = function () {
+  
+        if (this.type1 == "border") {
+          console.log('边框样式', this.type1);
+        }
+      }
+  
+      //用户在外面使用的时候,通过new 实例化，传入对应的属性
+      let f1 = new Father('right', 'border')
+      f1.setPostion()
+      f1.setStyle() */
+
+    //es5里  1.声明构造函数-必须大写
+    /*   function User(name1, pass1) {
+          this.name = name1;  //变量用this去定义-公有属性
+          this.pass = pass1;
+       }
+       //2.构造函数加方法——给它加User.prototype
+       User.prototype.showName = function () {
+         console.log(this.name);
+       };
+       User.prototype.showPass = function () {
+         console.log(this.pass);
+       };
+       //3.实例化
+       var u1 = new User('blue', '123456');
+       u1.showName();
+       u1.showPass(); */
+
+    //es6面向对象-定义一个父类
+    class User {
+      constructor(name1, pass1) { //constructor构造函数
+        this.name = name1;  //变量用this去定义-公有属性
+        this.pass = pass1;
+      }
+
+      //构造函数加方法——给它加User.prototype
+      showName() {
+        console.log(35, this.name);
+      }
+      showPass() {
+        console.log(38, this.pass);
+      }
+    }
+
+    var u1 = new User('blue', '123456');
+
+    u1.showName();
+    u1.showPass();
+
+  //  面试题-构造函数里的this是什么/new操作符做了什么事? 
+  //  文章详情-http://fanyouf.gitee.io/interview/js/12.html#%E6%89%8B%E5%86%99-new-%E6%93%8D%E4%BD%9C%E7%AC%A6
+  //    var this=new Object()  //第一步:创建空对象 var this={} 第二步：将新对象原型赋值给构造函数原型 this.__proto__=User.prototype  第三步：将构造函数的this指向新对象，让这个新对象this执行  第四步：返回这个this对象
+
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+案例使用方法:先cnpm i nodejs-websocket安装下socketIo插件，然后node启动服务端，然后静态服务器启动index.html
+
+----------------------------------------------
+WebSocket概念:
+https://www.ruanyifeng.com/blog/2017/05/websocket.html   WebSocket 基础
+
+----------------------------------------------
+二.原生实现websocket
+1.WebSocket是HTML5一种新的协议，它实现了浏览器与服务器实时通信。通过websocket提供的api,浏览器和服务器只需要做一个握手的动作，然后，浏览器和服务器之间就形成了一条快速通道。两者之间就直接可以数据互相传送。
+客户端大概步骤:
+  1.通过新建WebSocket对象,连接后端服务器接口
+  2.通过onmessage方法处理服务器端发送过来的数据,显示追加到页面
+  3.onopen处理连接成功后的事件,websocket.send(txt)方法可用于向服务器发送数据
+ 
+服务端大概步骤:
+ 1.引入服务端websocket插件,通过ws.createServer创建服务，监听前端端口
+ 2.通过connections，对所有其他用户信息处理发送给客户端
+
+--------------------------------------------------------
+三.通过插件socket.io实现websocket
+
+四.第三方-支持高并发流量的实时通讯服务-goeasy
+https://www.goeasy.io/cn/demos/demos.html   websocket应用案例
+
+------------------------------------------------
+五.小程序里使用websocket
+
+https://www.cnblogs.com/yl-blogs/p/14334225.html   小程序里的websocket使用
+
+https://developers.weixin.qq.com/miniprogram/dev/api/network/websocket/wx.connectSocket.html   小程序文档
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

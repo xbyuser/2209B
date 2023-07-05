@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>作业二</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+            list-style: none;
+        }
+
+        a {
+            color: #999;
+        }
+
+        img {
+            vertical-align: top;
+        }
+
+        .clearfix {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .news-wrapper {
+            width: 900px;
+            margin: 100px auto;
+        }
+
+        nav {
+            width: 100%;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-around;
+            line-height: 58px;
+        }
+
+        .top-bar a.active {
+            color: black;
+            position: relative;
+        }
+
+        .top-bar a.active::before {
+            content: "·";
+            font-size: 20px;
+            font-weight: 700;
+            position: absolute;
+            left: -10px;
+            top: -18px
+        }
+
+        .brim {
+            background: orange;
+            float: right;
+        }
+
+        .brim a {
+            color: white;
+        }
+
+        .top-bar-wrapper {
+            padding-bottom: 5px;
+            border-bottom: 1px solid #999;
+        }
+
+        .content {
+            padding: 20px 0;
+            width: 100%;
+            height: 173px;
+            border-bottom: 1px solid #999;
+            position: relative;
+
+        }
+
+        .content a:hover {
+            color: blue;
+        }
+
+        .img-wrapper {
+            position: relative;
+            width: 300px;
+            float: left;
+        }
+
+        .img-wrapper img {
+            width: 100%
+        }
+
+        .img-wrapper span {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            border-radius: 20px;
+            padding: 2px 10px;
+            color: white;
+            background: rgba(100, 100, 100, .5);
+        }
+
+        .verbal-wrapper {
+            box-sizing: border-box;
+            width: 100%;
+            height: 100%;
+            padding-left: 320px;
+        }
+
+        .verbal-wrapper h2 {
+            margin-bottom: 5px;
+        }
+
+        .verbal-wrapper h2 a {
+            color: black;
+            font-size: 20px;
+        }
+
+        .verbal-wrapper .summary {
+            font-size: 14px;
+        }
+
+        .verbal-wrapper .footer {
+            position: absolute;
+            bottom: 25px;
+            display: flex;
+
+        }
+
+        .verbal-wrapper .footer span {
+            margin-left: 10px;
+            color: #999;
+        }
+
+        .verbal-wrapper .footer>div {
+            margin-right: 50px;
+        }
+    </style>
+    <script src="./news.js"></script>
+    <script>
+        /* 网站:https://36kr.com/information/web_news
+        栏目标题(动态的-获取数据里的column_name去重排序):
+        最新文章,大公司,消费,娱乐,前沿技术,汽车交通,区块链,技能Get
+    	
+        要求:
+        最新文章:是全部内容,各个标题内容从所有数据中筛选出来
+        细节要求:按照时间降序(默认最新时间排在最上面),时间可变(几分钟前,几小时前,几天前),超过3天以当天日期2019-04-25格式显示,
+        关键词tab提取前2个—— extraction_tags
+        作者提取:user_info中name
+        文章链接处理——http://36kr.com/p/id.html */
+
+
+        window.onload = function () {
+            // 类型按钮
+            let navBtn = document.querySelectorAll(".top-bar a")
+            //导航条
+            let nav = document.querySelector(".top-bar")
+            // 新闻盒子
+            let newsBox = document.querySelector(".content-wrapper")
+
+            //根据时间排序
+            data.items.sort(function (a, b) {
+                return new Date(b.published_at) - new Date(a.published_at)
+                // return  Date.parse(b.published_at)-new Date(a.published_at)
+            })
+            console.log(data) //返回按最新时间降序排列数据
+            //初始化
+            init(data.items)
+
+            //类型按钮委托
+            nav.onclick = function (e) {
+                e = e || event
+                //  点击按钮
+                if (e.target.nodeName == "A") {
+                    for (var i = 0; i < navBtn.length; i++) {
+                        navBtn[i].className = ""
+                    }
+                    e.target.className = "active"
+                    let type = e.target.getAttribute("column_name")
+                    if (type == '最新文章') {
+                        init(data.items)
+                        return
+
+                    }
+                    init(gatData(type))
+                }
+            }
+
+
+
+            // 根据类型获取数据
+            function gatData(type) {
+                // 最新待定
+
+                return data.items.filter(function (item) {
+                    return item.column_name == type
+                })
+            }
+
+            //获取时间
+            function gatTime(time) {
+                var date = new Date(time).getTime()
+                var now = new Date().getTime()
+                var dis = now - date
+                if (dis < 0) {
+                    return "在未来"
+                }
+                // 秒
+                var s = dis / 1000
+                if (s < 60) {
+                    return parseInt(s) + "秒前"
+                }
+                //分钟
+                var min = s / 60
+                if (min < 60) {
+                    return parseInt(min) + "分前"
+                }
+                //小时
+                var h = min / 60
+                if (h < 24) {
+                    return parseInt(h) + "小时前"
+                }
+                //天数
+                var day = h / 24
+                if (h < 31) {
+                    return parseInt(day) + "日前"
+                }
+                //月
+                var m = day / 30 + 1
+                if (m < 12) {
+                    return parseInt(m) + "个月前"
+                }
+                //年
+                return parseInt(m / 12) + "年前"
+            }
+
+
+            //渲染数据
+            function init(arr) {
+                newsBox.innerHTML = ""
+
+                arr.forEach(function (item) {
+                    //上传用户与类型信息
+                    let user = JSON.parse(item["user_info"])
+                    //extraction_tags 有可能是空串,容错处理下
+                    let tags = null
+                    if (item["extraction_tags"] != "") {
+                        tags = JSON.parse(item["extraction_tags"])
+                    }
+
+                    //构造标签
+                    let div = document.createElement("div")
+                    div.className = "content clearfix"
+                    div.innerHTML = `<div class="img-wrapper">
+                    <span>${item["column_name"]}</span>
+                    <img src="${item["cover"]}" alt="">
+                </div>
+                <div class="verbal-wrapper">
+                    <h2 class="title"><a href="https://36kr.com/p/${item.id}">${item["title"]}</a></h2>
+                    <p class="summary"><a href="https://36kr.com/p/${item.id}">${item["summary"]}</a> </p>
+                    <div class="footer">
+                        <div class="user">
+                            <a href="https://36kr.com/user/${item.user_id}">${user.name}</a><span>·${gatTime(item.published_at)}</span>
+                        </div>
+                        <div class="tags">
+                            <a href="javascript:;">
+                                <i class="icon"></i>
+                                ${tags ? tags[0][0] + "," + tags[1][0] : ""} 
+                            </a>
+                        </div>
+                    </div>
+
+                </div>`
+                    newsBox.appendChild(div)
+                })
+            }
+
+
+
+        }
+    </script>
+</head>
+
+<body>
+    <div class="news-wrapper">
+        <nav class="top-bar-wrapper clearfix">
+            <div class="brim">
+                <a href="javascript:;">
+                    <h2>频道</h2>
+                    <p>更新中</p>
+                </a>
+            </div>
+            <ul class="top-bar">
+                <li><a href="javascript:;" column_name="最新文章" class="active">最新文章</a></li>
+                <li><a href="javascript:;" column_name="大公司">大公司</a></li>
+                <li><a href="javascript:;" column_name="消费">消费</a></li>
+                <li><a href="javascript:;" column_name="娱乐">娱乐</a></li>
+                <li><a href="javascript:;" column_name="前沿技术">前沿技术</a></li>
+                <li><a href="javascript:;" column_name="汽车交通">汽车交通</a></li>
+                <li><a href="javascript:;" column_name="区块链">区块链</a></li>
+                <li><a href="javascript:;" column_name="技能Get">技能Get</a></li>
+            </ul>
+        </nav>
+        <div class="content-wrapper">
+            <!--  -->
+            <!-- <div class="content clearfix">
+                <div class="img-wrapper">
+                    <span>新闻</span>
+                    <img src="https://pic.36krcnd.com/201804/14124406/280cf339rm502m2o!heading" alt="">
+                </div>
+                <div class="verbal-wrapper">
+
+                    <h2 class="title"><a href="javascript:;">大众汽车新CEO：应对中国新汽车品牌挑战，设立中国市场特殊部门</a></h2>
+                    <p class="summary"><a href="javascript:;">大众汽车集团将进行组织架构变动，拆分成了六个分部门，并且还专门针对中国市场设立了一个特殊部门。</a> </p>
+                    <div class="footer">
+                        <div class="user">
+                            <a href="javascript:;">徐宁·10分钟前</a>
+                        </div>
+                        <div class="tags">
+                            <a href="javascript:;">
+                                <i class="icon"></i>
+                                大公司,人工智障
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div> -->
+            <!--  -->
+        </div>
+    </div>
+
+</body>
+
+</html>

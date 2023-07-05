@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script>
+		/* 解构赋值：简化了提取数据的方便性
+		解构赋值注意问题：
+		1.左右两边结构必须一样
+		2.声明和赋值不能分开(必须在一句话里完成)
+       */
+	    //0.传统对象访问
+	      let people = {
+	          name: 'lux',
+	          age: 20
+	      }
+	  console.log(people.name,people.age)
+	  
+	  //1.解构赋值-左右两边结构必须一样
+     let {name,age}=people
+     console.log(21,name,age);
+
+	  
+	//   //数组
+	  let arr=[4,5]
+	  console.log(arr[0],arr[1]);
+
+	  //解构下
+	  let [a,b]=[4,5]
+     console.log(a,b);
+	  
+	  //2.如果是对象,对不上号就会找不到
+	  let {name1,age1}=people
+	  console.log(name1,age1) 
+	  
+	  // ！！！注意问题
+	  // 3.两边结构类型保持一致，不一致会报错
+	/*  let [d] = 1;
+	  // let [d]=[3]  //这种没问题
+	  console.log(d) */
+	  
+	  //4. 如果解构不成功，变量的值就等于undefined。
+	     let [e,f]=[1];
+	     console.log(e,f);  //undefined
+	 
+	  //5.声明和赋值不能分开(必须在一句话里完成)。否则报错
+		/* let [a1,b1];
+		[a1,b1]=[12,5];
+		
+		console.log(a1,b1); */
+		
+		
+	// 三.实际应用
+	// 1.交换两个变量值
+		   let x=1;
+		   let y=2;
+		   [x1,y1]=[y,x]
+		  console.log(58,x1,y1) 
+		  
+	// 2、从函数返回多个值
+	 /* function fun(){
+		   return [1,2,3];
+	   }
+	   var arr=fun()  
+	  // console.log(arr[0],arr[1],arr[2])  
+	  var [a1,b1,c1]=arr
+	  console.log(a1,b1,c1) */
+	  
+	  
+	//3.获取对象
+	//  let json2={
+	//     id:100,
+	//     status:"ok",
+	//     data:[123,456]
+	// };
+	// let {id,status,data}=json2
+	// console.log(id,status,data) 
+	
+	
+	
+
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>

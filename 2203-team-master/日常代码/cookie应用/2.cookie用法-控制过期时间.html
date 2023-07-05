@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+
+<body>
+	<script type="text/javascript">
+
+		//1.设置cookie同时控制过期时间-cookie特点:浏览器关闭就消失
+		//设置cookie的过期时间使用expires单位是天，或者使用max-age单位是秒    key=value;expires=日期天数  或key=value;max-age=秒数
+		// document.cookie='b=3';
+		// document.cookie='a=2;expires='+new Date().getDate()+30;
+		// console.log(document.cookie) 
+
+
+		//2.方法1-设置cookie过期时间为天数
+		function setCookie(key, value, day) {
+			var now = new Date();
+			now.setDate(now.getDate() + day)
+			document.cookie = key + '=' + value + ';expires=' + now;
+		}
+
+		//setCookie('g','10',30)//2天后过期,意思就是这个方法调用1次后,下次不用在调用，它就一直存在2天            
+		//setCookie('g','10',-1) //立即过期
+		// console.log(document.cookie) 
+
+		//方法2-max-age 可设置cookie过期为秒数
+		//如: "max-age="+秒 -1天后=days*24*60*60 
+	/* 	 function setCookie3(key,value,days) {
+			  document.cookie=key+"="+value+";max-age="+days*24*60*60;
+			} 
+		//setCookie3('a','1',-1) //立即过期
+		// setCookie3('b','2',30)//30天后过期 
+		console.log(document.cookie)  */
+
+
+		//3.1 删除1个cookie
+		// 删除之前先写入一个
+	/* 	setCookie('g','10',30)
+		function removeCookie(key){
+			 setCookie(key,'',-1)// 
+		 } 
+		 removeCookie('g') */
+
+		//4.1  删除所有cookie	
+		//先写入看下效果
+		setCookie('h', '4', 20);
+		setCookie('j', '5', 20);
+		console.log('写入前',document.cookie)	
+         
+		function removeCookieAll() {
+			//提炼
+			var arr = document.cookie.split("; ");
+			for (var i = 0; i < arr.length; i++) {
+				var arr2 = arr[i].split('=')
+				document.cookie = arr2[0] + '=;max-age=0';
+			}
+
+		}
+		 removeCookieAll()	
+		console.log('删除后',document.cookie)	
+	</script>
+</body>
+
+</html>

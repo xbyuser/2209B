@@ -1,0 +1,33 @@
+<!--components/TabList/TabList.wxml-->
+<!-- 自己封装tab切换组件 -->
+<view class="tabs">
+  <view class="tabs_title">
+    <view
+    wx:for="{{tabs}}"
+    wx:key="id"
+    class="title_item  {{item.isActive?'active':''}} "
+    bindtap="handleItemTap"
+    data-index="{{index}}"
+    >
+
+    {{item.value}}
+  </view>
+  </view>
+  <view class="tabs_content">
+    <!-- 业面中内容是变化的，用slot插槽代替 -->
+    <slot></slot>
+  </view>
+</view>
+
+<!-- 先看看页面内如何调用-组件对外扩展了属性和事件 -->
+<!-- <TabList tabs="{{tabs}}" bindtabsItemChange="handleTabsItemChange" >
+   <block wx:if="{{tabs[0].isActive}}">
+         aa
+     </block>
+     <block wx:elif="{{tabs[1].isActive}}">
+       bb
+     </block>
+     <block wx:elif="{{tabs[2].isActive}}">
+       cc
+     </block>
+</TabList> -->

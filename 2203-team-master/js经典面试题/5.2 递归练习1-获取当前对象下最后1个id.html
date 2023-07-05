@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>递归练习(实现tree结构默认选中功能)</title>
+</head>
+
+<body>
+  <script>
+    //1.递归练习(实现tree结构默认选中功能)-获取当前角色下最后一个children下的权限id,返回[105,106]
+    //！！！注意-elmentui中tree组件，给一个子id，父级也会自动有半选中状态
+    //数据
+    let role = {
+      "id": 30,
+      "roleName": "主管",
+      "roleDesc": "技术负责人",
+      "children": [
+        {
+          "id": 101,
+          "authName": "商品管理",
+          "path": null,
+          "children": [
+            {
+              "id": 104,
+              "authName": "商品列表",
+              "path": null,
+              "children": [
+                {
+                  "id": 105,
+                  "authName": "添加商品",
+                  "path": null
+                },
+                {
+                  "id": 106,
+                  "authName": "删除商品",
+                  "path": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    };
+
+    //获取当前角色下最后一个children下的权限id，返回[105,106]
+    //层级不固定，要用递归函数拿出最后一个id
+    let arr = [];
+    function fn(role) {
+      //1.如果没有children证明就是最后一个,把该children对应的当前id推入数组
+      if (!role.children) {
+        return arr.push(role.id)   //！！！注意arr外面要使用，要返回
+      }
+      //2.如果有，一直循环
+      role.children.forEach(item => {
+        return fn(item)   //递归下次要使用，也要返回
+      })
+
+    }
+    fn(role)
+    console.log(67, arr);
+
+  </script>
+</body>
+
+</html>

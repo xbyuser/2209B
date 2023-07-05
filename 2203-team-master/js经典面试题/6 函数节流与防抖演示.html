@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>函数节流</title>
+    <style>
+        .demo {
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+            overflow-y: scroll;
+            margin-top: 50px;
+        }
+
+        .scroll {
+            height: 5000px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div id="nothing" class="demo">
+            普通滚动
+            <div class="scroll"></div>
+        </div>
+        <div id="debounce" class="demo">
+            函数防抖
+            <div class="scroll"></div>
+        </div>
+        <div id="throttle" class="demo">
+            函数节流
+            <div class="scroll"></div>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+
+        // 普通滚动
+        document.getElementById("nothing").onscroll = function () {
+            console.log("普通滚动");
+        };
+
+
+        //面试题- 函数节流与函数防抖区别？
+        // 函数防抖和函数节流都是防止某一时间频繁触发，但是这两兄弟之间的原理却不一样。
+        // 函数防抖是不管频繁触发多少,某一段时间内只执行一次(是有延迟的)，而函数节流是间隔时间执行。
+
+        //1.函数防抖debounce是某一段时间内只执行一次
+        //应用场景:1. 表单搜索联想，用户在不断输入值时，用防抖来节约请求资源。
+        // 2. window触发resize的时候，不断的调整浏览器窗口大小会不断的触发这个事件，用防抖来让其只触发一次
+        var timer = null;
+        document.getElementById("debounce").onscroll = function () {
+            clearTimeout(timer)
+            timer = setTimeout(() => {
+                console.log("函数防抖");
+            }, 300)
+        }
+
+        // 2.函数节流throttle-让函数间隔一段时间执行
+        // 应用场景: 1.拖拽事件，每拖动1px都会触发onmousemove（可以用throttle优化，每秒触发一次）
+        // 2. 监听滚动事件，比如是否滑到底部自动加载更多，用throttle来判断
+        //方法一：滚动的时候加个开关,一段时间后开启与关闭
+
+        var on = true
+        document.getElementById("throttle").onscroll = function () {
+            if (on) {
+                on = false
+                setTimeout(() => {
+                    on = true
+                    console.log("函数节流");
+                }, 300)
+            }
+        }
+
+    </script>
+</body>
+
+</html>

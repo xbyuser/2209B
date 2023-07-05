@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css" media="screen">
+		
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+     //5.通过call或apply 方法任意改变this指向,可改变原来对象让它指向括号里的第1个对象 obj.call(任意对象,多个参数), obj.apply(任意对象,[多个参数]) 参数是数组形式
+     /*  var x=100;
+     var json={ 
+         x:1, //变量或函数包在对象里是局部变量，局部函数
+         show:function(){//定义函数
+            console.log(this.x) //1
+         }   
+     }
+    json.show() //1  
+	console.log(window.x) //100
+    console.log(json.x,json['x']) //1  window.x 100 其实就是全局变量的x,window一般都省略
+    json.show.call(window) //100  通过call可改变this指向
+    json.show.apply(window)  //100  通过apply也可改变this指向 
+    json.show.bind(window)() //100  bind需要在调用一下才执行 */
+   
+   
+     //练习1
+  /*  var a=100;
+     var json={ 
+         a:1, 
+         show:function(b,c,d){ //形参
+            console.log(this.a+b+c+d)
+         }   
+     }
+     json.show(2,3,4) //10 传入实参
+     json.show.call(window,2,3,4)//109 call接受是单个参数
+     json.show.apply(window,[2,3,4])//109 apply接受是数组 */
+	
+
+
+//    面试题：1.用字面量方式创建2个对象，要求分别为两个对象添加方法，并用call()\apply() 实现互相调用方法
+     /* var cat={
+		 name:'小猫',
+		 eat:function(food){
+			 console.log(this.name+'爱吃'+food)
+		 }
+	 }
+	
+	var dog={
+		 name:'小狗',
+		 eat:function(food){
+			 console.log(this.name+'爱吃'+food)
+		 }
+	 }
+	  cat.eat('鱼') //小猫爱吃鱼
+	  cat.eat.apply(dog,['鱼'])  //小狗爱吃鱼 通过apply改变cat的this指向，指向dog
+	  
+	  dog.eat('骨头') //小狗爱吃骨头
+	  dog.eat.call(cat,'骨头') // 小猫爱吃骨头  通过call改变dog的this指向，指向cat  */
+	
+    
+   /*  //   面试题2:Call、apply与bind的区别
+    //   1. call/apply改变了函数的this上下文后,会自动执行
+    //   2. bind则是返回改变了上下文后的函数,不会自动执行该函数,得在调用下
+
+        function add (a, b) {
+            console.log(a+b);
+        }
+
+        function sub (a, b) {
+            console.log(a-b);
+        }
+        add.call(sub,5,3) //自动执行 8
+        add.apply(sub,[5,3]) //自动执行 8
+        add.bind(sub, 5, 3); // 这时，并不会返回 8
+        add.bind(sub, 5, 3)(); // 得调用后，返回 8 */
+
+
+
+	</script>
+</body>
+</html>

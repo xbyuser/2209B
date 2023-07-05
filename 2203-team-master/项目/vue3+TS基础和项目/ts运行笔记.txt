@@ -1,0 +1,56 @@
+
+TS基本语法 
+https://zhoushugang.gitee.io/patient-h5-note/ts/core.html
+https://www.yuque.com/books/share/493d1f12-35bf-4215-ac54-b907f81b86ff/nz11lr
+
+------------------------------------------------------------------------
+
+ts运行说明:
+一.环境准备
+一.typescript运行方式 
+第一步：先安装Node.js
+第二步：在安装ts
+Mac：sudo cnpm install -g typescript
+Window：cnpm install -g typescript
+用tsc –v命令，显示版本号说明安装成功
+
+创建vue3+ts运行环境：
+vue create  包名
+
+----------------------------------------------------------------------------
+
+二.ts运行方式-
+1.tsc   ***.ts     会生成***.js文件,然后执行生成的js文件,用  node   ***.js
+tsc  ***.ts 
+node  ***.js
+
+2.自动编译配置
+
+      2.1首先在放 ts 的文件夹下打开终端 执行 tsc --init 命令 会生成一个 tsconfig.json 文件
+
+        tsc --init   // 在文件夹下自动生成一个 tsconfig.json 文件
+
+     2. 2 点击 vscode选择--> 终端-->运行任务-->输入 tsc 按下回车-->选择 tsc:监视 xxxx 文件夹下的 tsconfig.json 文件
+
+    2.3. 之后再写的 ts 代码就会自动转化为 js
+
+3.全局安装typescript-node插件，然后直接用ts-node   ***.ts直接即可运行(或者vscode装个Code Runner插件，代替输入命令行了)
+cnpm install -g typescript-node    
+ts-node   ***.ts
+如果有报错信息-可安装cnpm install -g  @types/node
+
+
+-----------------------------------------------------------------------------
+------------------------
+三.在线转换工具
+https://www.tslang.cn/play/index.html   ts中文网
+
+四.ts常见报错
+ "@vue/cli-plugin-typescript": "~4.5.0",  把ts插件修改成~4.4.0 然后在安装
+  安装下 vue-loader-v16 
+
+
+
+
+
+

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <style>
+        .red{
+            color: red;
+        }
+        .blue{
+            background: blue;
+        }
+    </style>
+    <script src="vue.js"></script>
+    <script>
+        window.onload=function(){
+        let vm=new Vue({
+                 el:'#box',
+                 data:{
+                         num1:1,
+                         num2:3,
+                         num3:6,
+						 num4:2
+                 },
+                 
+                //计算属性:页面一加载可自动触发。计算属性用于对数据进行转化或处理，计算属性如有多次调用,后面会走缓存
+                computed:{
+                      total(){
+						  //页面多次调用,控制台只走了1次
+						  console.log('计算属性如果有多次调用,第1次会调用，后面会走缓存')
+                          return this.num1+this.num2+this.num3
+                      }
+                },
+				// watch是用于检测指定的数据发生改变的后，我们要在次做的事
+				watch:{
+					num4(){
+						console.log('数据有变化了');
+						console.log(this.num4);
+					}
+				},
+				//methods方法：每次调用都会重新调用，不会走缓存
+				methods:{
+					  getTotal(){
+						   //页面多次调用,每次都会走
+						  console.log('方法是每次都会调用')
+						   return this.num1+this.num2+this.num3
+					  },
+					  setWatch(){
+						    this.num4++ //对data数据进行改变
+					  }
+				}
+                
+            });
+        };
+		
+		 // 面试题：computed,methods,watch用法和区别？ computed是计算属性用于对数据进行转化或处理，计算属性多次调用,会走缓存。而methods方法是每次都会重新调用，不会走缓存。watch是用于检测指定的数据发生改变的后，我们要在次做的事
+		 
+    </script>
+</head>
+<body>
+    <div id="box">
+         <!-- 调用计算属性 -->
+        求和：{{ total }} <br>  
+		
+		计算属性调用求和：{{ total }} <br>计算属性调用求和：{{ total }}<br>
+		方法调用求和：{{ getTotal() }} <br>  方法调用求和：{{ getTotal() }} <br>  
+		
+		演示watch:<button @click="setWatch()" >演示watch </button>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

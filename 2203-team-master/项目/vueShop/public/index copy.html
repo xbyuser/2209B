@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title>test</title>
+        <!-- 如果是生产环境才走cdn。！！！注意得加判断，否则会有控制台错误 -->
+        <% if (process.env.NODE_ENV==='production' ) { %>
+          <!-- 引入vue的cdn，因为elment依赖vue -->
+          <script src=https://cdn.staticfile.org/vue/2.5.22/vue.min.js></script>
+       
+          <!-- 引入elment样式 -->
+          <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+          <!-- 引入elment组件库 -->
+          <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+          <!-- 引入echarts插件 -->
+          <script src="https://cdn.staticfile.org/echarts/4.1.0/echarts.min.js"></script>
+      
+          <% } %> 
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but test doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+
+</html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>js事件委托</title>
+<style>
+* {margin:0; padding:0; list-style:none;}
+#ul1{width: 500px;height: 500px;background:green;}
+#ul1 li {width:100px; height:100px; background:#CCC; float:left; margin:10px;}
+</style>
+
+</head>
+
+<body>
+<ul id="ul1">
+	<p>aa</p>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>
+</body>
+<script>
+
+	// 事件委托:利用冒泡的特点，把子级事件加到父级上，由父级统一执行效果
+  var oUl=document.getElementById('ul1');
+
+ //1.传统方法  缺点：操作dom性能低，慢、浪费资源
+/*  var aLi = oUl.getElementsByTagName("li");
+  for(var i=0; i<aLi.length; i++){
+	aLi[i].onclick = function(){
+	      this.style.background = "red";
+	}
+  } */
+   
+
+ //2.子级事件委托给父级统一来执行
+ //事件绑定-一般键盘事件用事件绑定方法给到window上
+//  window.addEventListener('keyup',function(e){
+// 	    console.log('事件对象',e);
+//  })
+
+ oUl.onclick=function(e){ //e是事件函数里的参数，它就是事件对象。它里面包含咱们伴随事件触发的属性与方法
+	   console.log('事件对象',e.target.nodeName)
+	   let oli=e.target //事件源-你是来源于哪个元素
+       if(oli.nodeName=='LI'){
+		   oli.style.background = "red";
+	   }
+ }
+
+
+   //2.事件委托法:利用冒泡的原理，把事件加到父级上，触发执行效果
+/*    oUl.onclick=function (ev)
+  {
+	  var oEvent=ev||event;
+	  var oSrc=oEvent.srcElement||oEvent.target; //兼容低版本浏览器
+	  
+	  console.log(oSrc); //返回事件源头对象 <li></li>
+	  console.log(oSrc.nodeName)  //nodeName 返回的是当前大写的标签名,可以转成小写oSrc.nodeName.toLowerCase()
+	  
+	  //如何实现只让li变色？
+	  if(oSrc.nodeName.toLowerCase()=="li"){
+		  oSrc.style.background='red';
+	  }  		
+  }	 */
+
+// 面试题:解释下什么是事件代理？应⽤场景
+//    事件代理（也称事件委托）事件代理，通俗地来讲，就是把⼀个元素响应事件（ click 、 keydown ......）的函数委托到另⼀个元素 。
+//    事件流的都会经过三个阶段： 捕获阶段 -> ⽬标阶段 -> 冒泡阶段，⽽事件委托就是在冒泡阶段完成。
+//    事件委托，会把⼀个或者⼀组元素的事件委托到它的⽗层或者更外层元素上，真正绑定事件的是外层元
+// 素，⽽不是⽬标元素。当事件响应到⽬标元素上时，会通过事件冒泡机制从⽽触发它的外层元素的绑定事件上，然后在外层元素上去执⾏函数。
+
+</script>
+</html>

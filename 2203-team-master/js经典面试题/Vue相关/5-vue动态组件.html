@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态组件</title>
+    <script src="./vue.js"></script>
+    <style>
+        .active{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+ 
+
+    <div id="app">
+        <button @click="cname = 'one' " :class="{ active: cname == 'one' }" >one</button>
+        <button @click="cname = 'two' " :class="{ active: cname == 'two' }">two</button>
+        <button @click="cname = 'three' " :class="{ active: cname == 'three' }">three</button>
+        <div>
+            <!-- 1.传统方法得加v-if，组件没有被复用-->
+            <!-- <one></one> -->
+
+            <!-- 2. <component> 是动态组件，:is（简写）指向已注册的组件。 使用动态组件有几个好处。
+从开发人员的角度来看，它使您的代码更具可重用性。如果您只需要使用一个元素，而不是为所有内容添加一个 v-if，那么它的可伸缩性和可读性就更高。
+从用户方面来说，使用动态组件可以使页面更具交互性，并节省页面负载，从而获得更快的用户体验。-->
+            <keep-alive>
+                 <component :is="cname"></component>
+            </keep-alive>
+           
+        </div>
+     
+    
+    </div>
+    <script>
+        Vue.component("one",{
+            template:`
+                <div>
+                   one 的内容 {{ username }}
+                </div>
+            `,
+            data(){
+                return{
+                    username:""
+                }
+            },
+            created(){
+                //fetch 请求是基于promise的设计，它是为了取代传统ajax的不合理的写法而生的.可以直接使用
+                //fetch其它用法 https://www.cnblogs.com/Alisa-k/p/12673377.html
+                fetch("./1.json").then(res=>res.json()).then(res=>{
+                    console.log(res);
+                    this.username =res.name
+                })
+            }
+        })
+
+        Vue.component("two",{
+            template:`
+                <div>
+                   two 组件内容
+                </div>
+            `,
+        })
+
+        Vue.component("three",{
+            template:`
+                <div>
+                   three 组件
+                </div>
+            `,
+        })
+
+        new Vue({
+            el:"#app",
+            data(){
+                return {
+                    cname:"one"
+                }
+            }
+           
+            
+        })
+
+    </script>
+</body>
+</html>

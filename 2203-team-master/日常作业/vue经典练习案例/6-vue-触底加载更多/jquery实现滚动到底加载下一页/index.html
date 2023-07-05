@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>jq实现滚动到底加载下一页</title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		.header {
+			width: 1000px;
+			margin: 0 auto;
+			height: 300px;
+			background-color: #ccc;
+		}
+
+		.content {
+			width: 1000px;
+			margin: 0 auto;
+			overflow: hidden;
+		}
+
+		.content .left_part {
+			float: left;
+			width: 680px;
+		}
+
+		.content .articles {
+			width: 680px;
+			overflow: hidden;
+		}
+
+		.content .articles .feed {
+			padding: 20px 0;
+			overflow: hidden;
+			border-bottom: 1px solid #ccc;
+		}
+
+		.content .articles .feed-image {
+			float: left;
+			width: 180px;
+			height: 100px;
+		}
+
+		.content .articles .feed-image img {
+			width: 100%;
+			height: 100%;
+		}
+
+		.content .articles .feed-text {
+			float: left;
+			width: 480px;
+			margin-left: 20px;
+		}
+
+		.content .articles .feed-text h3 {
+			font-size: 20px;
+			line-height: 150%;
+			margin-bottom: 10px;
+		}
+
+		.content .articles .feed-text .summary {
+			font-size: 14px;
+			color: #333;
+			line-height: 150%;
+			margin-bottom: 14px;
+		}
+
+		.content .articles .feed-text .info {
+			font-size: 12px;
+		}
+
+		.content .articles .feed-text .info a:link,
+		.content .articles .feed-text .info a:visited {
+			text-decoration: none;
+			color: #333;
+			margin-right: 10px;
+		}
+
+		h3 a {
+			text-decoration: none;
+			color: #333;
+		}
+
+		.content .articles .feed-text .info .labels {
+			float: right;
+		}
+
+		.waiting-tip {
+			width: 400px;
+			line-height: 20px;
+			background-color: #ccc;
+			margin: 10px auto;
+			border: 1px solid #ccc;
+			border-radius: 20px;
+			text-align: center;
+			font-size: 12px;
+			display: none;
+		}
+
+		.footer {
+			width: 1000px;
+			margin: 0 auto;
+			height: 100px;
+			background-color: skyblue;
+			display: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="header">
+		我是页面的header
+	</div>
+
+	<div class="content" id="content">
+		<div class="left_part">
+			<div class="articles" id="article">
+				<!-- 渲染内容 -->
+				<!-- <div class="feed">
+				 	<div class="feed-image">
+				 		<img src="http://e.hiphotos.baidu.com/news/crop%3D120%2C3%2C1480%2C888%3Bw%3D638/sign=5df1883a85025aafc77d248bc6dc9954/77c6a7efce1b9d167118549bf4deb48f8d546469.jpg"/>
+				 	</div>
+				 	<div class="feed-text">
+				 		<h3><a href="">标题</a></h3>
+				 		<div class="summary">简述</div>
+				 		<div class="info">
+				 			<a href="#">作者</a>
+				 			<span class="time">创建时间</span>
+				 			<span class="yuedushu">阅读11</span>
+				 			<span class="labels">
+				 				股权分配创业公司崔牛会
+				 			</span>
+				 		</div>
+				 	</div>
+				 </div> -->
+
+			</div>
+			<div class="waiting-tip" id="waiting-tip">
+				正在加载更多新闻... 请稍后
+			</div>
+		</div>
+	</div>
+
+	<div class="footer">
+		我是页面的footer
+	</div>
+
+
+	<!-- <script type="text/javascript" src="js/underscore.js"></script> -->
+	<script type="text/javascript" src="js/jquery-1.12.3.min.js"></script>
+	<script type="text/javascript" src="js/jquery.lazyload.js"></script>
+	<script type="text/javascript">
+		//1.请求数据渲染
+		var page = 0;
+		//内容加载提醒
+		var waitingTip = $("#waiting-tip");
+
+		function renderNews(page) {
+			//加载内容显示
+			waitingTip.show();
+			//注意ajax请求数据是异步的，只有主线程的代码走完后，才执行异步的。所以在获取元素时，注意要在ajax渲染后在取获取
+			$.ajax({
+				url: `json/baijia${page}.json`,
+				// data: {
+				// 	t: Math.random() //路径加时间戳防止缓存的
+				// },
+				success: function (data1) {
+					var str = eval(data1.data)
+					// console.log(str)
+					//读取返回的JSON，后台哥哥给了我们一个属性total，如果是0就表示到头了。
+					if (str.total == 0) {
+						waitingTip.html("没有更多了1");
+						$(".footer").show();
+						return; //这个return很关键，后面的DOM不会组装了，后面的开锁语句也不执行
+					}
+					//对关键词标签单独处理，如果放``字符串模板里里不识别
+					$.each(str.list, function (idx, item) {
+						var m_name = ''
+						$.each(item.m_label_names, function (idx1, item1) {
+							m_name += `<a href="${item.m_display_url}">${item1.m_name + ' '}</a>`
+						})
+						//渲染追加内容	
+						$('<div class="feed"><div>').html(
+							`
+	    			   	<div class="feed-image">
+	    			   		<img class="lazy${page}" data-original="${item.m_image_url}">
+	    			   	</div>
+	    			   	<div class="feed-text">
+	    			   		<h3><a href="">${item.m_title}</a></h3>
+	    			   		<div class="summary">${item.m_summary}</div>
+	    			   		<div class="info">
+	    			   			<a href="#">${item.m_writer_name}</a>
+	    			   			<span class="time">${item.m_create_time}</span>
+	    			   			<span class="yuedushu">阅读${item.hotcount}</span>
+	    			   			<span class="labels">
+	    			  	          ${m_name} 
+	    			   			</span>
+	    			   		</div>
+	    			   	</div>
+	    			`
+						).appendTo($('.articles'))
+
+					})
+					//将全局信号量的锁变为true
+					lock = true;
+					//加载内容隐藏
+					waitingTip.hide();
+					//注意此处懒加载插件-不能放到外面执行。注意此处找查找img时时，为什么后面加上页数的后缀？为了防止第2页请求时，在去找第1页的执行懒加载
+					$(`img.lazy${page}`).lazyload({ effect: "fadeIn" });
+
+				}
+			})
+
+		}
+		renderNews(page)
+
+		var lock = true;
+		//滚动到底加载下一页,函数截流
+		$(window).scroll(function () {
+			//函数截流
+			if (!lock) return;
+
+			//当前滚动条滚动到什么位置了，这是一个[0,1]区间的小数
+			var rate = $(window).scrollTop() / ($(document).height() - $(window).height());
+			//触底加载更多原理：（可视区高度+滚动距离==滚动总高度）条件满足就页数++
+			// let clientHeight = document.documentElement.clientHeight;
+			// let scrollTop = document.documentElement.scrollTop;
+			// let docHeight = document.documentElement.scrollHeight;
+			// //触底了，请求下一页数据，页数++
+			// if (clientHeight + scrollTop == docHeight)
+			if (rate >= 0.7) {
+				page++; //全局信号量++
+				renderNews(page);
+				//函数截流，每次触发的时候要把锁设置为false
+				lock = false;
+			}
+		});
+
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<script src="jquery.js" charset="utf-8"></script>
+	<script>
+
+		//1. es6中promise使用。可把异步操作改成同步执行
+		/* var p=new Promise(function(resolve,reject){
+			 resolve('成功了')
+		 })
+		 console.log(p) //Promise对象 {} 
+		 p.then(re=>{
+			   console.log(14,re);
+		 }).catch(err=>{
+			   console.log(err);
+		 }) */
+
+
+		//2.1 es7中新增 async 函数，async 是“异步”的简写， async 用于申明一个异步的 function 。await 可以认为是 async wait 的简写，await 用于等待一个异步方法执行完成。它返回一个 Promise 对象。它更简介，也可把异步执行弄成同步执行 。!!!!注意，只能在函数外使用。async内部相当于封装了promise对象
+
+		// async function show() {
+		// 	return "Hello world!";
+		// }
+
+		// console.log('async返回的是promise对象', show()); //Promise对象 {} 
+		// //也可以promise方法调用结果
+		// show().then(res => {
+		// 	console.log('成功结果', res);
+		// }) 
+
+
+		//2.2 除了async外，跟它搭配使用的一个叫await 。await的功能相当于代替promise中.then执行的内容。await 要的是异步执行的内容
+		// !!!注意问题 ,如果有await必须有async。async要放在await最近一个函数的外面
+		// async function show() {
+		// 	let res1 = await $.ajax({ url: 'data/1.json' }) //后面要的是异步的结果
+		// 	let res2 = await $.ajax({ url: 'data/2.json' }) //可以有多个 await
+		// 	console.log(40, res1, res2);
+		// }
+
+		// show()
+
+		//4.async，await与promise有时是相辅相成的。比如在封装后台给的不同接口地址时，就需要对ajax进行在次封装
+
+		//解决问题1-封装统一接口地址,像在次网络封装wx.request,uni.request等
+		function axios(url2) {
+			return new Promise(function (resolve, reject) {
+				$.ajax({
+					url: url2, //接口地址
+					method:'get',
+					success: function (res) {
+						resolve(res) //成功回调
+					},
+					error: function (err) {
+						reject(err) //失败回调
+					}
+				})
+
+			})
+
+		}
+
+		//用async,await解决-ajax回调地狱问题-下次的数据，依赖上次的数据
+		//根据异步1的结果，是否执行2或者3。这样就解决了ajax层层嵌套这些回调地狱
+
+		// async function getAsync() {
+		// 	var a1 = await axios('data/1.json')  //{a:7}
+
+		// 	if (a1) {//条件不满足,不执行
+		// 		var a2 = await axios('data/2.json')
+		// 		console.log('a2的结果执行了', a2)
+		// 	}
+		// 	else {
+		// 		var a3 = await axios('data/3.json')
+		// 		console.log('a3的结果执行了', a3)
+		// 	}
+
+		// }
+		// getAsync()
+
+
+			// async function getdata(){
+			// 	let data1=await axios('data/1.json')
+			// 	let data2 = await axios('data/2.json')
+			// 	console.log(data1,data2);
+			// }
+			// getdata()
+		//5.async，await的错误处理-如果请求发生异常，怎么处理？把await 放到 try 中进行执行，如有异常，就使用catch 进行处理
+
+		//同步执行会遇到什么问题？上面代码报错，会停止执行，后续就不走了
+		// console.log(a) //报错，影响后面代码执行
+		// console.log(99,'奎哥好帅')
+
+		//解决方案 1.异步 settimeout
+		// setTimeout(() =>{
+		//    console.log(a) //报错，影响后面代码执行
+		// });
+		// console.log(99,'奎哥好帅')
+
+		//2.方案2-js原生里  提供了try{}catch(e){console.log(e)}  捕获未知错误
+
+		// try{
+		//     console.log(a) //报错，影响后面代码执行
+		// }catch(e){
+		// 	console.log(111,e)
+		// 	// throw e
+		// }
+		// console.log(99,'奎哥好帅')
+
+		//解决问题  js原生 try{放网络请求可能出错} catch{捕获错误}
+			// async function getAsync1() {
+			// 	try {
+			// 		let res1 = await axios('data/a.json')
+			// 		let res2 = await axios('data/2.json')
+			// 		console.log(res1, res2)
+	
+			// 	} catch (error) {
+			// 		console.log('捕捉错误异常，不影响后续代码执行', error.status);
+			// 	}
+	
+			// 	//后边有代码也不会影响执行
+			// 	console.log(163, '奎哥好帅');
+			// }
+			// getAsync1()
+
+		/*
+		总结：async/await的优缺点
+		它是把异步请求变成同步执行的.async放在最近函数外调用,返回的是promise对象.
+		1.方便级联调用：即调用依次发生的场景；
+		2.同步代码编写方式： Promise使用then函数进行链式调用，一直点点点，是一种从左向右的横向写法；async/await从上到下，顺序执行，就像写同步代码一样，更符合代码编写习惯；
+		缺点：
+		没有catch错误处理，需要用js原生的try,catch进行错误处理 
+		
+		扩展题1.-async,await 原理是什么？ generator迭代器
+		  2.promise封装一个方法，实现异步动态加载图片
+		*/
+
+	</script>
+</head>
+
+<body>
+
+</body>
+
+</html>

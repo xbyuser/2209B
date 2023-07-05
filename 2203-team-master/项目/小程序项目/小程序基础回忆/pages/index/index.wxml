@@ -1,0 +1,100 @@
+<!--index.wxml-->
+<view class="container">
+    <view>基础渲染</view> 
+    <!-- 小程序基础逻辑 wx:for,-->
+    <view  wx:for="{{arr}}" wx:key="index">{{index}},{{item}}</view> 
+    <!-- 自定义index,item -->
+    <view  wx:for="{{arr}}" wx:for-item="item1" wx:for-index="index1" wx:key="index1">{{index1}},{{item1}}</view> 
+    
+    <!-- 条件语句 wx:if,wx:elif,wx-else-->
+    <view wx:if="{{isLogin}}">已经登录</view> 
+    <view wx:else>没有登录</view> 
+    
+    <!-- 多个条件语句 -->
+    <view wx:if="{{ item2 == 'vue'}}"> 我是vue </view>
+    <view wx:elif="{{ item2 == '小程序'}}"> 我是小程序 </view>
+    <view wx:else="{{ item2 == 'uniapp'}}">我是uniapp </view>
+
+
+    <!-- hidden隐藏-hidden：如果为true内容会隐藏，如果为false，内容会显示出来。相当于vue中v-show -->
+    <view hidden="{{isLogin}}">如果为true内容会隐藏</view> 
+    <view >false内容会显示</view> 
+
+    <text>JS交互，事件绑定------------</text>
+    <!-- wx绑定事件有两种方式-bind+事件名(常用事件:tap,touchstart,touchmove,touchend,longpress,transitionend..)
+    bindtap:事件绑定不会组止冒泡事件向上(父元素)触发
+    catchtap:事件绑定可以阻止冒泡向上(父元素)触发 -->
+     <button  bindtap="add">点击自增</button>
+     <view >{{num}}</view> 
+
+     <text>小程序路由切换方法---------------------------</text>
+     <!-- 小程序路由切换方法-
+0.navigator标签，可以跳转传参通过？,页面通过onload参数接收参数，不能跳转tab页面
+1.wx.navigateTo({url:'',}) 用于保留当前页面、跳转到应用内的某个页面,使用 wx.navigateBack 可以返回到原页面
+2.wx.redirectTo() 用于关闭当前页面，跳转到应用内的某个页面
+3.wx.switchTab({url:}) 用于跳转到 tab bar 的页面
+4.wx.reLaunch() 与  wx.redirectTo() 的用途基本相同， 只是  wx.reLaunch() 先关闭了内存中所有保留的页面，再跳转到目标页面
+相关文章：https://www.jianshu.com/p/3cf406201974 -->
+     <navigator url="../test2/test2?id=3&value=4">navigator导航跳转，相当于a链接</navigator>
+     <button  bindtap="go" type="warn">方法跳转wx.navigateTo</button>
+     <button  bindtap="goTab" type="primary">跳转tab切换页,只能切换，不能传参</button>
+     <!-- 双向数据绑定 。注意不支持对象调用 a.b -->
+     <input model:value="{{value}}" class="ipt"/>
+     <view>{{value}}</view>
+
+     <text>小程序第三方插件使用--------------------------</text>
+<!-- 小程序第三方插件使用——有赞vant weapp 链接：https://vant-contrib.gitee.io/vant-weapp/#/intro 
+ 组件安装步骤-安装vantUI库
+第一步：把项目文件夹在终端打开,用cmd 输入下面装包命令
+第二步：npm init   
+第三步：npm i vant-weapp -S --production
+第四步：工具--构建npm 
+指引小程序找到构建的目录，在根目录project.config.json 内添加如下配置-
+"packNpmRelationList": [
+      {
+        "packageJsonPath": "./package.json",
+        "miniprogramNpmDistDir": "./"
+      }
+    ]
+第五步:点击开发者工具的详情，勾选使用npm模块
+第六步:去vant地址链接-找对应组件复制
+第七步:在对应json文件里配置对应组件地址，
+{
+  "usingComponents": {
+     "van-button": "vant-weapp/button/index",
+     "van-datetime-picker":"vant-weapp/datetime-picker/index"
+  }
+}
+第八步：页面中就可以引入该组件
+ -->
+     <van-button type="default">默认按钮</van-button>
+     <van-button type="warning">警告按钮</van-button>
+     <van-search value="aa" placeholder="请输入搜索关键词" />
+
+     <van-datetime-picker
+    type="datetime"
+    value="{{ currentDate }}"
+    bind:input="onInput"
+    />   
+
+<!-- 小程序样式-wxss样式 -->
+<text>---------------------------</text>
+<text>小程序样式</text>
+<view class="box"></view>
+<view class="box2"></view>
+
+<!-- 小程序常用组件,swiper等。！！！注意一般swiper外盒子按照设计图区域定死，图片100% -->
+    <text>小程序常用组件--------------------------------</text>
+    <swiper indicator-dots="{{indicatorDots}}"
+        autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <block wx:for="{{background}}" wx:key="*this">
+          <swiper-item>
+            <view class="swiper-item {{item}}"></view>
+          </swiper-item>
+        </block>
+      </swiper>
+    <!-- 小程序生命周期  参考链接  -->
+    <text> --------------小程序生命周期  https://blog.csdn.net/weixin_43638968/article/details/108777593 </text>
+     
+</view>
+

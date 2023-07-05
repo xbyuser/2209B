@@ -1,0 +1,43 @@
+webpack中文文档-https://webpack.docschina.org/concepts/
+webpack自定义配置说明
+1.代理跨域配置
+  module.exports = { 
+    //代理跨域
+    devServer: {
+         proxy:{
+              target:""
+           }
+     }
+}
+
+2.可配置别名
+  chainWebpack:config=>{
+      入口
+   config.entry(),
+      //别名
+       resolve:{}
+ }
+
+3.可配置各种loader-各种编译插件
+//配置各种loader
+ module: {
+    rules: [{ test: /\.txt$/, use: 'vue-loader' }],
+  },
+
+4.插件-webapck的插件-可执行更多的任务
+//HtmlWebpackPlugin 插件-它会把打包好的js,css自动插入到index.html
+
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // 通过 npm 安装
+  plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],
+
+打包上线中引入 babel-plugin-transform-remove-console，移除所有 console信息
+
+5.模式(mode)-mode里可配置区分生产环境，开发环境
+module.exports = {
+  mode: 'production',
+};
+
+webpack打包流程:
+1.首先通过配置的entry入口，找到入口文件main.js
+2.通过配置的各种loader(css-loader配合正则找所有css样式文件，file-loader配合正则找图片文件转成base64,vue-loader找所有.vue文件 )统一打包成.css的和.js的chunk文件
+3.通过插件(html-webpack-plugin插件)把这种chunk文件(打包生成的文件)自动嵌入到index.html里

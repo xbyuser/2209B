@@ -1,0 +1,10 @@
+{
+    "code":200,
+    "data":[
+        {"goods_name":"江南皮革厂袜子","price":99.99,"num":10,"checked":false},
+        {"goods_name":"小鸟电动车","price":929.99,"num":2,"checked":false},
+        {"goods_name":"大阳摩托","price":1200,"num":3,"checked":false},
+        {"goods_name":"小米手机","price":1999.89,"num":3,"checked":false},
+        {"goods_name":"华为手机","price":3999,"num":3,"checked":false}
+    ]
+}

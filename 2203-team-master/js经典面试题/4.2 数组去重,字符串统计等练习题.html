@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        
+        // 一.数组去重方法
+        let arr = [12, 24, 37, 37, 24, 49, 49, 55, 55]  //去重
+        // new Set(arr)//返回的是对象,用数组展开符或from方法变成数组
+        // let newArr1=[...new Set(arr)];
+        // let newArr2=Array.from(new Set(arr));
+        // console.log('new Set去重',newArr1,newArr1);
+
+        //2.filter过滤去重-过滤出第一次出现那个下标
+        // let newArr = arr.filter((item, index, arrry) => {
+        //     return arrry.indexOf(item) == index
+        // })
+        // console.log(26, newArr);
+         
+        // let newarr=arr.filter((item,index,arr1)=>{
+        //     return arr1.indexOf(item) == index;//判断item的下标是否等于第一次访问到的下标
+        // })
+        // console.log(26, newarr);
+
+        //3.json对象去重
+        /*  let json1 = {}
+         for (let i = 0; i < arr.length; i++) {
+             let key = arr[i]
+             if (json1[key]) {
+                 json1[key]++
+             }
+             else {
+                 json1[key] = 1  //给json对象增加键，同时赋值为1
+             }
+         }
+         console.log("37去重后的json", json1);// {12: 1, 24: 2, 37: 2, 49: 2, 55: 2}
+         console.log('38对象变成数组', Object.keys(json1)); //['12', '24', '37', '49', '55']   */
+
+        //  let arr4={}
+
+// for (let i = 0; i < arr.length; i++) {
+//     let key=arr[i];
+//     //for循环拿到每一个下标
+//     if (arr4[key]) {
+//     //判断arr4中是否存在当前下标
+//         arr4[key]++
+            //存在 则 ++
+//     }
+//     else {
+//         arr4[key]=1//不存在赋值为1
+//      }
+// }
+// console.log(Object.keys(arr4));
+// console.log(arr4);
+
+
+        //二.对象使用方法-对象里的键重复会自动覆盖
+        /*   let json={ b: 1, c: 1, d: 1,d:5}
+          console.log(json.b,json["b"]);
+          json.a=2
+          json["e"]=3 // json["e"] 给json对象增加属性又赋值
+          console.log(json); */
+
+        //三. 统计字符串中出现最多的字母与次数-原理是还得找是否重复重现？
+        /*  var str = "abcdaaaaaaaa";
+         //1.利用json键重复自动覆盖特点,去重
+         let json = {}
+         for (let i = 0; i < str.length; i++) {
+             let key = str[i]
+             if (json[key]) {
+                 json[key]++
+             }
+             else {
+                 json[key] = 1  //给json对象增加键，同时赋值为1
+             }
+         }
+         console.log("47去重后的json", json); //{a: 9, b: 1, c: 1, d: 1}
+ 
+         //2.找出最多的字母与次数
+         let max = ''  //最大值
+         let i = ''
+         for (const key in json) {
+             if (max < json[key]) {
+                 max = json[key]
+                 i = key
+             }
+         }
+         console.log('最多的字母是', i, max); */
+
+        //  let max='' //最多的那个
+        //  let i =''//最大原素的下标
+        //  for (let key in arr) {
+        //     if(max<arr[key]){ //判断最大的元素是否小于 当前循环的元素 如果小于则当前元素为最多的
+        //         max = arr[key];
+        //         i=key
+        //     }
+        //  }
+        //  console.log(i,max);
+
+        //方法2-使用reduce()方法统计数组中字符串出现次数
+        //es6数组归并方法  reduce(function(prev,cur,index,array){},传递给函数的初始值[可选])
+           let names = ['a', 'b', 'a', 'c', 'a'];
+            // let json2 = names.reduce((prev, next) => {
+            //     console.log(prev) //{},初始化prev为对象
+            //     if (next in prev) {
+            //         prev[next]++
+            //     }
+            //     else {
+            //         prev[next] = 1
+            //     }
+            //     return prev
+            // }, {})
+            // console.log(json2) //{a: 3, b: 1, c: 1} 
+
+
+                // let arr8=names.reduce((prev,next)=>{
+                //         if (next in prev) {
+                //             prev[next] ++
+                //             // console.log(prev,next);
+                //          }
+                //          else {
+                //             prev[next]=1
+                //           }
+                //           return prev
+                // },{})
+                // console.log(arr8);
+
+
+        //7. 编写通用方法,把URL参数解析为一个对象，如：var url = “http://witmax.cn/index.php?key0=0&key1=1&key2=2″;    返回数据{key0: "0", key1: "1", key2: "2"}
+
+        
+        //传统实现
+        var url = "http://witmax.cn/index.php?key0=0&key1=1&key2=2";
+        //  let arr1 = url.split('?')
+        //  // console.log(95, arr1);
+        //  let arr2 = arr1[1].split('&')
+        //  // console.log(97, arr2);
+        //  let strJson={}
+        //  for (let i = 0; i < arr2.length; i++) {
+        //      let arr3 = arr2[i].split('=')
+        //      console.log(100,arr3);
+        //      let key=arr3[0]
+        //      let value=arr3[1]
+        //      strJson[key]=value
+        //  }
+ 
+        // console.log(strJson); 
+
+            // let arr3=url.split('?')
+            // // console.log(arr3);
+            // let aed=arr3[1].split('&')
+            // // console.log(aed);
+            // let strarr={}
+            // for (let i = 0; i < aed.length; i++) {
+            //     let arrp = aed[i].split('=')
+            //     console.log(arrp);
+            //     let key=arrp[0];
+            //     // console.log(key);
+            //     let value = arrp[1];
+            //     // console.log(value);
+            //     strarr[key]=value
+            // }
+            // console.log(strarr);
+        //封装一下
+        // function toJson(hash) {
+        //     hash = hash.split('?');
+        //     var arr = hash[1].split('&');
+        //     var json = {};
+        //     for (var i = 0; i < arr.length; i++) {
+        //         var arr2 = arr[i].split('=');
+        //         var key = arr2[0];
+        //         var value = arr2[1];
+        //         json[key] = value;
+        //     }
+        //     return json;
+        // }
+        // var url = "http://witmax.cn/index.php?key0=0&key1=1&key2=2";
+        // console.log(toJson(url));  // {key0: "0", key1: "1", key2: "2"} 
+
+
+    </script>
+</body>
+
+</html>

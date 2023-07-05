@@ -1,0 +1,114 @@
+3.3-公司录音1
+动态路由
+vue-lodaer
+父子组件通信
+css在当前起作用  scope
+双向数据绑定
+单页面应用和多页面应用
+vue和jquery的区别
+小程序登录的流程
+小程序支付的流程
+vue的优缺点
+
+3.3-公司录音2
+vue的生命周期
+页面一开始会初始化哪些生命周期
+vue-router路由模式
+vue状态管理  vuex  五大核心 
+vuex页面刷新状态还能获取到吗
+用过vuex嘛
+本地存储有哪些
+
+cookie 是否可以发送到后端
+http有哪些请求方法   get   post  
+post传递数据body体有哪些方式？blob 二进制,base64
+图片传给后端转成base 64   （canvas 画布可以直接转成base64）
+打包工具用过哪些？用过自动化打包嘛(github[hooks]+Jenkins自动工具)
+项目发布怎么发布/部署的？用过自动化发布/部署流程嘛(docker镜像打包)
+本地打包可能会出现什么问题吗?每人node版本不一致，导致打包出来运行有问题 。在统一的测试环境,
+镜像打包听说过嘛？docker容器化打包(运维人员用的多)
+了解nginx嘛,说说nginx它有什么作用？nginx是反向代理软件,它可以监听不同端口ip地址指向服务器里不同目录，达到同一个ip地址不同端口号访问不同网站目的。 
+  1.具体配置有   server {
+		listen 80; # 监听的端口
+		server_name 117.112.115.208; # 你的域名或ip
+		
+		location / {	# 访问路径配置
+			root /www/wwwroot/test;#服务器里对应的网站目录
+			try_files $uri $uri/ /index.html; #此处可以配置history模式对应路径
+			index index.html index.htm; # 默认首页
+                           
+		}
+   2.nginx它还可以配置上线跨域	
+            location   /api/ {    # 代理路径跟你项目里一致
+		    proxy_pass http://106.15.179.105/api;  #具体代理哪个跨域地址，相当于vue.config.js里devsever里的target
+		}
+前端打包缓存
+强缓存和协商缓存
+
+自己发展方向
+
+3.3-公司录音3
+cookie,local,session本地存储的区别
+数组的常用方法,forEach,filter有什么区别
+js数据类型   
+怎么判断两个对象是否一致  （多层）｛a:1,b:2｝ {a:1,b:{b:2}}    Object.keys()返回数组[a,b]
+如果是数组怎么判断 [1,2]     [2,1] 它们是否相等
+object.keys()     for in  区别 
+深拷贝和浅拷贝的区别  怎么实现
+双向绑定的原理  -设计模式-发布订阅者模式的原理 
+ Object.defineProperty(
+   set:function(
+       ){},   //设置值
+get:fucion(){} //直接就能获取到值？采用的-发布订阅者模式。
+)
+computed和watch的区别
+computed缓存是怎么实现的
+v-for为什么要用到key
+diff算法
+js的事件循环机制  event loop 
+vue 中 的 $nextTick 和settimeout执行顺序
+
+3.3-公司录音4
+盒模型
+css中有哪些方式可以隐藏元素
+重绘和回流
+css3的动画
+深拷贝和浅拷贝  深拷贝方法
+跨域
+防抖和节流
+promise 
+数组常用的方法
+闭包
+formdata
+上传文件input方式怎么上传
+type of 和  instanceof
+vue的生命周期  初次加载哪些
+vue的响应式原理
+缓存一个组件，缓存后是怎么更新的
+watch和computed的区别
+$nextTick
+vuex
+在组件中引入state的两种方法有什么区别
+组件通信方式
+路由导航守卫
+路由的两种模式
+路由跳转方法
+路由传参方式 query  params  区别
+echarts 怎么初始化的
+mounted获取不到dom
+登录流程
+
+
+3.4-公司录音1
+介绍下最近做的项目
+用户登录完token保存在哪里的
+echarts图表用的多吗
+菜单权限和按钮权限是怎么做到的
+小程序做了多长时间，具体功能
+小程序登录流程
+小程序支付流程
+小程序长列表加载
+小程序上线流程
+团队开发的流程
+代码管理工具  
+日常使用git的命令

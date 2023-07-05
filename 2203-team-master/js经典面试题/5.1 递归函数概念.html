@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<body>
+  <script>
+    // 函数自己调用自己，称为递归调用。一定要有退出
+    // 使用场景：进行累加，累乘。这种不断的查找是否达到最终条件
+
+
+    /*  function fun(){
+        console.log('递归调用')
+         fun(); //！！！注意 死循环，注意实际用时加条件
+      }
+      fun(); */
+
+    //0.用递归实现输出0-5
+    /*   var i=0;
+      function fun(){
+       console.log(i)
+       if(i>=5) {return}
+          i++
+         fun(); //递归调用自己
+      }
+      fun();  */
+
+    //1.一般结合条件来用
+    /*  var i=0;
+      function fun(){
+        
+        if(i==5){
+           return;
+        }
+        console.log('递归调用'+i)
+        i++;
+        fun();
+      }
+      fun();*/
+
+    // 2.1 递归求1-100的和
+ /*    var i = 0;
+    var total = 0;
+    function sum() {
+      if (i == 100) {
+        return;
+      }
+      i++;
+      total += i;
+      sum()
+    }
+    sum();
+    document.write(total) */
+
+  //2.2 升级方法2-倒序走，不断递归，每次方法运行完，会返回1个数字，拿上次的跟后面的不断相加
+    /*  function sum(n){
+        if(n==1) {return 1}
+        return n+sum(n-1)
+      }
+      document.write(sum(100))  */
+
+
+// 3. 用递归来求 5 的阶乘  :1*2*3*4*5
+
+    //递归方法
+    /*  function func(n) {
+            if (n == 1) {
+                return 1;
+            }
+            // func(n-1) 因为传递的参数是 n-1,那么每次都求 (n-1) 的阶乘
+            return n * func(n-1);  // 5*4*3*2*1
+        }
+        document.write(func(5)); */
+
+  </script>
+</body>
+
+</html>

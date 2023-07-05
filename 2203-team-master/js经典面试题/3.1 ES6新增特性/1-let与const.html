@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+	<ul id="ul">
+		<div>1</div>
+		<div>2</div>
+		<div>3</div>
+	</ul>
+	
+<script>
+    //  一.let特点：用法同var声明变量 1.let所声明的变量，作用域只在let命令所在的代码块内(函数内,for{})有效。 2.没有变量提升 3.不允许重复声明 。应用场景-tab切换时的i值变化,就不用给当前对象定义index索引了 4.let声明的变量不能挂载到window全局属性上面，访问不到
+	
+	// 1.var是全局变量 , let只在let命令所在的代码块内有效
+    // for (var index = 0; index < 3; index++) {
+		
+	// 	console.log(index); //0,1,2
+	// }
+    // console.log(index);//3,有变量提升
+
+    
+    // for (let index = 0; index < 3; index++) {
+		
+	// 	console.log(index); //0,1,2
+	// }
+    // console.log(index);//报错，没有变量提升
+
+
+   //2. 不允许重复声明
+//    var a=4;
+//    var a=5;
+//    console.log(a);
+
+//    let b=3;
+//    let b=4;
+//    console.log(b);
+
+  //2.1 先声明后赋值
+  var a;
+  a=6;
+  let b;
+  b=7;
+console.log(a,b);
+
+//3.应用场景-以后尽量用let声明-tab切换问题
+  var id=document.getElementById('ul')
+  var odiv=id.querySelectorAll('div')
+  //核心原因:for是同步的,点击事件(ajax,定时器,promise)是异步的
+//   for (var i = 0; i < odiv.length; i++) {
+// 	odiv[i].onclick=function(){
+// 		 alert(i)  //所有都是3
+// 	}
+	  
+//   }
+
+ //解决方法1-let的作用域在代码块内
+//  for (let i = 0; i < odiv.length; i++) {
+// 	odiv[i].onclick=function(){
+// 		 alert(i)  //0,1,2
+// 	}
+	  
+//   }
+//解决方法2-通过自执行函数fn()()或者(fn())()
+  for (var i = 0; i < odiv.length; i++) {
+	  ( function(a){ //形参
+		odiv[a].onclick=function(){
+		 alert(a)  //所有都是3
+	     }
+     })(i) //实参
+
+  }
+	
+   //4.const 声明常量,一般用大写
+	 const PI=3.1415;
+	 // const PI=3.2  //不允许重复声明
+	 console.log(PI)
+	   
+	//4.1   const一旦声明变量，就必须立即初始化，不能留到以后赋值。
+//    const c;
+//    c=12;
+//    console.log(c)  //报错
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+    	
+	
+   
+  
+</script>
+</body>
+</html>

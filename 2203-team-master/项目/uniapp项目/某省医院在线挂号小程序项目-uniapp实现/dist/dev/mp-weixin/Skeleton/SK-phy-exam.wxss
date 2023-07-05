@@ -1,0 +1,28 @@
+
+.sk-phy-flex.data-v-7286e145{
+  display: flex;
+}
+.sk-phy-left.data-v-7286e145{
+  width: 200rpx;
+  height: 200rpx;
+}
+.sk-phy-title.data-v-7286e145{
+  height: 60rpx;
+  width: 300rpx;
+  margin-bottom: 20rpx;
+}
+.sk-phy-right.data-v-7286e145{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-left: 20rpx;
+}
+.sk-phy-right text.data-v-7286e145{
+  margin: 10rpx 0;
+  display: block;
+  height: 50rpx;
+}
+.sk-phy-right text.data-v-7286e145:nth-child(1){
+  width: 200rpx;
+}
+

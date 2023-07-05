@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+
+<body>
+	<div id="all">
+		全选：<input type="checkbox" value="全选">
+	</div>
+	<div id="single">
+		单选：
+		<input type="checkbox" value="11">
+		<input type="checkbox" value="22">
+		<input type="checkbox" value="33">
+	</div>
+
+	<script>
+
+		//练习-单选关联全选,全选关联单选
+		// 1.  every 数组中的每一项元素，都符合设定的条件，返回true，否则返回false 。相当于逻辑与&&,同真为真，同假为假，一假为假。
+		var all = document.querySelector('#all input')
+		var inputs3 = document.querySelectorAll('#single input');
+		var newArr = [...inputs3] //转成真数组
+
+		//点击单选事件-关联全选即反选，1.给所有单选加事件，通过every判断所有单选是否选中
+		// inputs3.forEach(item => {
+		// 	item.onclick = function () {
+		// 		var flag = newArr.every(item => {
+		// 			return item.checked
+		// 		})
+		// 		console.log(flag)
+		// 		if (flag) {
+		// 			all.checked = true  //全选选中
+		// }
+		// 		else {
+		// 			all.checked = false //全选不选中
+		// 		}
+		// 	}
+		// })
+
+		// //点击全选事件-关联单选-让所有单选等于当前全选状态
+		// all.onclick = function () {
+		// 	newArr.forEach(item => {
+		// 		item.checked = this.checked
+		// 	})
+		// }
+
+		inputs3.forEach(item => {
+			item.onclick = function () {
+				var flag = newArr.every((item) => item.checked)
+				// console.log(flag);
+				if (flag) {
+					all.checked = true;
+				 }
+				 else {
+					all.checked = false;
+				  }
+			}
+				
+		})
+		all.onclick = function() {
+			newArr.forEach(item => item.checked = all.checked)
+		 }
+	</script>
+</body>
+
+</html>

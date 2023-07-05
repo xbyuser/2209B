@@ -1,0 +1,12 @@
+.search-input {
+  position: sticky;
+  box-sizing: border-box;
+  z-index: 1000;
+  top: 0;
+}
+.search-input .input-box {
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  margin: 0 30rpx;
+  border-radius: 30rpx;
+}

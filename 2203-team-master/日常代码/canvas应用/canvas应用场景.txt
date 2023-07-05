@@ -1,0 +1,26 @@
+一.Canvas应用1-游戏
+1.H5游戏—2D方面,H5场景,封装canvas
+ create.js 2D方面-H5页面,小的游戏
+ pixi.js  
+ Phaser.js 2D方面
+  
+ 场景多一些游戏(大型游戏)
+ egret.js 白鹭引擎,大型的,市场占有大
+ layabox-LayaAir 
+ cocos2d-x.js -触控科技 -比较好上手,坑多
+ 
+  3D方面-webgl
+ three.js  基于webgl的3D渲染
+
+
+Canvas应用2-数据可视化，数据大屏
+百度-echarts-https://echarts.baidu.com/examples/
+国外的插件-d3
+阿里的antv-https://antv.alipay.com/zh-cn/index.html
+
+
+
+ 
+ 
+
+ 

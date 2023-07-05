@@ -1,0 +1,6 @@
+<!--pages/ucharts/index.wxml-->
+<!--:1.uCharts官方图表 https://www.ucharts.cn/v2/#/demo/index-->
+<text>ucharts图表使用</text>
+<view class="charts">
+  <qiun-wx-ucharts type="column" canvas2d="{{true}}" opts="{{opts}}" chartData="{{chartData}}" bindcomplete="complete"/>
+</view>

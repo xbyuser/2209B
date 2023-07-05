@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+     "TabList":"../../components/TabList/TabList"
+  },
+  "navigationBarTitleText": "tab组件测试"
+}
